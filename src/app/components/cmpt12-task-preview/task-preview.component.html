@@ -1,0 +1,86 @@
+<div Ngxheadroom [options]="options" class="fixed-navbar">
+	<app-navigation></app-navigation>
+</div>
+<div class="height"></div>
+
+<div class="container p-3">
+  <input type="file" class="d-none" (change)="capturandoFile($event)" #www id="www" />
+
+  <img *ngIf="photoSelected || $any(photo).img" [src]="photoSelected || apiUrl + '/' + $any(photo).img"
+    class="m-auto w-100 cursorpoint img-fluid rounded" (error)="onImgError($event)" alt="No image"
+    (click)="www.click()" />
+
+  <button *ngIf="!photoSelected && !$any(photo).img" class="btn btn-warning w-100" (click)="www.click()">Cargar
+    archivo</button>
+  <div *ngIf="photoSelected" class="bg-light text-center border rounded">
+    {{ name }} --- {{ type }}
+  </div>
+  <ngx-extended-pdf-viewer *ngIf="photoSelected && type == 'application/pdf'" [src]="photoSelected" [height]="'800px '"
+    [useBrowserLocale]="false" [textLayer]="true" [showHandToolButton]="true">
+  </ngx-extended-pdf-viewer>
+  <mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
+
+  <!-- <button class="btn btn-info mt-1" [disabled]="loading">
+    {{ loading == "false" ? "Cargando " + value + "%" : "Guardar" }}
+  </button> -->
+
+  <div *ngIf="!showtask && rol !== '2'" class="bg-warning p-1 rounded text-center">
+    Culminó el tiempo establecido el
+    {{ photo.datee | date : "dd-MM-yyyy HH:mm" }}, no puede guardar cambios
+    desde este momento
+  </div>
+  <div *ngIf="showtask" class="text-center mt-3">
+    Desde
+    {{
+    photo.dateb
+    | date
+    : "dd-MM-yyyy
+    HH:mm"
+    }}
+    hasta {{ photo.datee | date : "dd-MM-yyyy HH:mm" }}
+  </div>
+  <div class="form-group mb-3">
+    <div class="">Tarea</div>
+    <ckeditor [editor]="Editor" (isReadOnly)="true" [(ngModel)]="tasknew" [config]="conf" (change)="onChange($event)"></ckeditor>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="showTask()">www</button>
+  <div class="form-group mb-3" *ngIf="rol == '2' && solution && solution.length != 1">
+    <div class="">Solution</div>
+    <ckeditor [config]="{
+        toolbar: [
+          'math',
+          'blockQuote',
+          'bulletedList',
+          'numberedList',
+          'bold',
+          'italic',
+          'indent',
+          'outdent',
+          'undo',
+          'redo'
+        ]
+      }" [editor]="Editorw" [(ngModel)]="solution">
+    </ckeditor>
+    <button class="btn btn-primary my-1 w-100" (click)="convertir()" [disabled]="loading">
+      {{ loading == "false" ? "Cargando" : "Convertir" }}
+    </button>
+  </div>
+  <!-- {{solution}} -->
+  <input *ngIf="rol == '2' && solution && solution.length == 1" type="text" class="form-control" [value]="note"
+    [(ngModel)]="note" />
+
+  <button *ngIf="showtask || rol == '2'" class="btn btn-warning my-1 w-100" [disabled]="loading" (click)="savetask()">
+    {{ loading == "false" ? "Cargando" : "Guardar y seguir editando" }}
+  </button>
+
+  <button class="btn btn-light border border-info my-1 w-100" (click)="gobackcurse()" [disabled]="loading">
+    {{ loading == "false" ? "Cargando" : "Ir al curso" }}
+  </button>
+  <!-- <textarea rows="5" class="variable-textarea form-control" #task [value]="hiden"></textarea>
+     -->
+</div>
+
+<!-- <div #wwwww>{{tasknew}}</div>
+    <div #myNameElem>www</div>
+
+<button (click)="getValue()">Get Value</button> -->

@@ -1,0 +1,622 @@
+<div Ngxheadroom [options]="options" class="fixed-navbar">
+	<app-navigation></app-navigation>
+</div>
+<!--
+	File
+-->
+<ng-template #filew let-modal>
+
+	<div class="modal-body p-0">
+		<a [href]="apiURL + '/' + text" class="btn btn-info" target="_blank">
+			<img *ngIf="text && text.split('.').pop()=='png'||text.split('.').pop()=='jpg'||text.split('.').pop()=='jpeg'||text.split('.').pop()=='svg'"
+				[src]="apiURL+'/'+ text" class="img-fluid w-100" (error)="onImgError($event)">
+		</a>
+
+		<ngx-doc-viewer *ngIf="text && text.split('.').pop()=='doc'" [url]="apiURL+'/'+ text" viewer="google"
+			style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+		<ngx-doc-viewer
+			*ngIf="text && text.split('.').pop()=='docx' || text.split('.').pop()=='pptx'|| text.split('.').pop()=='ptx' || text.split('.').pop()=='xlsx'|| text.split('.').pop()=='xls'"
+			[url]="apiURL+'/'+ text" viewer="google" style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+		<ngx-extended-pdf-viewer *ngIf="text && text.split('.').pop()=='pdf'" [src]="apiURL+'/'+ text"
+			[height]="'500px'"></ngx-extended-pdf-viewer>
+	</div>
+	<div class="modal-footer bg-succes p-0">
+		<button class="btn btn-warning w-100" (click)="modal.close()">Cerrar</button>
+	</div>
+</ng-template>
+<!--
+	New
+-->
+
+
+<div class="height"></div>
+<ng-template #new let-modal>
+	<div class="modal-header py-2 px-1 text-center d-flex  justify-content-center align-items-center"
+		[ngStyle]="{background:'rgb(250,250,250)'}">
+		<div class="h2 my-0 text-center text-uppercase text-info">
+			{{text}}
+		</div>
+	</div>
+
+
+	<div class="modal-body p-1" [ngStyle]="{background:'white'}">
+		<div style="margin-bottom: 0.5cm"
+			*ngIf="textoimg.split('.').pop()=='png'||textoimg.split('.').pop()=='jpg'||textoimg.split('.').pop()=='jpeg'||textoimg.split('.').pop()=='svg'">
+			<a *ngIf="textoimg!='imagen'" [href]="apiURL + '/' + textoimg" target="_blank" class="border-0 p-0">
+				<img [src]="apiURL+'/'+ textoimg" class="m-auto w-100 img-fluid" (error)="onImgError($event)">
+			</a>
+		</div>
+
+
+		<ngx-doc-viewer
+			*ngIf="textoimg && textoimg.split('.').pop()=='docx' || textoimg.split('.').pop()=='pptx'|| textoimg.split('.').pop()=='ptx' || textoimg.split('.').pop()=='xlsx'|| textoimg.split('.').pop()=='xls'"
+			[url]="apiURL+'/'+ textoimg" viewer="google" style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+		<ngx-extended-pdf-viewer *ngIf="textoimg && textoimg.split('.').pop()=='pdf'" [src]="apiURL+'/'+ textoimg"
+			[height]="'800px'" [useBrowserLocale]="false" [textLayer]="true" [showHandToolButton]="false">
+		</ngx-extended-pdf-viewer>
+		<ng-katex-html *ngIf="texto" [html]="texto"></ng-katex-html>
+	</div>
+
+	<div class="modal-footer p-0" [ngStyle]="{background:'rgb(250,250,250)'}">
+		<button type="button" class="btn btn-light shadow-none w-100"
+			(click)="modal.close('Save click')">Cerrar</button>
+	</div>
+</ng-template>
+<!--
+	New refresh
+-->
+<ng-template #ww let-modal>
+	<form (submit)="integer(code)">
+		<div class="modal-body bg-succes">
+			<div class="form-group mb-3">
+				<label for="exampleFormControlInput1" class="form-label">Código</label>
+				<input type="text" class="form-control shadow-none" placeholder="Código del curso" #code>
+			</div>
+			<!--{{idcurso}}{{idcurso}}--{{iduserteach}}-->
+		</div>
+		<button class="btn d-none" [disabled]="loading" #www></button>
+
+	</form>
+	<div class="modal-footer">
+		<button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+			'Integrarse al curso'}}</button>
+		<button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+	</div>
+</ng-template>
+
+<ng-template #www let-modal>
+	<form class="container p-3" (submit)="updatenews(title, description, show)">
+		<div class="row p-0">
+
+			<div class="form-group mb-3">
+				<label for="exampleFormControlInput1" class="form-label">Titulo</label>
+				<input type="text" class="form-control" placeholder="Photo's Title" #title [value]="titlewww">
+			</div>
+			<div class="form-group mb-3 d-none">
+				<label for="exampleFormControlInput1" class="form-label">Show</label>
+				<input type="text" class="form-control" placeholder="Photo's Title" #show [value]="showww">
+			</div>
+
+			<div class="form-group mb-3 ">
+				<label for="exampleFormControlInput1" class="form-label">Descripción</label>
+				<div class="row mx-1">
+					<div class="col-md-5 p-0">
+						<textarea rows="5" cols="0" class="variable-textarea form-control" [(ngModel)]="markdown"
+							[ngModelOptions]="{standalone:true}" [value]="description" #description></textarea>
+					</div>
+					<div class="form-group mb-3 col-md-7">
+						<ng-katex-html [html]="markdown"></ng-katex-html>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<input type="file" class="d-none" (change)="capturandoFile($event)" #photoInput>
+		<div class="text-center">
+			<img [src]="photoSelected || apiURL+'/'+ imgwww" class="m-auto w-25 cursorpoint img-fluid"
+				(error)="onImgError($event)" alt="No image" (click)="photoInput.click()">
+		</div>
+
+		<!-- <div *ngIf="!photoSelected" class=" text-center border rounded">
+			{{imgwww}}
+		</div>
+		<div *ngIf="photoSelected" class=" text-center border rounded">
+			{{name}}
+		</div> -->
+		<!-- <span>{{imgwww}}</span> -->
+		<ngx-extended-pdf-viewer *ngIf="photoSelected && type=='application/pdf'" [src]="photoSelected"
+			[height]="'1000px'" [useBrowserLocale]="false" [textLayer]="true" [showHandToolButton]="true">
+		</ngx-extended-pdf-viewer>
+
+		<ngx-extended-pdf-viewer *ngIf="!photoSelected && imgwww && imgwww.split('.').pop()=='pdf'"
+			[src]="apiURL+'/'+ imgwww" [height]="'800px'" [useBrowserLocale]="false" [textLayer]="true"
+			[showHandToolButton]="false">
+		</ngx-extended-pdf-viewer>
+
+		<mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
+
+		{{ loading=='false' ? 'Cargando '+value+'%': null}}
+
+		<button class="btn d-none" [disabled]="loading" #www></button>
+	</form>
+	<div class="modal-footer">
+		<button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+			'Actualizar'}}</button>
+		<button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+	</div>
+</ng-template>
+
+
+
+<!-- <div class="container p-0 mb-5 d-flex  justify-content-center align-items-center"> -->
+ <div class="container p-0 mb-5 d-flex  justify-content-center align-items-center"
+	[ngStyle]="{'background-image': 'url(' + src + ')', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position':'center'}"
+	>
+	<div class="justify-content-center align-items-center rounded row w-100 text-light"
+		style="background-color:rgba(173, 138, 67, 0.95)">
+		<div class="jumbotron col-md-12 p-1 text-center">
+			<!-- <img src='assets/wwwww8.svg' class="col-md-7 img-fluid" alt="Responsive image"> -->
+		</div>
+		<div class="jumbotron col-md-12 p-1">
+			<h1 class="display-3 p-1 text-center" style="color: rgb(110, 126, 199)">Escuela Superior de Formación Artística Felipe Guamán Poma de Ayala -
+				ESFAPA
+				Ayacucho</h1>
+			<p class="lead" style="color: rgb(0, 23, 128)">
+				Escuela Superior de Formación Artística pública de formación profesional en artes visuales desarrollado
+				en un plan de estudios de 5 años ubicado en la ciudad de Ayacucho.
+			</p>
+			<hr class="my-4">
+			<p>
+				La Escuela Superior de Formación Artística Pública “Felipe Guamán Poma de Ayala” de Ayacucho, fue creada
+				el 13 de septiembre de 1952, en mérito a la R.M. 8078 como Escuela Regional de Bellas Artes Pública
+				“Felipe Guamán Poma de Ayala” de acuerdo con la partida Nº. 28 del Pliego de Educación Pública del
+				Presupuesto General de la Republica vigente, promoviendo a don José Ricardo Respaldiza Martínez, del
+				cargo de jefe de la Sección de Museos y Monumentos Nacionales, al de director de la Escuela Regional de
+				Bellas Artes “Felipe Guamán Poma de Ayala” de Ayacucho.
+
+				La escuela se fundó con la finalidad de formar artistas profesionales en artes plástica es por eso que
+				al
+				inicio de sus labores académicas dio prioridad a los cursos prácticos como: Dibujo, Pintura y Escultura,
+				posteriormente se incrementó nuevos talleres como Platería. Filigrana, Joyería, Cerámica, y cursos
+				teóricos.
+			</p>
+
+			<a class="btn text-light" style="background-color: rgb(128, 21, 0)" href="/Cmpt14MVComponent" role="button">Saber
+				más</a>
+
+		</div>
+
+	</div>
+</div>
+
+
+
+<swiper class="p-0" *ngIf="newws.length!==0" [config]="config">
+	<ng-template swiperSlide *ngFor="let photo of newws index as i">
+		<img [src]="apiURL+'/'+photo.img" (error)="onImgError($event)" style="z-index: 0">
+		<div class="w-75 rounded" style="position: absolute;	top: 50%; left: 50%; transform: translate(-50%, -50%);background-color:rgba(218, 163, 12, 0.5); padding: .5em;">
+			<div *ngIf="rol=='1'" class="btn-group p-1 text-center" style="background-color:rgba(218, 163, 12, 0.5)"
+				role="group" aria-label="Basic example">
+				<button *ngIf="rol=='1' && photo.show=='false'" class="btn btn-success shadow-none"
+					(click)="newsemergent( $any(photo)._id, 'true')">
+					<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+					Mostrar
+				</button>
+				<button *ngIf="rol=='1'  && photo.show=='true'" class="btn btn-info shadow-none"
+					(click)="newsemergent( $any(photo)._id, 'false')">
+					<!-- <mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+					Esconder
+				</button>
+				<button *ngIf="rol=='1'" class="btn btn-warning shadow-none" (click)="deletenews( $any(photo)._id)">
+					<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+					Borrar
+				</button>
+				<button *ngIf="rol=='1'" class="btn btn-primary shadow-none"
+					(click)="open2(www, photo._id, photo.title, photo.description, photo.img, photo.show)">
+					<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+					Editar
+				</button>
+			</div>
+			<hr *ngIf="rol=='1'" class="text-light">
+			<div class="btn-group" style="background-color:rgba(226, 210, 166, 0.95)" role="group"
+				aria-label="Basic example">
+				<button class="btn w-100" (click)="openwww(new, photo.title, photo.description, photo.img)">
+					<span class="h2 text text-dark text-uppercase">
+						{{photo.title}}
+					</span>
+				</button>
+			</div>
+		</div>
+	</ng-template>
+</swiper>
+
+<div class="container text-center" style="padding:1em">
+	<button *ngIf="rol=='1' " class="btn btn-info shadow-none" (click)="createnews()">
+		<!--<mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
+		Nuevas ({{ newws ? newws.length : null }})
+	</button>
+</div>
+
+
+<div class="container" style="padding: 0cm">
+	<!--
+		<div  [innerHTML]="froala" contenteditable="true" (blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)"></div>
+
+		<quill-editor
+		[(ngModel)]="froala"
+		placeholder="Enter Text"
+		(onSelectionChanged)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)"
+		(onContentChanged)="onContentChanged($event)"
+		></quill-editor>
+		<ng-katex-html *ngIf="ussser.filosophy" [html]="ussser.filosophy"></ng-katex-html>
+		<textarea  rows="10" cols="0" class="variable-textarea form-control" [(ngModel)]="froala" [ngModelOptions]="{standalone:true}"></textarea>
+
+		<textarea *ngIf="froala && rol=='1' " rows="5" cols="0" class="variable-textarea form-control" [(ngModel)]="froala" [ngModelOptions]="{standalone:true}"
+		(blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)"
+		></textarea>
+	-->
+	<!--<textarea *ngIf="froala!='www'"  [froalaEditor] [(froalaModel)]="froala"></textarea>-->
+	<input type="file" class="d-none" (change)="FileCursse($event)" #Filecurse>
+	<input type="file" class="d-none" (change)="FileCursseUpdate($event)" #FileCurseUpdate>
+
+	<div *ngIf="value > 0" class="fixed-bottom text-warning">
+		{{ loading=='false' ? 'Cargando '+value+'%': ''}}
+		<mat-progress-bar class="fixed-bottom" color="accent" mode="determinate" [value]="value">
+		</mat-progress-bar>
+	</div>
+
+
+	<div *ngIf="ussser.length!=0" class="p-1  rounded my-5" style="background-color:rgba(92, 6, 92, 0.95)">
+		<h4 *ngIf="ussser.length!=0&&rol=='1'" class='text-center rounded p-1'>
+			<button type="button" name="button" (click)="Filecurse.click(); Type('documentos',ussser._id)"
+				class="btn btn-info">
+				DOCUMENTOS
+			</button>
+		</h4>
+		<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center" style="margin: 0cm">
+			<ng-container *ngFor="let file of ussser index as i">
+				<div *ngIf="file.type=='documentos'" class="p-1 col-md-6 col-lg-4 col-xl-4">
+					<div class="p-1">
+						<a class="btn cardnew btn-light w-100 text-uppercase justify-content-center"
+							(click)="openfile(filew, file.img)">{{file.title}}</a>
+						<input *ngIf="rol=='1'" type="text" class="form-control" placeholder="" [value]="file.title"
+							(blur)="FriendUpdate1($event, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+						<div *ngIf="rol=='1'" class="btn-group w-100">
+							<button type="button" name="button" (click)="FileCurseUpdate.click(); Type('www', file._id)"
+								class="btn btn-info">
+								Cambiar
+							</button>
+							<button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+						</div>
+						<ng-katex-html *ngIf="file.description" [html]="file.description"></ng-katex-html>
+
+						<textarea *ngIf="rol=='1'" name="name" rows="8" cols="80" type="text" class="form-control"
+							placeholder="Codigo" [value]="file.description"
+							(blur)="FriendUpdate2(file.title, file._id, $event, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )"></textarea>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+
+	<div *ngIf="ussser.length!=0" class="p-1  rounded my-5" style="background-color: rgb(148, 148, 201);">
+		<h4 *ngIf="ussser.length!=0&&rol=='1'" class='text-center rounded p-1'>
+			<button type="button" name="button" (click)="FileCurssse('link')" class="btn btn-light">ENLACES
+			</button>
+		</h4>
+		<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center" style="margin: 0cm">
+			<ng-container *ngFor="let file of ussser index as i">
+				<div *ngIf="file.type=='link'" class="p-1 col-md-6 col-lg-4 col-xl-4">
+					<div class="p-1">
+						<a class="cardnew btn w-100 text-uppercase text-light" style="background-color: purple"
+							target="_blank" [href]="sanitize(file.description)">{{file.title}}</a>
+						<input *ngIf="rol=='1'" type="text" class="form-control" placeholder="" [value]="file.title"
+							(blur)="FriendUpdate1($event, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+						<button *ngIf="rol=='1'" class="btn btn-sm btn-danger w-100"
+							(click)="FileCursedelete( file._id)">Eliminar</button>
+						<input *ngIf="rol=='1'" name="name" rows="8" cols="80" type="text" class="form-control"
+							placeholder="Codigo" [value]="file.description"
+							(blur)="FriendUpdate2(file.title, file._id, $event, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+
+	<div *ngIf="ussser.length!=0" class="p-1 rounded  text-light" style="background-color: rgb(160, 28, 160)">
+		<h4 *ngIf="ussser.length!=0&&rol=='1'" class='text-center rounded p-1'>
+			<button type="button" name="button" (click)="Filecurse.click(); Type('image','ussser._id')"
+				class="btn btn-info">
+				IMÁGENES
+			</button>
+		</h4>
+		<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center" style="margin: 0cm">
+			<ng-container *ngFor="let file of ussser index as i">
+				<div *ngIf="file.type=='image'" class="rounded p-1 col-md-6 col-lg-4 col-xl-4">
+					<div class="p-0 rounded cardnew"
+						[ngStyle]="{background:'url('+apiURL+'/'+file.img+')', 'background-size': '50000px 50000px'}">
+						<div class="p-2">
+							<div class="h5 text-center">{{file.title}}</div>
+							<input *ngIf="rol=='1'" type="text" class="form-control" placeholder="" [value]="file.title"
+								(blur)="FriendUpdate1($event, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+							<div *ngIf="rol=='1'" class="btn-group w-100">
+								<button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+								<button *ngIf="rol=='1'" type="button" name="button"
+									(click)="FileCurseUpdate.click(); Type('www', file._id)" class="btn btn-info">
+									Cambiar
+								</button>
+							</div>
+							<button class="btn p-0 w-100" (click)="openfile(filew, file.img)">
+								<img [src]="apiURL+'/'+file.img" class="img-card-top imgland"
+									(error)="onImgError($event)">
+							</button>
+							<ng-katex-html *ngIf="file.description" [html]="file.description"></ng-katex-html>
+
+							<textarea *ngIf="rol=='1'" name="name" rows="8" cols="80" type="text" class="form-control"
+								placeholder="blogspot" [value]="file.description"
+								(blur)="FriendUpdate2(file.title, file._id, $event, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )"></textarea>
+
+						</div>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+	<div *ngIf="ussser.length!=0" class="bg-warning p-1  rounded mt-5">
+		<h4 *ngIf="ussser.length!=0&&rol=='1'" class='text-center rounded p-1'>
+			<button type="button" name="button" (click)="FileCurssse('videosyoutube')" class="btn btn-info">YOUTUBE
+			</button>
+		</h4>
+		<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center" style="margin: 0cm">
+			<ng-container *ngFor="let file of ussser index as i">
+				<div *ngIf="file.type=='videosyoutube'" class="rounded p-1 col-md-6 col-lg-4 col-xl-4">
+					<div class="p-1 bg-light rounded">
+						<div class="h5 text-center">{{file.title}}</div>
+						<input *ngIf="rol=='1'" type="text" class="form-control" placeholder="" [value]="file.title"
+							(blur)="FriendUpdate1($event, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+						<div *ngIf="rol=='1'" class="btn-group w-100">
+							<button class="btn btn-success" (click)="openfile(filew, file.img)">Ver</button>
+							<button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+						</div>
+
+						<youtube-player [videoId]="file.blogspot"></youtube-player>
+						<ng-katex-html *ngIf="file.description" [html]="file.description"></ng-katex-html>
+						<textarea *ngIf="rol=='1'" name="name" rows="8" cols="80" type="text" class="form-control"
+							placeholder="Codigo" [value]="file.description"
+							(blur)="FriendUpdate2(file.title, file._id, $event, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )"></textarea>
+						<input *ngIf="rol=='1'" type="text" class="form-control" placeholder="Codigo youtube"
+							[value]="file.blogspot"
+							(blur)="FriendUpdate3(file.title, file._id, file.description, $event, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+	<div *ngIf="ussser.length!=0" class="p-1 rounded mt-5 text-light" style="background-color: rgb(14, 30, 105);">
+		<h4 *ngIf="ussser.length!=0&&rol=='1'" class='text-center rounded p-1'>
+			<button type="button" name="button" (click)="Filecurse.click(); Type('videosconfidencial',ussser._id)"
+				class="btn btn-info">
+				VIDEOS REPOSITORIO
+			</button>
+		</h4>
+		<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center m-0">
+			<ng-container *ngFor="let file of ussser index as i">
+				<div *ngIf="file.type=='videosconfidencial'" class="p-1 col-md-6 col-lg-4 col-xl-4">
+					<div class="p-1">
+						<div class="h5 my-0 text-center">{{file.title}}</div>
+						<input *ngIf="rol=='1'" type="text" class="form-control" placeholder="" [value]="file.title"
+							(blur)="FriendUpdate1($event, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+
+						<div *ngIf="rol=='1'" class="btn-group w-100">
+							<button *ngIf="rol=='1'" type="button" name="button"
+								(click)="FileCurseUpdate.click(); Type('www', file._id)" class="btn btn-info">
+								Cambiar video
+							</button>
+
+							<button class="btn btn-danger" (click)="FileCursedelete( file._id)">Eliminar</button>
+						</div>
+						<video id="my_video_1" class="video-js vjs-default-skin" width="100%" controls preload="auto">
+							<source [src]="apiURL+'/'+ file.img" type="video/mp4" width="100%" height="50px" />
+						</video>
+
+						<ng-katex-html *ngIf="file.description" [html]="file.description"></ng-katex-html>
+						<textarea *ngIf="rol=='1'" name="name" rows="8" cols="80" type="text" class="form-control"
+							placeholder="Codigo" [value]="file.description"
+							(blur)="FriendUpdate2(file.title, file._id, $event, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )"></textarea>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+
+
+	<div *ngIf="ussser.length!=0" class="bg-info p-1  rounded mt-5">
+		<h4 *ngIf="ussser.length!=0 && rol=='1'" class='text-center'>
+			<button type="button" name="button" (click)="Filecurse.click(); Type('invitados',ussser._id)"
+				class="btn  btn-warning">
+				REFERENTES
+			</button>
+		</h4>
+		<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center" style="margin: 0cm">
+			<ng-container *ngFor="let file of ussser index as i">
+				<div *ngIf="file.type=='invitados'" class="rounded p-1 col-md-6 col-lg-4 col-xl-4">
+					<div class="p-0 rounded"
+						[ngStyle]="{background:'url('+apiURL+'/'+file.img+')', 'background-size': '50000px 50000px'}">
+						<div class="p-1">
+
+							<div class="text-light">
+								<div class="h5 my-1 text-center">{{file.title}}</div>
+								<input *ngIf="rol=='1'" type="text" class="form-control" placeholder=""
+									[value]="file.title"
+									(blur)="FriendUpdate1($event, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+								<div class="btn-group d-flex ">
+									<button *ngIf="rol=='1'" type="button" name="button"
+										(click)="FileCurseUpdate.click(); Type('www', file._id)" class="btn btn-info">
+										Cambiar foto
+									</button>
+									<button *ngIf="rol=='1'" class="btn btn-danger"
+										(click)="FileCursedelete( file._id)">Eliminar</button>
+								</div>
+								<button class="btn p-0 w-100" (click)="openfile(filew, file.img)">
+									<img [src]="apiURL+'/'+file.img" class="img-card-top imgland"
+										(error)="onImgError($event)">
+
+								</button>
+
+								<div class="d-flex justify-content-center align-items-center my-2">
+									<a class="text-dark mx-1" target="_blank" [href]="file.blogspot">
+										<mat-icon svgIcon="blogspot" aria-hidden="false"
+											aria-label="Example thumbs up SVG icon"></mat-icon>
+									</a>
+									<a class="text-dark mx-1" target="_blank" [href]="file.youtube">
+										<mat-icon svgIcon="youtube" aria-hidden="false"
+											aria-label="Example thumbs up SVG icon"></mat-icon>
+									</a>
+									<a class="text-dark mx-1" target="_blank" [href]="file.instagram">
+										<mat-icon svgIcon="instagram" aria-hidden="false"
+											aria-label="Example thumbs up SVG icon"></mat-icon>
+									</a>
+									<a class="text-dark mx-1" target="_blank"
+										[href]="'https://api.whatsapp.com/send?phone=+51' + file.whatsapp + '&text=Hola%20bienvenido'">
+										<mat-icon svgIcon="watsapp" aria-hidden="false"
+											aria-label="Example thumbs up SVG icon"></mat-icon>
+									</a>
+									<a class="text-dark mx-1" target="_blank" [href]="file.facebook">
+										<mat-icon svgIcon="facebook" aria-hidden="false"
+											aria-label="Example thumbs up SVG icon"></mat-icon>
+									</a>
+								</div>
+								<ng-katex-html *ngIf="file.description" [html]="file.description"></ng-katex-html>
+								<div *ngIf="rol=='1'" class="">
+									<textarea name="name" rows="5" cols="80" type="text" class="form-control"
+										placeholder="blogspot" [value]="file.description"
+										(blur)="FriendUpdate2(file.title, file._id, $event, file.blogspot, file.youtube, file.instagram, file.whatsapp, file.facebook )"></textarea>
+									<input type="text" class="form-control" placeholder="Blogspot"
+										[value]="file.blogspot"
+										(blur)="FriendUpdate3(file.title, file._id, file.description, $event, file.youtube, file.instagram, file.whatsapp, file.facebook )">
+									<input type="text" class="form-control" placeholder="Youtube" [value]="file.youtube"
+										(blur)="FriendUpdate4(file.title, file._id, file.description, file.blogspot, $event, file.instagram, file.whatsapp, file.facebook )">
+									<input type="text" class="form-control" placeholder="Instagram"
+										[value]="file.instagram"
+										(blur)="FriendUpdate5(file.title, file._id, file.description, file.blogspot, file.youtube, $event, file.whatsapp, file.facebook )">
+									<input type="text" class="form-control" placeholder="Wattsapp"
+										[value]="file.whatsapp"
+										(blur)="FriendUpdate6(file.title, file._id, file.description, file.blogspot, file.youtube, file.instagram, $event, file.facebook )">
+									<input type="text" class="form-control" placeholder="Facebook"
+										[value]="file.facebook"
+										(blur)="FriendUpdate7(file.title, file._id, file.description, file.blogspot, file.youtube, file.instagram, file.whatsapp, $event )">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+
+
+</div>
+
+
+<div class="this2 container-flex p-0 mt-0">
+	<div class="container">
+		<iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+			src="https://maps.google.com/maps?width=100%25&amp;height=500&amp;hl=es&amp;q=+(Escuela%20de%20Bellas%20Artes%20Felipe%20Guam%C3%A1n%20Poma%20de%20Ayala-Ayacucho)&amp;t=k&amp;z=18&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a
+				href="https://www.gps.ie/car-satnav-gps/">Car GPS</a></iframe>
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!4v1655850799758!6m8!1m7!1sGm3v-xYcR1tj1gz95RrkYg!2m2!1d-13.15635415471263!2d-74.2180525291301!3f124.85298126566764!4f2.1996870284465047!5f0.7820865974627469"
+			width="100%" height="1000px" style="border:0;" allowfullscreen="" loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+
+	<div class="text-center  p-0 border-0">
+		<div class="card-body ">
+			<div class="row d-flex justify-content-center align-items-center" style="margin:0em">
+				<div class="container text-center p-1  col-md-6 col-lg-4 col-xl-4">
+					<div class="container col-md-5 px-1">
+						<img class="img-fluid rounded w-50" [src]="src" (error)="onImgError($event)" alt="img" />
+					</div>
+					<p class="footer-links my-0">
+						ESCUELA SUPERIOR DE FORMACIÓN ARTÍSTICA
+					</p>
+					<p class="my-0">
+						"Felipe Guamán Poma de Ayala"
+					</p>
+
+					<div></div>
+				</div>
+
+				<div class="container text-center p-1 col-md-6 col-lg-4 col-xl-4">
+
+					<div>
+						<i class="text-secondary fa fa-map-marker fa-2x"></i>
+						<p>Ayacucho</p>
+					</div>
+					<div>
+						<i class="text-secondary fa fa-phone fa-2x"></i>
+						<p>https://www.esfapa.edu.pe</p>
+					</div>
+					<p>
+						Teléfono: 066-633542
+					</p>
+					<div>
+						<p class="text-info">©Copyright esfap-2023</p>
+					</div>
+					<div>
+						<i class="text-secondary fa fa-envelope fa-2x"></i>
+						<p>
+							<a class="text-secondary" href="wwwww"></a>
+						</p>
+					</div>
+				</div>
+
+				<div class="container text-center p-5 col-md-6 col-lg-4 col-xl-4">
+					<p class="text-center">
+						Jr. Mariano Melgar Nº 398, Distrito Jesús Nazareno Huamanga, Ayacucho
+					</p>
+
+					<a class="text-dark mx-1" target="_blank"
+						href="https://api.whatsapp.com/send?phone=+51 966999215&text=Hola%20bienvenido">
+						<mat-icon svgIcon="watsapp" aria-hidden="false"
+							aria-label="Example thumbs up SVG icon"></mat-icon>
+					</a>
+					<a class="text-dark mx-1" target="_blank" href="https://m.me/bellasartes.ayacucho">
+						<mat-icon svgIcon="messenger" aria-hidden="false"
+							aria-label="Example thumbs up SVG icon"></mat-icon>
+					</a>
+					<a class="text-dark mx-1" target="_blank" href="https://bellasartes.blogspot.com">
+						<mat-icon svgIcon="blogspot" aria-hidden="false"
+							aria-label="Example thumbs up SVG icon"></mat-icon>
+					</a>
+					<a class="text-dark mx-1" target="_blank" href="https://web.facebook.com/bellasartes.ayacucho">
+						<mat-icon svgIcon="facebook" aria-hidden="false"
+							aria-label="Example thumbs up SVG icon"></mat-icon>
+					</a>
+					<a class="text-dark mx-1" target="_blank" href="https://instagram.com/bellasartes.ayacucho">
+						<mat-icon svgIcon="instagram" aria-hidden="false"
+							aria-label="Example thumbs up SVG icon"></mat-icon>
+					</a>
+					<a class="text-dark mx-1" target="_blank" href="https://www.tiktok.com/@bellasartes.ayacucho">
+						<mat-icon svgIcon="tiktok" aria-hidden="false"
+							aria-label="Example thumbs up SVG icon"></mat-icon>
+					</a>
+					<a class="text-dark mx-1" target="_blank"
+						href="https://www.youtube.com/channel/UCkYf1NyZ1kUl3965WgeL6rw">
+						<mat-icon svgIcon="youtube" aria-hidden="false"
+							aria-label="Example thumbs up SVG icon"></mat-icon>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

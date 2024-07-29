@@ -1,7 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
-/dist
+/new
 /tmp
 /out-tsc
 /bazel-out
@@ -14,6 +14,7 @@ yarn-error.log
 # IDEs and editors
 .idea/
 .project
+.angular
 .classpath
 .c9/
 *.launch
