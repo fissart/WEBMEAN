@@ -27,7 +27,8 @@ export class AuthService {
     localStorage.removeItem('id');
     localStorage.removeItem('rol');
     localStorage.removeItem('idcurso');
-    localStorage.removeItem('imguser');
+    localStorage.removeItem('imguser')
+    localStorage.removeItem('logindate')
 
     this.router.navigate(['/login']);
   }

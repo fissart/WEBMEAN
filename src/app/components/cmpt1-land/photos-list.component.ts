@@ -93,15 +93,14 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     img3.src = 'assets/logo.png'
 
     var foto = new Image()
-    var foto2 = new Image()
     foto.src = this.apiURL + '/' + this.ussser.foto
-    if (foto == undefined) {
-      console.log(foto)
-      doc.addImage(foto, 'JPEG', doc.internal.pageSize.width - 53, 27.7, 32.5, 35)
+    console.log(foto.height!=0)
+    if (foto.height!=0) { 
+      doc.addImage(foto, 'JPEG', doc.internal.pageSize.width - 53, 27.7, 32.5, 39)
     } else {
+      var foto2 = new Image()
       foto2.src = 'assets/www.png'
       doc.addImage(foto2, 'JPEG', doc.internal.pageSize.width - 53, 27.7, 32.5, 32.5)
-      console.log(foto)
     }
     doc.setLineWidth(16)
     doc.setDrawColor(255, 255, 255);  
@@ -151,7 +150,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     doc.addImage(img, 'JPEG', cntr - 65, 205, 89.8, 39, "", 'NONE', 19)
     doc.addImage(img2, 'JPEG', cntr - 21, 235, 95, 37, "", 'NONE', -5)
  
-    doc.addImage(img3, 'JPEG', 21, 29, 32, 32)
+    doc.addImage(img3, 'JPEG', 21, 28.8, 31, 31)
     // Sometimes you might have to call the default function on the export (for example in Deno)
     // doc.autoTable({ html: '#my-table' })
     doc.save(this.ussser.name + " Calificaciones del ciclo " + ciclo + ".pdf");

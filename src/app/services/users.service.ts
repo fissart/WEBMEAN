@@ -16,6 +16,9 @@ export class UsersService {
   updaterestricted_date(ww:string, www:string){
     return this.http.post<any>(environment.apiURL + '/api/users/Controller/Updaterestricted_date', { ww, www })
     
+  } updaterestricted_datelogin(){
+    return this.http.post<any>(environment.apiURL + `/api/users/Controller/Updaterestricted_datelogin/${localStorage.getItem('id')}`, {  })
+    
   }
  
   //obtener usuario con opiniones

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service'
+import { AuthService } from '../../services/auth.service'
 import { Router } from '@angular/router'
 //import { SwiperOptions } from 'swiper';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,12 +11,12 @@ import { Router } from '@angular/router'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private www: UsersService, private router: Router) { }
+  constructor(private www: UsersService, private router: Router, private authservice:AuthService) { }
 
   ngOnInit() {
-    if(localStorage.getItem('id')){
+    if (localStorage.getItem('id')) {
       this.router.navigate(['/dashboard'])
-    } 
+    }
   }
 
   loginw(email: HTMLInputElement, password: HTMLInputElement) {
@@ -27,11 +29,18 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('id', res.user._id);
             localStorage.setItem('rol', res.user.rol);
             localStorage.setItem('imguser', res.user.foto);
+            localStorage.setItem('logindate', res.user.logindate);
             this.router.navigate(['/dashboard'])
-           }else{
+          } else {
             alert(res.user.msg)
-             // console.log(res)
+            // console.log(res)
           }
+          this.www.updaterestricted_datelogin().subscribe(
+            res => {
+              
+            },
+            err => console.log(err)
+          )
         },
         err => console.log(err)
       )
