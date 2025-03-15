@@ -93,7 +93,7 @@ export class CurseService {
     fd.append('time', "2022-12-12");
     fd.append('user', user);
     fd.append('curse', curse);
-    return this.http.post(this.URI, fd, { reportProgress: true, observe: "events" });
+    return this.http.post(this.URI, fd);
   }
 
 
@@ -108,13 +108,13 @@ export class CurseService {
     //console.log(id)
   }
 
-  getsCurseTeacher(id: string, curseshow: string) {
+    getsCurseTeacher(id: string, curseshow: string) {
     return this.http.get(`${environment.apiURL}/api/curses/ControllerCurseTeacher/${id}/${curseshow}`);
 
   }
 
   getPhoto(id: string) {
-    return this.http.get<any>(`${this.URIw}/${id}`);
+    return this.http.get<any>(`${environment.apiURL}/api/curses/Controller/${id}`);
     console.log(`${this.URIw}/${id}`);
   }
 
@@ -157,11 +157,14 @@ export class CurseService {
     //    return this.http.put(`${this.URI}/${id}`, { 'name': title, 'email': description, 'password':password });
   }
 
-  updateUnity(id: string, title: string, description: string, task: string, test: string, time: string, timeex: string) {
+  updateUnity(id: string, title: string, description: string, task: string, test: string, time: string, timeex: string, conceptual: string, procedimental: string, actitudinal: string) {
     const fd = new FormData();
     fd.append('title', title);
     fd.append('description', description);
     fd.append('task', task);
+    fd.append('conceptual', conceptual);
+    fd.append('procedimental', procedimental);
+    fd.append('actitudinal', actitudinal);
     fd.append('test', test);
     fd.append('time', time);
     fd.append('timeex', timeex);
@@ -187,8 +190,11 @@ export class CurseService {
   getintegers(id: string) {
     return this.http.get(`${environment.apiURL}/api/integer/Controllerintegerscurse/${id}`);
   }  
-  getintegersnotes(id: string) {
+  getintegersnotes(id: string) { 
     return this.http.get(`${environment.apiURL}/api/integer/Controllerintegerscursenotes/${id}`);
+  }
+  getintegersnotesnew(id: string) { 
+    return this.http.get(`${environment.apiURL}/api/integer/Controllerintegerscursenotesnew/${id}`);
   }
   getintegersaverage(id: string) {
     return this.http.get(`${environment.apiURL}/api/integer/Controllerintegersaverage/${id}`);
@@ -245,6 +251,10 @@ export class CurseService {
 
   Getcursesources() {
     return this.http.get<any>(`${environment.apiURL}/api/curses/getcursesources`);
+  }
+
+  Getcursesourcesonlycicle(ciclo:string, mencion:string, user:string) {
+    return this.http.get<any>(`${environment.apiURL}/api/curses/getcursesourcesciclo/${ciclo}/${mencion}/${user}`);
   }
 
   showhidenews(newid: string, show: string) {

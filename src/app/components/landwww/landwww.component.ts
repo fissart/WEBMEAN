@@ -12,8 +12,11 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //import { NgxHeadroomOption } from 'ngx-headroom';
 import SwiperCore, { EffectCoverflow, EffectFade, EffectFlip, Virtual, SwiperOptions, Swiper, Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { AuthService } from 'src/app/services/auth.service';
 SwiperCore.use([EffectCoverflow, EffectFade, EffectFlip, Virtual, Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 import { LandwwwService } from '../../services/landwww.service'
+
 @Component({
   selector: 'app-landwww',
   templateUrl: './landwww.component.html',
@@ -67,6 +70,7 @@ export class LandwwwComponent implements OnInit {
 
   idnew!: string;
   markdown!: string;
+  markdownw!: string;
   type!: string;
   titlewww!: string;
   imgwww!: string;
@@ -95,10 +99,20 @@ export class LandwwwComponent implements OnInit {
     this.isReadMore = !this.isReadMore
   }
 
+  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "|", "undo", "redo"], placeholder: 'Descripción' }
+  //  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "math", "mediaEmbed", "|", "undo", "redo"] }
+
+  public Editor = ClassicEditor
+  public onChange(event: any) {
+    console.log(event.editor.getData())
+    this.markdownw = event.editor.getData()
+  }
+
   constructor(
     private CurseService: LandwwwService,
     private router: Router,
     private UserService: UsersService,
+    private authService: AuthService,
     private Tw: Title,
     private modal: NgbModal,
     private iconRegistry: MatIconRegistry,
@@ -273,7 +287,7 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
       delay: 2000,
       disableOnInteraction: true
     },
-    //pagination: { clickable: true, type: 'progressbar' },
+    pagination: { clickable: true },
     scrollbar: { draggable: true },
   };
 
@@ -298,6 +312,7 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
 
 
   FileCursseUpdate(event: any) {
+    this.loading = "false"
     const ww = event.target.files[0];
     this.FileCurse = [];//resetea la matriz a rango 1
     this.FileCurse.push(ww);
@@ -308,13 +323,14 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
       reader.readAsDataURL(event.target.files[0]);
       this.CurseService.filecurseupdatefile(this.ussser_id, this.FileCurse[0])
         .subscribe((res: any) => {
-          this.loading = "false";
           this.value = Math.round((100 / res.total) * res.loaded);
           console.log(res.total);
           console.log(res.loaded);
           if (res.total == res.loaded && res.type > 0) {
             this.usser();
             this.value = 0;
+            this.loading = ""
+            this.photoSelected = null
           }
 
         })
@@ -325,6 +341,7 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
 
 
   FileCursse(event: any) {
+    this.loading = "false"
     const ww = event.target.files[0];
     this.FileCurse = [];//resetea la matriz a rango 1
     this.FileCurse.push(ww);
@@ -338,13 +355,14 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
       console.log(this.ussser_id, this.name, this.typefile, this.FileCurse[0]);
       this.CurseService.filecurse("633edab42f2df19c78c3e8f5", this.name, this.typefile, "codigo", this.FileCurse[0])
         .subscribe((res: any) => {
-          this.loading = "false";
           this.value = Math.round((100 / res.total) * res.loaded);
           console.log(res.total);
           console.log(res.loaded);
           if (res.total == res.loaded && res.type > 0) {
+            this.loading = ""
             this.usser();
             this.value = 0;
+            this.photoSelected = null
           }
 
         })
@@ -354,14 +372,22 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
 
   FileCurssse(type: string) {
     console.log(type);
-
     this.CurseService.filecurse("633edab42f2df19c78c3e8f5", 'Nombre', type, "codigo", this.FileCurse[0])
       .subscribe((res: any) => {
         this.usser();
-
+        this.modal.dismissAll();
       })
-
   }
+
+
+  FileCurssseid(idlink: string) {
+    // console.log(type);
+    this.CurseService.filecurse(idlink, 'Nombre', "type", "codigo", this.FileCurse[0])
+      .subscribe((res: any) => {
+        this.usser();
+      })
+  }
+
 
 
   FileCursedelete(id: string) {
@@ -394,7 +420,7 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
   }
 
   open(content: any) {
-    this.modal.open(content, { size: 'xl', scrollable: true })
+    this.modal.open(content, { size: 'xl', scrollable: false })
   }
 
 
@@ -496,11 +522,10 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
 
           const arrayReverseObj = (res: any) => {
             let newArray: any = []
-
             Object.keys(res)
               .reverse()
               .forEach(key => {
-                console.log(key)
+                //console.log(res[key])
                 newArray.push(res[key])
               })
             this.ussser = newArray
@@ -508,7 +533,6 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
             return newArray
           }
           arrayReverseObj(res)
-
         },
         (err: any) => console.log(err)
       );
@@ -532,12 +556,28 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
   public src: string = "";
 
   ngOnInit() {
-
+    this.getforo()
     this.year = new Date().getFullYear();
     this.Tw.setTitle('ESFAPA');
 
     var month = new Date().getMonth()
     this.src = './assets/www' + (month + 1) + '.svg'
+
+    // const str = new Date()
+    // const dt = new Date(str).toISOString();
+    // const datesaved = new Date(localStorage.getItem('logindate')!);
+    // var datesavedwww = new Date()
+    // datesavedwww.setMinutes(datesaved.getMinutes() - 3)
+    // var datesavedadd = new Date()
+    // datesavedadd.setMinutes(datesaved.getMinutes() + 60 * 72)
+    // if (localStorage.getItem('logindate')) {
+    //   if (datesaved && datesavedwww.toISOString() < dt && dt <= datesavedadd.toISOString()) {
+    //     console.log(datesavedwww.toISOString() < dt, dt < datesavedadd.toISOString())
+    //   } else {
+    //     console.log(datesavedwww.toISOString() < dt, dt < datesavedadd.toISOString())
+    //     this.authService.logout()
+    //   }
+    // }
 
     this.usser();
     this.gets_news();
@@ -567,14 +607,116 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
   openwww(w: any, title: string, description: string, img: string) {
     //console.log(this.idnew,this.title,this.markdown,this.show,this.img);
 
-    this.modal.open(w, { size: 'xl', scrollable: true })
+    this.modal.open(w, { size: 'xl', scrollable: false })
     this.text = title;
-    this.texto = description;
+    this.texto = description.replace(new RegExp('</p>', 'g'), '').replace(new RegExp('<p>', 'g'), '')
+      .replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$')
+      .replace(/<figure class="media">/g, '').replace(/<\/figure>/g, '').replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`)
+      .replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`)
     this.textoimg = img;
   }
+  public proceso: string = "";
+  open2forum(forum: any, idnew: string, title: string, description: string, type: string, proceso: string) {
+    if (localStorage.getItem('id')) {
+      this.modal.open(forum, { size: 'xl', scrollable: false })
+      console.log(idnew, title, description, proceso);
+      this.idnew = idnew;
+      this.titlewww = title;
+      this.markdown = description;
+      this.proceso = proceso
+      this.type = type
+    } else {
+      this.router.navigate(['/login'])
+    }
+  }
+
+  public foro: any = [];
+
+  getforo() {
+    console.log("foro")
+    this.CurseService.getforum()
+      .subscribe(
+        (res: any) => {
+          const arrayReverseObj = (res: any) => {
+            let newArray: any = []
+            Object.keys(res)
+              .reverse()
+              .forEach(key => {
+                console.log(res[key], "foro")
+                newArray.push(res[key])
+              })
+            this.foro = newArray
+            console.log(newArray)
+            return newArray
+          }
+          arrayReverseObj(res)
+        },
+        (err: any) => console.log(err)
+      );
+  }
+
+
+  createThemeforo() {
+    if (this.titlewww != '' && this.markdown != '') {
+    this.loading = "false";
+    console.log(this.idnew, this.titlewww, this.markdown)
+    this.CurseService.foronew(this.user || "", this.idnew == 'www' ? this.user || "" : this.idnew, this.titlewww, this.type, this.markdown, this.markdown.replace(new RegExp('</p>', 'g'), '').replace(new RegExp('<p>', 'g'), '').replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$').replace(/<figure class="media">/g, '').replace(/<\/figure>/g, '').replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`).replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`))
+      .subscribe((res: any) => {
+        this.getforo()
+        this.modal.dismissAll()
+        this.loading = "";
+
+      })
+    }else{
+      alert('Rellene todos los campos')
+    }
+  }
+
+  createLikeforo() {
+    this.loading = "false"
+    console.log(this.idnew, this.titlewww, this.markdown)
+    this.CurseService.foronew(this.user || "", this.idnew == 'www' ? this.user || "" : this.idnew, this.titlewww, this.markdown, this.type, '')
+      .subscribe((res: any) => {
+        this.getforo()
+        this.loading = ""
+      })
+  }
+
+  updateThemeforo() {
+    if (this.titlewww != '' && this.markdown != '') {
+      this.loading = "false"
+      console.log(this.idnew, this.titlewww, this.markdown)
+      this.CurseService.themeforoupdate(this.idnew, this.titlewww, this.markdown, this.markdown.replace(new RegExp('</p>', 'g'), '').replace(new RegExp('<p>', 'g'), '')
+        .replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$')
+        .replace(/<figure class="media">/g, '').replace(/<\/figure>/g, '').replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`)
+        .replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`))
+        .subscribe((res: any) => {
+          this.getforo()
+          this.modal.dismissAll()
+          this.loading = ""
+        })
+    } else {
+      alert('Rellene todos los campos')
+    }
+  }
+
+
+  removeThemeforo(id: string) {
+    if (window.confirm('Desea borrar esta información?')) {
+
+      console.log(this.idnew, this.titlewww, this.markdown)
+      this.CurseService.themeforodelete(id)
+        .subscribe((res: any) => {
+          this.getforo()
+          this.modal.dismissAll()
+        })
+    }
+  }
+
+
 
   open1(ww: any, idcurso: string, iduser: string) {
-    this.modal.open(ww, { size: 'lg', scrollable: true })
+    this.modal.open(ww, { size: 'lg', scrollable: false })
     this.idcurso = idcurso;
     this.iduserteach = iduser;
   }
@@ -586,6 +728,7 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
     this.markdown = description;
     this.imgwww = img;
     this.showww = show;
+    // console.log(description)
   }
 
 
@@ -647,8 +790,8 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
 
   };
 
-  updatenews(title: HTMLInputElement, description: HTMLTextAreaElement, show: HTMLInputElement) {
-    this.CurseService.newsupdate(this.idnew, title.value, description.value, show.value, this.archivos[0])
+  updatenews(title: HTMLInputElement, show: HTMLInputElement) {
+    this.CurseService.newsupdate(this.idnew, title.value, this.markdown, show.value, this.archivos[0])
       .subscribe((res: any) => {
         this.loading = "false";
         this.value = Math.round((100 / res.total) * res.loaded);
@@ -692,64 +835,80 @@ style="clip-rule:evenodd;fill-rule:evenodd" /></svg>
 
 
   FriendUpdate1(event: any, id: string, description: string, blogspot: string, youtube: string, instagram: string, whatsapp: string, facebook: string) {
+    this.loading = "false"
     console.log(event.target.value);
     console.log(id);
     this.CurseService.filecurseupdate(id, event.target.value, description, blogspot, youtube, instagram, whatsapp, facebook)
       .subscribe((res: any) => {
-        this.usser();
+        this.usser()
+        this.loading = ""
       })
   }
 
   FriendUpdate2(title: string, id: string, event: any, blogspot: string, youtube: string, instagram: string, whatsapp: string, facebook: string) {
+    this.loading = "false"
     console.log(event.target.value);
     console.log(id);
     this.CurseService.filecurseupdate(id, title, event.target.value, blogspot, youtube, instagram, whatsapp, facebook)
       .subscribe((res: any) => {
-        this.usser();
+        this.usser()
+        this.loading = ""
+
       })
   }
 
   FriendUpdate3(title: string, id: string, description: string, event: any, youtube: string, instagram: string, whatsapp: string, facebook: string) {
+    this.loading = "false"
     console.log(event.target.value);
     console.log(id);
     this.CurseService.filecurseupdate(id, title, description, event.target.value, youtube, instagram, whatsapp, facebook)
       .subscribe((res: any) => {
-        this.usser();
+        this.usser()
+        this.loading = ""
+
       })
   }
 
   FriendUpdate4(title: string, id: string, description: string, blogspot: string, event: any, instagram: string, whatsapp: string, facebook: string) {
+    this.loading = "false"
     console.log(event.target.value);
     console.log(id);
     this.CurseService.filecurseupdate(id, title, description, blogspot, event.target.value, instagram, whatsapp, facebook)
       .subscribe((res: any) => {
-        this.usser();
+        this.usser()
+        this.loading = ""
       })
   }
 
   FriendUpdate5(title: string, id: string, description: string, blogspot: string, youtube: string, event: any, whatsapp: string, facebook: string) {
+    this.loading = "false"
     console.log(event.target.value);
     console.log(id);
     this.CurseService.filecurseupdate(id, title, description, blogspot, youtube, event.target.value, whatsapp, facebook)
       .subscribe((res: any) => {
-        this.usser();
+        this.usser()
+        this.loading = ""
       })
   }
 
   FriendUpdate6(title: string, id: string, description: string, blogspot: string, youtube: string, instagram: string, event: any, facebook: string) {
+    this.loading = "false"
     console.log(event.target.value);
     console.log(id);
     this.CurseService.filecurseupdate(id, title, description, blogspot, youtube, instagram, event.target.value, facebook)
       .subscribe((res: any) => {
-        this.usser();
+        this.usser()
+        this.loading = ""
       })
   }
   FriendUpdate7(title: string, id: string, description: string, blogspot: string, youtube: string, instagram: string, whatsapp: string, event: any) {
+    this.loading = "false"
     console.log(event.target.value);
     console.log(id);
     this.CurseService.filecurseupdate(id, title, description, blogspot, youtube, instagram, whatsapp, event.target.value)
       .subscribe((res: any) => {
-        this.usser();
+        this.usser()
+        this.loading = ""
       })
   }
 

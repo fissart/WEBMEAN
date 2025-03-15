@@ -68,8 +68,8 @@ export class UsersService {
   
 
 
-  updateusser(id: string, name: string, str1: string, str: string) {
-   return this.http.put(`${this.URI}/Controller/usserUpd/${id}`, { 'name': name, 'ciclo': str1, 'mencion':str })
+  updateusser(id: string, name: string, str1: string, str: string, tipostd: string) {
+   return this.http.put(`${this.URI}/Controller/usserUpd/${id}`, { 'name': name, 'ciclo': str1, 'mencion':str , 'tipostd':tipostd })
   }
 
   updatePhoto(id: string, title: string, description: string, password: string, rol: string, celular: string, carrera: string, mencion:string, ciclo: string, sexo: string, dni: string, filosophy:string, photo: File) {

@@ -26,8 +26,9 @@
   </ng-template>
 
   <a *ngIf="rol=='1'" class="btn btn-info text-light mt-1 w-100" (click)="getalluser()">TODOS LOS USUARIOS</a>
+  <mat-progress-bar class="fixed-bottom" color="accent" mode="determinate" [value]="value"> </mat-progress-bar>
 
-
+  <!-- <mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar> -->
   <div *ngFor="let w of wwwww index as i" class="p-1">
     <div *ngIf="$any(w).rol==$any(photos).rol || $any(photos).rol==1"
       class="border rounded justify-content-left align-items-center">
@@ -36,17 +37,36 @@
         <div
           [ngClass]="[$any(w).mencion=='G' || $any(w).mencion=='P' || $any(w).mencion=='E' ||$any(w).mencion=='ED' ? 'text-info p-1':' p-1']">
           {{i+1}}.
-          <button class="btn btn-light" (click)="open2(zzz, $any(w).foto)" style="cursor:pointer">{{$any(w).name}} </button>
+          <button class="btn btn-light" (click)="open2(zzz, $any(w).foto)" style="cursor:pointer">{{$any(w).name}}
+          </button>
           <span class="text-primary"> {{$any(w).email}} </span>
-          <!-- <span class="text-primary">{{$any(w).password}} </span> -->
-          <span *ngIf="$any(w).rol==3"> rol: <span  class="warning"> {{$any(w).rol}} </span> </span>
-          <span *ngIf="$any(w).rol==3"> mencion: <span  class="text-warning"> {{$any(w).mencion}} </span> </span>
-          <span *ngIf="$any(w).rol==3"> ciclo: <span  class="text-warning">  {{$any(w).ciclo}} </span> </span>
+          <span class="text-primary">dni: {{$any(w).dni}} </span>
+          <span *ngIf="$any(w).rol==3"> rol: <span class="warning"> {{$any(w).rol}} </span> </span>
+          <span *ngIf="$any(w).rol==3"> ciclo: <span class="text-warning"> {{$any(w).ciclo}} </span> </span>
+          <span> {{$any(w).rol==3?'mención: ':'grado: '}} <span class="text-warning"> {{$any(w).mencion}} </span> </span>
+          <!-- <button class="btn btn-light" (click)="open2(zzz, $any(w).foto)"
+            style="cursor:pointer">{{$any(w).mencion}}</button> -->
+            
+                      <input *ngIf="rol=='1'" type="text" class="form-control" [value]="$any(w).mencion"
+                        (blur)="updategrade($any(w)._id, $any(w).name, $any(w).email, $any(w).password, $any(w).rol, $any(w).celular, $any(w).carrera, $event, $any(w).ciclo, $any(w).sexo, $any(w).dni, $any(w).filosophy)">
+          <button *ngIf="rol == '1'" class="btn btn-dark" (click)="photoInput.click()">cargardocs</button>
+          <div *ngFor="let itemwww of w['filecursses']; let i=index" class="row d-flex">
+            <div class="p-0  text-center border btn-group col-md-3">
+              <button class="btn btn-info" (click)="open2(zzz, itemwww.img)"
+                style="cursor:pointer">{{itemwww.title}}</button>
+              <button button *ngIf="rol == '1'" class="btn btn-danger"
+                (click)="FileCursedelete( itemwww._id)">--</button>
+            </div>
+          </div>
+          <input type="file" accept="image/*" class="d-none" (change)="teacherdocuments($event, $any(w)._id)"
+            #photoInput>
+
           <!-- <span *ngIf="$any(w).rol==3" [ngClass]="[$any(w).dni && $any(w).dni.length!=8 ? 'bg-danger p-3' : 'text-danger']">dni:
           {{$any(w).dni}}</span> -->
-            <a *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-outline-light" [routerLink]="['/user', $any(w)._id]" target="_blank"></a>
-            <!-- <a  class="btn btn-light" *ngIf='$any(photos).rol == 1' (click)="deleteUser($any(w)._id, $any(w).cursse.length, $any(w).integer.length)">Borrar usuario</a> -->
-            <!-- <button *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-info shadow-none"
+          <a *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-outline-light"
+            [routerLink]="['/user', $any(w)._id]" target="_blank"></a>
+          <!-- <a  class="btn btn-light" *ngIf='$any(photos).rol == 1' (click)="deleteUser($any(w)._id, $any(w).cursse.length, $any(w).integer.length)">Borrar usuario</a> -->
+          <!-- <button *ngIf='$any(photos).rol == 1 || $any(photos)._id == $any(w)._id' class="btn btn-info shadow-none"
               (click)="NewCurse($any(w)._id)">New curse</button> -->
         </div>
       </div>
@@ -69,7 +89,7 @@
               <div class="text-center">
                 {{subItem.title}} <span class="text-light">[{{subItem.mencion}}-{{subItem.ciclo}}]</span>
               </div>
-             
+
               <div class="btn-group d-flex">
                 <!-- <button class="btn btn-outline-light" (click)="updatecurseHide( subItem._id)">
                   Archivar
@@ -103,7 +123,8 @@
       <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacher index as i">
         <div class='card bg-light text-align-right border border-info p-1'>
           <div class="text-center">
-            {{photo.title}} <span style="color: rgb(32, 4, 58)" class="text-uppercase">[{{photo.mencion=='P'?'AP Pintura':photo.mencion=='E'?'AP
+            {{photo.title}} <span style="color: rgb(32, 4, 58)" class="text-uppercase">[{{photo.mencion=='P'?'AP
+              Pintura':photo.mencion=='E'?'AP
               Escultura':photo.mencion=='ED'?'Educación artística':'AP Grabado'}} {{photo.ciclo}}]</span>
           </div>
           <!-- <img [src]="apiUrl+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError2($event)"> -->
@@ -157,7 +178,7 @@
             (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'P', photo.credito, photo.ciclo, photo.codigo, photo.requisito)"
             [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-warning':'btn btn-primary']"
             (click)="Getcursesources()">
-            {{photo.title}} <span >[{{photo.mencion}}-{{photo.ciclo}}]</span>
+            {{photo.title}} <span>[{{photo.mencion}}-{{photo.ciclo}}]</span>
           </button>
         </div>
 
@@ -179,7 +200,7 @@
             (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'G', photo.credito, photo.ciclo, photo.codigo, photo.requisito)"
             [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-secondary':'btn bg-success']"
             (click)="Getcursesources()">
-            {{photo.title}} <span >[{{photo.mencion}}-{{photo.ciclo}}]</span>
+            {{photo.title}} <span>[{{photo.mencion}}-{{photo.ciclo}}]</span>
           </button>
         </div>
 
@@ -200,7 +221,7 @@
             (click)="NewCurseTeacher(photos._id, photo.title, photo.mension, 'E', photo.credito, photo.ciclo, photo.codigo, photo.requisito)"
             [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX' ? 'btn btn-info':'btn btn-info']"
             (click)="Getcursesources()">
-            {{photo.title}} <span >[{{photo.mencion}}-{{photo.ciclo}}]</span>
+            {{photo.title}} <span>[{{photo.mencion}}-{{photo.ciclo}}]</span>
           </button>
         </div>
 
@@ -208,7 +229,7 @@
     </ng-container>
   </div>
 
-<!--
+  <!--
   <div *ngIf="cursessource.length!=0 && rol=='2'" class="container text-center h5 mt-3 ">
     CURSOS ARTISTA PROFESIONAL - SEMESTRE {{cursessource[0].ciclo=="I" || cursessource[0].ciclo=="III" ||
     cursessource[0].ciclo=="V" || cursessource[0].ciclo=="VII" || cursessource[0].ciclo=="IX"?"IMPAR":"PAR"}} {{year}}

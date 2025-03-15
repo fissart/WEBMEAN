@@ -1,14 +1,17 @@
-<div Ngxheadroom [options]="options" class="fixed-navbar">
-	<app-navigation></app-navigation>
-</div>
+<!-- <div Ngxheadroom [options]="options" class="fixed-navbar"> -->
+<app-navigation></app-navigation>
+<!-- </div> -->
 
 
 <div class="height"></div>
 
 
 
-
-
+<div class="container d-flex">
+  <button class="btn btn-info w-100" printSectionId="contentall" [useExistingCss]="true"
+    [printStyle]="{h1 : {'color': 'red'}, h2 : {'border': 'solid 1px'}}" printTitle="Hello World" ngxPrint> Imprimir
+  </button>
+</div>
 
 <ng-template #ww let-modal>
   <div class="modal-body">
@@ -37,8 +40,8 @@
   </div>
 </ng-template>
 
-<div class="container d-none">
-  <div *ngIf="photo" class="container justify-content-center text-center">
+<div class="">
+  <div *ngIf="photo" class="justify-content-center text-center">
     <button [ngClass]="[formshow?'btn btn-info ':'btn btn-light']" (click)="formshowteacher()">{{
       formshow
       ? 'ESCONDER EDITOR': 'EDITAR TEMA'}}</button>
@@ -46,26 +49,47 @@
 </div>
 
 
+<div *ngIf="photo" class="container p-1" id="contentall" style="font-family: 'Times New Roman', Times, serif f !important">
 
-<div class="container" id="contentall" #contentall style="font-family: Nunito Sans, sans-serif;">
-  <form (submit)="fechanotastasks(iniciar, culminar); fechanotastheme(iniciar, culminar)"
-    class="row py-1 px-0 bg-light border border-dark rounded">
-    <div class="col-md-6 form-group mb-1 py-0 px-1">
+  <div class="text-align-center text-center mt-3">
+    <!-- <h5 class="">{{photo.task}}</h5> -->
+    {{photo?photo.curso[0].title:''}}--
+    {{photo?photo.curso[0].ciclo:''}}--
+    {{photo?photo.curso[0].credito:''}}--
+    {{photo?photo.curso[0].codigo:''}} ({{photo.task}})
+  </div>
+
+
+  <form *ngIf="photo" (submit)="fechanotastasks(iniciar, culminar); fechanotastheme(iniciar, culminar)"
+    class="row border border-dark rounded" style="margin-left: 1cap;margin-right: 1cap; padding: .1cm;">
+    <div class="input-group p-1">
       <input type="datetime-local" class="form-control" placeholder="1" #iniciar [value]="photo.dateb">
-    </div>
-    <div class="col-md-6 form-group mb-1 py-0 px-1">
       <input type="datetime-local" class="form-control" placeholder="2" #culminar [value]="photo.datee">
     </div>
-    <div class="col-md-12 form-group py-0 px-1 align-self-end ml-auto">
-      <button
-        [ngClass]="[photo.dateb < DateNow && DateNow < photo.datee?'btn btn-warning w-100 text-uppercase':'btn btn-secondary w-100 text-uppercase']"
-        [disabled]="loading">Guardar intervalo</button>
-    </div>
+    <button
+      [ngClass]="[photo.dateb < DateNow && DateNow < photo.datee?'btn btn-warning w-100 text-uppercase':'btn btn-secondary w-100 text-uppercase']"
+      [disabled]="loading">Guardar intervalo</button>
   </form>
 
 
 
-  <form *ngIf="!formshow" class="container p-3" (submit)="updatetheme(title, task, solution, time)">
+
+  <!-- {{photo.unity[0].title}} 
+{{photo.userr[0].name}} -->
+
+  <form *ngIf="formshow" class="p-1" (submit)="updatetheme(title, task, solution, time)">
+    <div class="form-group mb-3" id="tittle" #tittle>
+      <label for="exampleFormControlInput1" class="form-label text-primary">Tipo
+      </label>
+      <select class="form-select" aria-label="Default select example" [disabled]="loading"
+        (change)="onChangetype(photo.title, $event, photo.solution, photo.time)" name="deviceText">
+        <option selected>{{photo.task}}</option>
+        <option value="Actitudinal">Actitudinal</option>
+        <option value="Procedimental">Procedimental</option>
+        <option value="Conceptual">Conceptual</option>
+        <option value="N">N</option>
+      </select>
+    </div>
     <div class="form-group mb-3" id="tittle" #tittle>
       <label for="exampleFormControlInput1" class="form-label text-primary">Título
       </label>
@@ -73,12 +97,9 @@
     </div>
 
     <div class="form-group mb-3">
-      <!-- <label for="exampleFormControlInput1" class="form-label text-primary">Sesión</label> -->
+      <label for="exampleFormControlInput1" class="form-label text-primary">Sesión</label>
+
       <ckeditor [editor]="Editor" [data]="markdown" (change)="onChange($event)"></ckeditor>
-      <!-- <div class="col-md-6 form-group mb-1 py-0 px-1">
-    </div>
-    <div class="col-md-6 form-group mb-1 py-0 px-1">
-    </div> -->
       <!-- <ng-katex-html [html]="showww"></ng-katex-html> -->
       <!-- {{showww}} -->
       <!-- <hr> -->
@@ -139,11 +160,12 @@
 
     <button class="btn btn-info mt-1 w-100" [disabled]="loading">{{ loading=='false' ? 'Cargando '+value+'%':
       'Actualizar'}}</button>
-
   </form>
 
+  <ng-katex-html [html]="showww"></ng-katex-html>
 
-  <div class="container my-1 border border-info rounded pt-1">
+
+  <!-- <div class="container my-1 border border-info rounded pt-1">
     <button class="btn btn-primary w-100 shadow-none"
       (click)="savetasksimilar(photo._id, photo.unidad, photo.curse, photo.user)">Create task</button>
     <div class="row justify-content-center pt-0">
@@ -153,20 +175,20 @@
         <button class='btn btn-danger' (click)="errasetask(ww_w._id)"> - </button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div *ngIf="value > 0" class="fixed-bottom text-warning">
     {{ loading=='false' ? 'Cargando '+value+'%': ''}}
     <!-- <mat-progress-bar class="fixed-bottom" color="accent" mode="determinate" [value]="value">  </mat-progress-bar> -->
   </div>
-  <div class="container text-center" *ngIf="photo">
+  <!-- <div class="container text-center" *ngIf="photo">
     <div class="btn-group">
       <button class="btn btn-danger" (click)="cleantasks()">Limpiar tareas</button>
       <button class="btn btn-warning" (click)="calificationclean()">Limpiar notas</button>
       <button class="btn btn-secondary" (click)="calification()">Calificar similaridad (cs)
         {{charge>0?charge:null}}</button>
       <button class="btn btn-primary" (click)="calificationsolution()">Calificar sesión (CS)</button>
-      <!-- <button class="btn btn-primary" (click)="createNotes()">Calificar</button> -->
+      <button class="btn btn-primary" (click)="createNotes()">Calificar</button>
     </div>
     <div class="text-center m-auto input-group">
       <input class="form-control" [disabled]="loading" placeholder="Calificación todos" (blur)="createNotes($event)">
@@ -174,75 +196,78 @@
         (blur)="calificationadd($event)">
     </div>
     <button (click)="printpdf()" class="btn btn-light w-100 mt-1">Compilar sesión en pdf</button>
-  </div>
+  </div> -->
 
-  <div class="container p-3" id="content" #content>
-    <h5 class="">{{photo.title}}</h5>
-    <table *ngIf="photo.integgers && photo.integgers.length!=0" id="season-tble">
-      <tr> 
+
+
+
+
+  <div *ngIf="photo.curso && photo.curso[0].integgers.length!=0" class="p-1">
+    <p class="text-center">{{resumena==1?resumena+' aprobado':resumena+' aprobados'}} , {{resumenc}} con calificación 10
+      y
+      {{resumend==1?resumend+' desaprobado':resumend+' desaprobados'}}</p>
+    <table *ngIf="photo.curso && photo.curso[0].integgers.length!=0">
+      <tr style="height:1.2cm">
         <th>N</th>
         <th>Apellidos y nombres</th>
-        <th>Calificación [(10>):{{resumena}}][(=10):{{resumenc}}][(<10):{{resumend}}] </th>
+        <th>Calificación</th>
         <th>Fecha</th>
       </tr>
-      <tr *ngFor="let ww_w of photo.integgers index as i">
-        <td>{{ i+1 }}-{{ww_w.Usser[0].grupo}}
+      <tr *ngFor="let ww_w of photo.curso[0].integgers index as i">
+        <td>{{ i+1 }}
         </td>
-        <td
-          [ngClass]="[ww_w.Usser[0].grupo=='A' ? 'text-uppercase':ww_w.Usser[0].grupo=='B'?'text-uppercase text-warning':'']">
-          {{ww_w.Usser[0].name }}</td>
+        <td>
+          {{ww_w.name }} {{ww_w.tipostd }}</td>
         <td class="w-15">
-          <span *ngFor="let ww_ of ww_w['Usser'] index as i">
-            <span *ngIf="ww_.tassk.length==0" class="d-flex">
-              <input type="file" class="d-none"
-                (change)="createtaskimg($event, photo.respuesta, photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id)"
-                #linkk>
-              <input type="text" style="width:5em" class="form-control p-1 mx-1" [disabled]="loading" [value]=""
-                (blur)="savetask($event, photo._id, photo.unidad, photo.curse, ww_w.Usser[0]._id )">
-            </span>
+          <span *ngIf="ww_w.tassk.length==0" class="d-flex">
+            <input type="file" class="d-none"
+              (change)="createtaskimg($event, photo.respuesta, photo._id, photo.unidad, photo.curse, ww_w._id)" #linkk>
+            <input type="text" style="width:5em" class="form-control p-1 mx-1"
+              [disabled]="ww_w.tipostd=='P'?'false':loading" [value]="ww_w.tipostd=='P'?'L':''"
+              (blur)="savetask($event, photo._id, photo.unidad, photo.curse, ww_w._id, photo.curso[0].codigo, photo.curso[0].ciclo, photo.curso[0].mencion, photo.curso[0].user )">
+          </span>
 
 
-            <span *ngFor="let w of ww_['tassk'] index as i" class="d-flex">
-              <span class="btn-group">
-                <button class='btn btn-danger' (click)="errasetask(w._id)"> - </button>
-                <button [ngClass]="[w.img ? 'btn btn-primary':'btn btn-warning']" style="width: 5em;"
+          <span *ngFor="let w of ww_w['tassk'] index as i" class="d-flex">
+            <span class="input-group">
+              <!-- <button [ngClass]="[w.img ? 'btn btn-primary':'btn btn-warning']" style="width: 5em;"
                   (click)="updatetask(w._id)">
                   {{w.task.length}}
-                </button>
+                </button> -->
 
-                <button [ngClass]="[w.img ? 'btn btn-info shadow-none':'btn btn-primary shadow-none']"
+              <!-- <button [ngClass]="[w.img ? 'btn btn-info shadow-none':'btn btn-primary shadow-none']"
                   (click)="open1(ww, w._id, w.task, w.solution, w.img?w.img:'Sin archivo')">
-                  <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-                </button>
+                </button> -->
+              <!-- <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
 
-                <button class="btn btn-secondary"
+              <!-- <button class="btn btn-secondary"
                   (click)="calificationsimilarone(w._id, w.task, w.createdAt )">cs1</button>
                 <button class="btn btn-primary"
-                  (click)="calificationsolutionone(w._id, w.task, w.solution)">CS1</button>
-              </span>
-              <input [disabled]="loading" style="width:3em" type="text" class="form-control p-1 bg-info border-0"
-                [value]="w.solution" (blur)="updateTasksolution($event, w.note, w._id, w.task, w.asistence)">
-                <!-- <img [src]="apiUrl+'/'+w.img" class="img-card-top"
-                style='height: 190px; position: relative; object-fit: cover;'
-                (error)="onImgError($event)"> -->
-              <input [disabled]="loading" class="form-control mx-1" style="width:5em" type="text"
+                (click)="calificationsolutionone(w._id, w.task, w.solution)">CS1</button> -->
+              <!-- <input [disabled]="loading" style="width:3em" type="text" class="form-control p-1 bg-info border-0"
+                  [value]="w.solution" (blur)="updateTasksolution($event, w.note, w._id, w.task, w.asistence)"> -->
+              <!-- <img [src]="apiUrl+'/'+w.img" class="img-card-top"
+                    style='height: 190px; position: relative; object-fit: cover;'
+                    (error)="onImgError($event)"> -->
+              <input [disabled]="loading" class="form-control" style="width:1em" type="text"
                 [ngClass]="[w.nota>10 ? 'form-control p-1 bg-danger  border-0':'form-control p-1 bg-light border']"
                 [value]="w.note" (blur)="updateTask($event, w.solution, w._id, w.task, w.asistence)">
+              <button class='btn btn-warning' (click)="errasetask(w._id)"> - </button>
             </span>
           </span>
         </td>
         <td>
-          <span *ngFor="let ww_ of ww_w['Usser'] index as i">
-            <span *ngFor="let w of ww_['tassk'] index as i" class="d-flex">
-              <span *ngIf='w.createdAt'>{{w.createdAt | date:'hh:mm dd/MM/YY'}}</span>
-              <span *ngIf='w.updatedAt && !w.createdAt'>{{w.updatedAt | date:'hh:mm dd/MM/YY'}}</span>
-            </span>
+          <span *ngFor="let w of ww_w['tassk'] index as i" class="d-flex">
+            <span *ngIf='w.createdAt'>{{w.createdAt | date:'dd/MM/YY hh:mm'}}</span>
+            <span *ngIf='w.updatedAt && !w.createdAt'>{{w.updatedAt | date:'dd/MM/YY hh:mm'}}</span>
           </span>
         </td>
       </tr>
     </table>
   </div>
-  <div class="fixed-bottom">
-    <!-- <mat-progress-bar [value]="progresValue" *ngIf="progresValue > 0"></mat-progress-bar> -->
-  </div>
+</div>
+<div class="my-3"></div>
+
+<div class="fixed-bottom">
+  <!-- <mat-progress-bar [value]="progresValue" *ngIf="progresValue > 0"></mat-progress-bar> -->
 </div>

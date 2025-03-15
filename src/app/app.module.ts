@@ -57,6 +57,7 @@ import { Cmpt30DOCUMENTOSComponent } from './components/cmpt30-documentos/cmpt30
 import { CmptPromocionComponent } from './components/cmpt-promocion/cmpt-promocion.component';
 import { CmptDocentesComponent } from './components/cmpt-docentes/cmpt-docentes.component';
 import { CmptStoreEsfaComponent } from './components/cmpt-store-esfa/cmpt-store-esfa.component';
+import { Cmpt29EVENTOSComponent } from './components/cmpt29-eventos/cmpt29-eventos.component';
 
 import { LandwwwComponent } from './components/landwww/landwww.component';
 
@@ -99,6 +100,7 @@ import { LandwwwComponent } from './components/landwww/landwww.component';
         Cmpt24BIBLIOTECAComponent,
         Cmpt26PREComponent,
         Cmpt28EGRESADOSComponent,
+        Cmpt29EVENTOSComponent,
         Cmpt30DOCUMENTOSComponent,
         CmptPromocionComponent,
         CmptDocentesComponent,

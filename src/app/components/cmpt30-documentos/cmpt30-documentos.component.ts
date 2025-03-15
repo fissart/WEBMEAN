@@ -4,6 +4,7 @@
   import { environment } from '../../../environments/environment';
   import { ActivatedRoute } from '@angular/router';
   import { Router } from '@angular/router';
+  import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
   @Component({
     selector: 'app-cmpt30-documentos',
@@ -11,6 +12,7 @@
     styleUrls: ['./cmpt30-documentos.component.css']
   })
   export class Cmpt30DOCUMENTOSComponent implements OnInit {
+    public Editor = ClassicEditor
     public title!: string;
     public description!: string;
     public img!: string;
@@ -25,12 +27,17 @@
     public archivos: any = [];
     apiUrl = environment.apiURL;
     rol = localStorage.getItem('rol')
+    
     constructor(
     private router: ActivatedRoute,
     private routerr: Router,
     private Service: Svc14MVService,
     private modal: NgbModal,
     ) { }
+
+    public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "|", "undo", "redo"], placeholder: 'Descripción' }
+  //  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "math", "mediaEmbed", "|", "undo", "redo"] }
+
     capturandoFile(event: any) {
     const ww = event.target.files[0];
     this.archivos = [];
@@ -77,8 +84,8 @@
     err => console.log(err)
     )
     }
-
-    ngOnInit(): void {
+ 
+    ngOnInit() {
     this.router.params.subscribe(params => {
     console.log(localStorage.getItem('idcurso') || "" )
     this.gets()

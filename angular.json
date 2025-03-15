@@ -31,6 +31,8 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-headroom/headroom.css",
+              "node_modules/swiper/modules/navigation/navigation.min.css",
+              "node_modules/swiper/modules/pagination/pagination.min.css",
               "src/styles.css"
             ],
             "scripts": [

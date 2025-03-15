@@ -8,7 +8,6 @@
 
 /* @import '~mathlive/dist/mathlive.css'; */
 body {
-
     /*
 background: linear-gradient(to bottom, rgb(0,0,0), rgb(50,0,200));
 background: linear-gradient(to bottom, rgb(0,0,0), rgb(150,0,70));
@@ -20,6 +19,15 @@ background: url("/assets/negz.jpg");
 }
 
 
+
+
+img, svg {
+    vertical-align:top !important
+}
+
+.mat-icon {
+    overflow:inherit !important
+}
 .cke_float .cke_top {
     display: none;
 }
@@ -31,15 +39,28 @@ background: url("/assets/negz.jpg");
 }
 
 
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    border-color: white !important;
+}
+.ck.ck-reset_all * {
+    border-color: white !important;
+}
+
+.ck.ck-button.ck-button-cancel, a.ck.ck-button.ck-button-cancel{
+    display: none !important;
+  }
+  
+
 iframe {
     border: .1em solid black;
+    padding: .1cm;
+    border-radius: .1cm;
     width: 100%;
     overflow-inline:scroll !important
 }
 
 .nav {
     background: white;
-
     /*
   background: linear-gradient(to bottom, rgb(50,0,200), rgb(0,0,0));
   background: linear-gradient(to bottom, rgb(150,0,70), rgb(0,0,0));
@@ -70,7 +91,7 @@ background: url("https://st.depositphotos.com/1193964/3828/i/600/depositphotos_3
     position: sticky;
     top: 0;
     z-index: 10;
-    background-color: rgb(128, 27, 168)240, 252);
+    background-color: rgb(128, 27, 168);
     text-align: center;
 }
 
@@ -241,6 +262,10 @@ p {
     transform: rotate(-90deg);
 }
 
+.image{
+    text-align: center;
+}
+
 table {
     width: 100%;
 }
@@ -251,7 +276,7 @@ table th {
 
 td,
 th {
-    border: 1px solid rgba(245, 245, 245, 0.7);
+    border: 1px solid rgba(145, 145, 145, 0.7);
     text-align: left;
 }
 
@@ -260,7 +285,7 @@ td {
     padding: 3px;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
     background-color: rgba(250, 235, 235, 0.7)
 }
 
@@ -271,13 +296,16 @@ tr:nth-child(odd) {
 
 th {
     color: inherit;
-}
+} */
 
 
 .vertical {
     -webkit-writing-mode: vertical-rl;
     -ms-writing-mode: tb-rl;
     writing-mode: vertical-rl;
+    writing-mode:tb-rl;
+    -ms-transform:rotate(190deg);
+    -webkit-transform:rotate(180deg);
 }
 
 h1 a {

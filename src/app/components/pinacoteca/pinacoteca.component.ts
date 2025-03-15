@@ -11,6 +11,22 @@ import { Router } from '@angular/router';
 })
 export class PinacotecaComponent implements OnInit {
 
+  options = {
+    "offset": 0,
+    "tolerance": 0,
+    "classes": {
+      "initial": "animated",
+      //"pinned": "flipInX",
+      //"unpinned": "flipOutX"
+      //"pinned": "bounceInDown",
+      //"unpinned": "bounceOutUp"
+      //"pinned": "swingInX",
+      //"unpinned": "swingOutX"
+      "pinned": "slideDown",
+      "unpinned": "slideUp"
+    }
+  }
+
   public title!: string;
   public description!: string;
   public img!: string;
@@ -57,15 +73,6 @@ export class PinacotecaComponent implements OnInit {
   event.target.src = './assets/negz.png'
   }
 
-  options = {
-  "offset": 0,
-  "tolerance": 0,
-  "classes": {
-  "initial": "animated",
-  "pinned": "bounceInDown",
-  "unpinned": "bounceOutUp"
-  }
-  };
 
   gets(){
   this.Service.gets("PINACOTECA")

@@ -52,7 +52,7 @@
 
   <div *ngIf="show=='true' && rol=='2'" class="text-center">{{teacher.name}}. Rellenar notas entre las fechas <span class="text-warning">{{teacher.dateb.slice(0,10)+' ('+teacher.dateb.slice(11,16)+')'}}</span> y
     <span class="text-warning">{{teacher.datee.slice(0,10)+' ('+teacher.datee.slice(11,16)+')'}}</span></div>
-  <div *ngIf="show=='true' && rol=='2'" class="text-center">Retirado (R) - Licencia (L) - [0,20]</div>
+  <div *ngIf="show=='true' && rol=='2'" class="text-center">Retirado (R) - [0,20]</div>
   <table *ngIf="datastd.length!=0 && (rol==1 || rol==2)" id="season-tble">
     <tr *ngIf="datastd.length!=0 && (rol==1 || rol==2)">
       <th>N</th>
@@ -76,7 +76,7 @@
         <span class="input-group">
           <input *ngIf="ww_w.averagge.length==0" type="text" class="form-control p-1 input-sm" [disabled]="loading"
             [value]="" (blur)="onBlurMean($event, ww_w._id, curse.title, curse.ciclo, curse.credito, curse.mencion)">
-          <input *ngIf="ww_w.averagge.length!=0" [disabled]="loading || ww_w.averagge[0].teacher!=user" type="text"
+          <input *ngIf="ww_w.averagge.length!=0" [disabled]="(loading || ww_w.averagge[0].teacher!=user) || ww_w.tipostd=='P'" type="text"
             class="form-control"
             [ngClass]="[ww_w.averagge[0].nota=='0' ? 'form-control bg-light ' : ww_w.averagge[0].nota=='-0' ? 'form-control bg-success ' : 'form-control bg-info text-dark']"
             [value]="ww_w.averagge[0].nota=='-0'? 'L': ww_w.averagge[0].nota=='0'?'R': ww_w.averagge[0].nota"
@@ -100,11 +100,57 @@
 
   <h1 *ngIf="show!='ok'" class="py-5"></h1>
 
-  <table *ngIf='Notes.length!=0'>
+  <!-- <table *ngIf='Notes.length!=0'>
     <tr>
       <th>N</th>
       <th>FOTO</th>
       <th *ngIf="rol=='2'"></th>
+      <th height="50">NOMBRE</th>
+      <ng-container *ngFor="let www of themes index as i">
+        <th *ngFor="let ww_ of www['themes'] index as i" class="vertical">{{i+1}} {{ww_.title}} ({{ww_.task}})</th>
+      </ng-container>
+    </tr>
+    <tr *ngFor="let www of Notes index as i">
+      <td>{{ i+1 }}
+      </td>
+      <td>
+        <button class="btn" style="padding: 0cm" (click)="open1($any(www).userw[0]._id)">www
+           <img [src]="apiURL+'/'+www.userw[0].foto" class="img-card-top imgcurse"
+            style='width: 40px; height: 40px; border-radius:20px; position: relative; object-fit: cover;'
+            (error)="onImgError($event)">
+        </button>
+      </td>
+      <td *ngIf="rol=='2'">
+        <button class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
+          Retirar
+        </button>
+      </td>
+      <td *ngIf="www.userw" class="text-uppercase">{{ www.userw[0].name }} {{ www.userw[0].tipostd }}</td>
+      <ng-container *ngFor="let w of www['cursse'] index as i">
+        <ng-container *ngFor="let ww of w['units'] index as i" class="text-info">
+          <ng-container *ngFor="let wwwww of ww['themes'] index as i" class="text-success">
+            <td *ngIf="wwwww.taskstd.length==1">{{wwwww.taskstd[0].note?wwwww.taskstd[0].note:"*"}}</td>
+            <td *ngIf="wwwww.taskstd.length==0"></td>
+            <td *ngIf="wwwww.taskstd.length>1">{{"**"}}</td>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tr>
+  </table> -->
+
+
+
+
+
+
+
+
+{{Notes.lenghth}}
+  <table *ngIf='Notes.length>0'>
+    <tr>
+      <th>N</th>
+      <th></th>
+      <th></th>
       <th height="50">NOMBRE</th>
       <ng-container *ngFor="let www of themes index as i">
         <th *ngFor="let ww_ of www['themes'] index as i">{{ww_.title.substring(0,3)}}...</th>
@@ -120,8 +166,8 @@
             (error)="onImgError($event)">
         </button>
       </td>
-      <td *ngIf="rol=='2'">
-        <button class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
+      <td>
+        <button *ngIf="rol=='2'" class="btn btn-info shadow-none" (click)="erraseinteger($any(www)._id)">
           Retirar
         </button>
       </td>

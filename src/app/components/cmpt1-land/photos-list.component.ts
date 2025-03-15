@@ -25,6 +25,7 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 // import { LandwwwService } from '../../services/landwww.service'
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable'
+import { AuthService } from '../../services/auth.service';
 
 SwiperCore.use([EffectCoverflow, EffectFade, EffectFlip, Virtual, Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
@@ -44,14 +45,14 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
   toggleDisabled() {
     this.isDisabled = !this.isDisabled
   }
-  public configg = { language: 'es', isReadOnly: true }
+  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "math", "mediaEmbed", "|", "undo", "redo"] }
 
 
 
   public model = '<p>Hello, world!</p> $\epsilon$'
 
-  onChange2(event: any) {
-    var ciclo = event.target.value
+  onChange2(ciclo: string) {
+    var ciclo = ciclo
     // this.loading = "false"
     const doc = new jsPDF({
       // orientation: "landscape",
@@ -59,30 +60,22 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       // format: [4, 2]
     });
 
-    // var header = ['1', '2', '3', '4'];
-    // var data = [{ 1: '1', 2: '2', 3: '3', 4: '4' }];
-    // var config = {
-    //   autoSize: false,
-    //   printHeaders: true
-    // }
-
     var cntr = doc.internal.pageSize.width / 2
-
-
     // doc.table(10, 10, data, header, config);
-    console.log(this.califications);
-    var users = this.califications
+    console.log(this.califications[Number(ciclo) - 1]);
+    var users = this.califications[Number(ciclo) - 1].records
     var credito = 0
     var nota = 0
     var neww = []
-    for (var i = 0; i < this.califications.length; i++) {
+    for (var i = 0; i < users.length; i++) {
       if (users[i].ciclo == ciclo) {
-        var www = [users[i].title, users[i].ciclo, users[i].credito, users[i].nota, users[i].credito * users[i].nota]//.concat(calification)
+        var www = [users[i].title, users[i].credito, users[i].nota, users[i].credito * users[i].nota]//.concat(calification)
         neww.push(www);
         nota += + users[i].nota * users[i].credito
         credito += + users[i].credito
       }
     }
+    // console.log(nota);
 
 
     var img = new Image()
@@ -94,8 +87,8 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
 
     var foto = new Image()
     foto.src = this.apiURL + '/' + this.ussser.foto
-    console.log(foto.height!=0)
-    if (foto.height!=0) { 
+    console.log(foto.height != 0)
+    if (foto.height != 0) {
       doc.addImage(foto, 'JPEG', doc.internal.pageSize.width - 53, 27.7, 32.5, 39)
     } else {
       var foto2 = new Image()
@@ -103,16 +96,12 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       doc.addImage(foto2, 'JPEG', doc.internal.pageSize.width - 53, 27.7, 32.5, 32.5)
     }
     doc.setLineWidth(16)
-    doc.setDrawColor(255, 255, 255);  
+    doc.setDrawColor(255, 255, 255);
     // doc.setFillColor(255, 0, 0)
     doc.circle(2 * cntr - 36.9, 43.9, 23.5, 'S')
     doc.setLineWidth(0);
     doc.setDrawColor(0)
 
-    // neww.push(["TOTAL", "", credito, "", nota])
-    // neww.push(["PROMEDIO", "", "", "", Math.round(nota/credito).toFixed(2)])
-    // console.log(neww)
-    // autoTable(doc, { html: '#my-table' })
     autoTable(doc, {
       margin: { horizontal: 21, top: 59 },
       startY: 0.25 * doc.internal.pageSize.height,
@@ -120,9 +109,9 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       // styles: { fillColor: [230, 125, 166] },
       // columnStyles: { 0: { halign: 'center' } }, //fillColor: [255, 255,   250] }  Cells in first column centered and green
       // margin: { top: 59 },
-      head: [['CURSO', 'CICLO', 'CRÉDITO', 'NOTA', 'PUNTAJE']],
-      foot: [["TOTAL", "", credito, "", nota],
-      ["PROMEDIO SEMESTRAL", "", "", "", (nota / credito).toFixed(2)]
+      head: [['CURSO', 'CRÉDITO', 'NOTA', 'PUNTAJE']],
+      foot: [["TOTAL", credito, "", nota],
+      ["PROMEDIO SEMESTRAL", "", "", (nota / credito).toFixed(2)]
       ],
       body: neww,
     })
@@ -130,7 +119,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     doc.setFontSize(18)
     // doc.setTextColor(1, 198, 255);
     doc.text("BOLETA DE NOTAS SEMESTRAL", cntr, 29, { align: 'center' });
-    doc.setFontSize(16  )
+    doc.setFontSize(16)
     doc.text(`CICLO ${ciclo}`, cntr, 36, { align: 'center' });
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0);
@@ -143,17 +132,191 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     doc.text(this.ussser.mencion == 'P' ? "ARTES PLÁSTICAS (Pintura)" : this.ussser.mencion == 'E' ? "ARTES PLÁSTICAS (Escultura)" :
       this.ussser.mencion == 'G' ? "ARTES PLÁSTICAS  Y VISUALES (Grabado)" : "ARTES PLÁSTICAS Y VISUALES (Educación Artística)", cntr, 65, { align: 'center' });
 
-    // pdf.addImage(img, 'png', 10, 78, 12, 15)
-    // doc.setFontSize(35)
-    // doc.addImage(img, 'JPEG', 9, 190, 89.8, 39, "", 'NONE', 45)
-    // doc.addImage(img2, 'JPEG', 105, 190, 95, 37, "", 'NONE', 45)
     doc.addImage(img, 'JPEG', cntr - 65, 205, 89.8, 39, "", 'NONE', 19)
     doc.addImage(img2, 'JPEG', cntr - 21, 235, 95, 37, "", 'NONE', -5)
- 
+
     doc.addImage(img3, 'JPEG', 21, 28.8, 31, 31)
     // Sometimes you might have to call the default function on the export (for example in Deno)
     // doc.autoTable({ html: '#my-table' })
     doc.save(this.ussser.name + " Calificaciones del ciclo " + ciclo + ".pdf");
+  }
+
+
+
+  recibo(ciclo: string, mencion: string) {
+    var ciclonumber = Number(ciclo) + 1
+    var cursessourceonly: any = []
+    this.loading = "false"
+    this.CurseService.Getcursesourcesonlycicle(ciclonumber + '', mencion, this.ussser._id).subscribe(
+      (www: any) => {
+        cursessourceonly.push(www)
+        console.log(www, "www")
+        const doc = new jsPDF({
+          orientation: "landscape",
+          // unit: "in",
+          // format: [4, 2]
+        });
+
+        var cntr = doc.internal.pageSize.width / 2
+
+        var credito = 0
+        var nota = 0
+        var teoria = 0
+        var practica = 0
+        var neww = []
+        for (var i = 0; i < www.length; i++) {
+          console.log(www[i].curses.length == 0 ? '***' : www[i].curses[0].nota)
+          var wwwww = [www[i].title, www[i].credito, www[i].codigo, www[i].teoria, www[i].practica, www[i].curses.length == 0 ? www[i].requisito + '' : www[i].requisito, www[i].requisito == 'N' ? 'Ninguno' : www[i].curses.length == 0 ? '(' + www[i].cursesource[0].credito + ') SC Requiere subsanar' : www[i].curses[0].nota > 11 ? '(' + www[i].cursesource[0].credito + ') ' + www[i].curses[0].nota : '(' + www[i].cursesource[0].credito + ') ' + www[i].curses[0].nota + ' Subsanar']//.concat(calification)
+          neww.push(wwwww);
+          nota += + www[i].curses.length == 0 ? 0 : www[i].curses[0].nota * www[i].cursesource[0].credito
+          credito += + www[i].credito
+          teoria += + www[i].teoria
+          practica += + www[i].practica
+        }
+
+        console.log(neww)
+
+        var img = new Image()
+        img.src = 'assets/firma.png'
+        var img2 = new Image()
+        img2.src = 'assets/bitmap.png'
+        var img3 = new Image()
+        img3.src = 'assets/logo.png'
+
+        var foto = new Image()
+        foto.src = this.apiURL + '/' + this.ussser.foto
+        console.log(foto.height != 0)
+        if (foto.height != 0) {
+          doc.addImage(foto, 'JPEG', doc.internal.pageSize.width - 53, 27.7, 32.5, 39)
+        } else {
+          var foto2 = new Image()
+          foto2.src = 'assets/www.png'
+          doc.addImage(foto2, 'JPEG', doc.internal.pageSize.width - 53, 27.7, 32.5, 32.5)
+        }
+        doc.setLineWidth(16)
+        doc.setDrawColor(255, 255, 255);
+        // doc.setFillColor(255, 0, 0)
+        doc.circle(2 * cntr - 36.9, 43.9, 23.5, 'S')
+        doc.setLineWidth(0);
+        doc.setDrawColor(0)
+        doc.setTextColor('blue')
+
+        // neww.push(["TOTAL", "", credito, "", nota])
+        // neww.push(["PROMEDIO", "", "", "", Math.round(nota/credito).toFixed(2)])
+        // console.log(neww)
+        // autoTable(doc, { html: '#my-table' })
+
+        autoTable(doc, {
+          margin: { horizontal: 21, top: 588 },
+          styles: { textColor: [15, 55, 128], font: 'courier', fontStyle: 'bold' },// overflow: 'linebreak'},// fontSize: 11 },
+          headStyles: {
+            lineWidth: 0, halign: 'left', font: 'courier', fontStyle: 'bold', fillColor: [15, 55, 128], textColor: [255, 255, 255]
+          },
+          footStyles: {
+            lineWidth: 0, halign: 'left', font: 'courier', fontStyle: 'bold', fillColor: [15, 55, 128], textColor: [255, 255, 255]
+          },
+          columnStyles: {
+            //0: { cellWidth: 70 },
+            5: { halign: 'left', fillColor: [15, 55, 128], font: 'times', fontStyle: 'italic', textColor: [255, 255, 255] },
+            6: { halign: 'left', fillColor: [15, 55, 128], font: 'times', fontStyle: 'italic', textColor: [255, 255, 255] }
+          },
+          startY: 0.31 * doc.internal.pageSize.height,
+          head: [[`CURSO DEL CICLO ${ciclonumber}`, 'CRÉDITO', 'CÓDIGO', 'HT', 'HP', 'REQUISITO', '(CRÉDITO) NOTA']],
+          foot: [["TOTAL", credito, "", teoria, practica, "", ''],
+            //["PROMEDIO (CICLO ANTERIOR)", "", "", "", "", "", nota+'/'+credito+' = '+(nota / credito).toFixed(2)]
+          ],
+          body: neww,
+        })
+
+        doc.setFont('courier', 'bold')
+        doc.setFontSize(18)
+        // doc.setTextColor(1, 198, 255);
+        doc.text(`REPORTE CICLO ${ciclo} HACIA ${ciclonumber}`, cntr, 34, { align: 'center' });
+        //doc.setFontSize(16)
+        // doc.text(`CICLO ${ciclonumber}`, cntr, 36, { align: 'center' });
+        doc.setFontSize(11)
+        doc.setTextColor(0, 0, 0)
+        doc.text("ESCUELA SUPERIOR DE BELLAS ARTES PÚBLICA - AYACUCHO 'FELIPE GUAMÁN POMA DE AYALA'", cntr, 41, { align: 'center' });
+        doc.setFontSize(9)
+        doc.setTextColor(0, 0, 0)
+        doc.text('Ayacucho, ' + this.date + ' de ' + this.mes + ' del ' + this.year, cntr, 45, { align: 'center' });
+        doc.setFontSize(14)
+        doc.setFont('times', 'bold')
+        doc.setTextColor(0, 0, 0)
+        doc.text(this.ussser.name, cntr, 50, { align: 'center' });
+        doc.setFontSize(9)
+        doc.setFont('times', 'bold')
+        doc.text(this.ussser.mencion == 'P' ? "ARTES PLÁSTICAS (Pintura)" : this.ussser.mencion == 'E' ? "ARTES PLÁSTICAS (Escultura)" :
+          this.ussser.mencion == 'G' ? "ARTES PLÁSTICAS  Y VISUALES (Grabado)" : "ARTES PLÁSTICAS Y VISUALES (Educación Artística)", cntr, 54, { align: 'center' });
+
+        doc.setFont('courier', 'bold')
+        doc.setFontSize(8)
+        // doc.setTextColor(1, 198, 255);
+        doc.text(`Leyenda HT: Horas teóricas, HP: Horas prácticas, C*N: Producto de credito y nota, SC: Sin calificación`, cntr, 57, { align: 'center' });
+
+
+        doc.addImage(img, 'JPEG', cntr - 95, 165, 89.8, 39, "", 'NONE', 9)
+        doc.addImage(img2, 'JPEG', cntr + 21, 155, 95, 37, "", 'NONE', -5)
+
+        doc.addImage(img3, 'JPEG', 21, 28.8, 31, 31)
+        // Sometimes you might have to call the default function on the export (for example in Deno)
+        // doc.autoTable({ html: '#my-table' })
+        // this.loading = ""
+        this.loading = ""
+        doc.save(this.ussser.name + ". Reporte Ciclo " + ciclo + " hacia " + ciclonumber + ".pdf")
+        //         if(this.ussser.name ){
+        //         doc.output('dataurlnewwindow')
+        // }
+      },
+      err => console.log(err)
+    )
+  }
+
+
+
+
+  head = [['ID', 'Country', 'Rank', 'Capital', 'Capital']]
+  data = [
+    [1, 1, 'Finland', 7.632, 'Helsinki'],
+    [2, 2, 'Norway', 7.594, 'Oslo'],
+    [3, 3, 'Denmark', 7.555, 'Copenhagen'],
+    [4, 4, 'Iceland', 7.495, 'Reykjavík'],
+    [5, 5, 'Switzerland', 7.487, 'Bern'],
+    [9, 9, 'Sweden', 7.314, 'Stockholm'],
+    [73, 73, 'Belarus', 5.483, 'Minsk'],
+  ]
+  createPdf() {
+    var doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text('My PDF Table', 11, 8);
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+    (doc as any).autoTable({
+      head: this.head,
+      body: this.data,
+      //theme: 'plain',
+      styles: { fillColor: [100, 255, 255] },
+      columnStyles: {
+        id: { fillColor: 255 }
+      },
+      margin: { top: 60 },
+      addPageContent: function (data: any) {
+        doc.text("Header", 40, 30);
+      },
+      didDrawCell: (data: any) => {
+        var rows = data.table.body;
+        if (data.row.index === rows.length - 1) {
+          data.cell.styles.fillColor = [239, 1, 1];
+          doc.setFontSize(10);
+          doc.setFillColor(255, 255, 255);
+        }
+        console.log(data.row.index, rows.length - 1)
+      }
+    })
+    // Open PDF document in new tab
+    doc.output('dataurlnewwindow')
+    // Download PDF document
+    //doc.save('table.pdf');
   }
 
 
@@ -164,16 +327,16 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     { name: 'Educacion Artística', abbrev: 'ED' }
   ];
   ciclos = [
-    { name: "I", abbrev: "I" },
-    { name: "II", abbrev: "II" },
-    { name: "III", abbrev: "III" },
-    { name: "IV", abbrev: "IV" },
-    { name: "V", abbrev: "V" },
-    { name: "VI", abbrev: "VI" },
-    { name: "VII", abbrev: "VII" },
-    { name: "VIII", abbrev: "VIII" },
-    { name: "IX", abbrev: "IX" },
-    { name: "X", abbrev: "X" }
+    { name: "1", abbrev: "1" },
+    { name: "2", abbrev: "2" },
+    { name: "3", abbrev: "3" },
+    { name: "4", abbrev: "4" },
+    { name: "5", abbrev: "5" },
+    { name: "6", abbrev: "6" },
+    { name: "7", abbrev: "7" },
+    { name: "8", abbrev: "8" },
+    { name: "9", abbrev: "9" },
+    { name: "10", abbrev: "10" }
   ];
   yearrs = [
     { name: "2022", abbrev: "22" },
@@ -263,6 +426,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
 
     var notas = [];
     var onlynotas = [];
+
 
 
 
@@ -1196,7 +1360,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
       "pinned": "slideDown",
       "unpinned": "slideUp"
     }
-  };
+  }
 
   public text: string = "";
   public year: number = 0;
@@ -1265,6 +1429,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
   constructor(
     private CurseService: CurseService,
     private UserService: UsersService,
+    private authService: AuthService,
     private router: Router,
     private taskService: TaskService,
     private Tw: Title,
@@ -1758,8 +1923,25 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     console.log('www' + (month + 1))
     this.src = 'www' + (month + 1)
 
+
+    // const str = new Date()
+    // const dt = new Date(str).toISOString();
+    // const datesaved = new Date(localStorage.getItem('logindate')!);
+    // var datesavedwww = new Date()
+    // datesavedwww.setMinutes(datesaved.getMinutes() - 3)
+    // var datesavedadd = new Date()
+    // datesavedadd.setMinutes(datesaved.getMinutes() + 60 * 72)
+    // if (localStorage.getItem('logindate')) {
+    //   if (datesaved && datesavedwww.toISOString() < dt && dt <= datesavedadd.toISOString()) {
+    //     console.log(datesavedwww.toISOString() < dt, dt < datesavedadd.toISOString())
+    //   } else {
+    //     console.log(datesavedwww.toISOString() < dt, dt < datesavedadd.toISOString())
+    //     this.authService.logout()
+    //   }
+    // }
+
+    this.usser();
     if (localStorage.getItem('id')) {
-      this.usser();
     }
     this.gets_news();
     //this.getintegersuser();
@@ -1968,7 +2150,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
   subtype!: string
   subtype1!: string
 
-  onChange(event: any, _id: string, ciclo: string, name: string) {
+  onChange(event: any, _id: string) {
     this.subtype = event.target.value
     this.loading = "false"
     //console.log(event.target.value, _id, ciclo, name)
@@ -1976,27 +2158,42 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     this.UserService.getUserTeacher(_id)
       .subscribe((res: any) => {
         console.log(res[0])
-        this.UserService.updateusser(_id, res[0].name, res[0].ciclo, event.target.value)
+        this.UserService.updateusser(_id, res[0].name, res[0].ciclo, event.target.value, res[0].tipostd)
           .subscribe((res: any) => {
             this.loading = ""
           })
       })
     return false
   }
-
-  onChange1(event: any, _id: string, mencion: string, name: string) {
+  //'name': name, 'ciclo': str1, 'mencion':str , 'tipostd':tipostd
+  onChange1(event: any, _id: string) {
     this.subtype1 = event.target.value
     this.loading = "false"
     this.UserService.getUserTeacher(_id)
       .subscribe((res: any) => {
         console.log(res[0])
-        this.UserService.updateusser(_id, res[0].name, event.target.value, res[0].mencion)
+        this.UserService.updateusser(_id, res[0].name, event.target.value, res[0].mencion, res[0].tipostd)
           .subscribe((res: any) => {
             //this.GetAllstd()
             this.loading = ""
           })
       })
   }
+
+  onChange2w(event: any, _id: string) {
+    this.subtype1 = event.target.value
+    this.loading = "false"
+    this.UserService.getUserTeacher(_id)
+      .subscribe((res: any) => {
+        console.log(res[0])
+        this.UserService.updateusser(_id, res[0].name, res[0].ciclo, res[0].mencion, event.target.value)
+          .subscribe((res: any) => {
+            //this.GetAllstd()
+            this.loading = ""
+          })
+      })
+  }
+
 
   // onChange2(event: any) {
   //   this.subtype1 = event.target.value
@@ -2019,7 +2216,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
     this.loading = "false"
     if (select == '1' && !/\s$/.test(evennt)) {
       console.log(id, evennt, str1, str2, select);
-      this.UserService.updateusser(id, evennt, str1, str2)
+      this.UserService.updateusser(id, evennt, str1, str2, "www")
         .subscribe((res: any) => {
           //this.GetAllstd()
           this.loading = ""

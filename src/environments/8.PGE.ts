@@ -1,3 +1,155 @@
+
+{ "_id" : ObjectId("6300175b7031fcd46d996a5d"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("630fbfe8d53ef28628bdfc1d"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f54"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f27"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f28"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2f"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f3a"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f38"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f35"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f32"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2b"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2d"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f31"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f29"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f33"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f34"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2c"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f30"), "ciclo" : "Dibujo VIII", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f4c"), "ciclo" : "Dibujo VIII", "number" : 1 } ] }
+
+{ "_id" : ObjectId("62fecd187031fcd46d99638b"), "ciclo" : "Taller de Conservación y Restauración I", "number" : 17 },
+{ "_id" : ObjectId("62fecd177031fcd46d996383"), "ciclo" : "Taller de Conservación y Restauración I", "number" : 1 },
+{ "_id" : ObjectId("62fecd177031fcd46d996387"), "ciclo" : "Taller de Conservación y Restauración I", "number" : 1 } ] }
+
+{ "_id" : ObjectId("6303b6aed53ef28628bdd189"), "ciclo" : "Currículo Tecnología y Gestión III", "number" : 34 } ] }
+
+{ "_id" : ObjectId("63aaefd049bc28c70728cc83"), "ciclo" : "Integración Artística I", "number" : 6 } ] }
+
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f31"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2d"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2b"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f32"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f35"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f4c"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("6300175b7031fcd46d996a5d"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2c"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("630fbfe8d53ef28628bdfc1d"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f34"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f30"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f29"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f33"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f27"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f28"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f54"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f38"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f3a"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f2f"), "ciclo" : "Seminario Artístico Digital I", "number" : 1 } ] }
+
+{ "_id" : ObjectId("63239d70d53ef28628be262c"), "ciclo" : "Investigación Artística II", "number" : 17 },
+{ "_id" : ObjectId("63239d6fd53ef28628be2624"), "ciclo" : "Investigación Artística II", "number" : 1 },
+{ "_id" : ObjectId("63239d6fd53ef28628be2627"), "ciclo" : "Investigación Artística II", "number" : 1 } ] }
+
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e56"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4c"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4d"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e54"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e5b"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e58"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e59"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e52"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e55"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e57"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4f"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e50"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e5a"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("63ab10d149bc28c70728dd06"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 15 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e6e"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4b"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e51"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("6305197ed53ef28628bde5da"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4e"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 },
+{ "_id" : ObjectId("63051898d53ef28628bde5cf"), "ciclo" : "Tutoría y Práctica Pedagógica II", "number" : 1 } ] }
+
+{ "_id" : ObjectId("62fbac8dea0299e4d948d16f"), "ciclo" : "Estadística", "number" : 34 } ] }
+
+{ "_id" : ObjectId("63ab305149bc28c70728e617"), "ciclo" : "Taller Principal VIII (PEG)", "number" : 1 },
+{ "_id" : ObjectId("62f0316eae7217f2d83c19bf"), "ciclo" : "Taller Principal VIII (PEG)", "number" : 1 },
+{ "_id" : ObjectId("63a6dca149bc28c70728ab6e"), "ciclo" : "Taller Principal VIII (PEG)", "number" : 17 } ] }
+
+{ "_id" : ObjectId("63aaf5eb49bc28c70728cf62"), "ciclo" : "Investigación I", "number" : 34 } ] }
+
+{ "_id" : ObjectId("63a211c449bc28c707289300"), "ciclo" : "Retrato II", "number" : 34 } ] }
+
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e49"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e40"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4c"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4d"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e50"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("63051898d53ef28628bde5cf"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("6305197ed53ef28628bde5da"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e51"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e45"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e3b"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e52"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e3d"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e46"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e54"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e56"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e3e"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9f52"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e44"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e58"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e59"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4e"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e3f"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e48"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e5a"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e6e"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4b"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e47"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4a"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e4f"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e55"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e57"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e41"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e5b"), "ciclo" : "Cerámica II", "number" : 1 },
+{ "_id" : ObjectId("62d6dac1d89e8b2b50ea9e64"), "ciclo" : "Cerámica II", "number" : 1 } ] }
+
+{ "_id" : ObjectId("6303b6a9d53ef28628bdd184"), "ciclo" : "Teatro II", "number" : 34 } ] }
+
+{ "_id" : ObjectId("63239d27d53ef28628be2602"), "ciclo" : "Gestión Empresarial", "number" : 17 },
+{ "_id" : ObjectId("63050129d53ef28628bde3f2"), "ciclo" : "Gestión Empresarial", "number" : 1 },
+{ "_id" : ObjectId("63239d27d53ef28628be25fe"), "ciclo" : "Gestión Empresarial", "number" : 1 } ] }
+
+
+db.averages.aggregate([{
+  $match: {
+    $and: [{
+      curse: {
+        $in: [ObjectId("63239d04d53ef28628be25fa"),]
+      }
+    }, {
+      year: "2022"
+    }, {
+      ciclo: "6"
+    }, {
+      title: "Arte e Interculturalidad"
+    },]
+  },
+}]).toArray().forEach(function (www) {
+  db.averages.updateMany({
+    user: www.user,
+    year: "2022",
+    ciclo: "6"
+  }, {
+    $set: {
+      mencion: "E"
+    }
+  })
+})
+
 db.users.updateMany({
   dni: {
     $in:
@@ -26,9 +178,10 @@ db.users.updateMany({
         "46563821",
         "48103931",
         "70099888",
-            ]
+      ]
   }
-}, { "$set": { "mencion": "P", "ciclo": "V" } })
+},
+  { "$set": { "mencion": "P", "ciclo": "V" } })
 
 db.users.updateMany({
   dni: {
@@ -44,9 +197,10 @@ db.users.updateMany({
         "76006113",
         "71286353",
         "70654608",
-            ]
+      ]
   }
-}, { "$set": { "mencion": "G", "ciclo": "V" } })
+},
+  { "$set": { "mencion": "G", "ciclo": "V" } })
 
 db.users.updateMany({
   dni: {
@@ -57,7 +211,8 @@ db.users.updateMany({
         "72220586",
       ]
   }
-}, { "$set": { "mencion": "E", "ciclo": "V" } })
+},
+  { "$set": { "mencion": "E", "ciclo": "V" } })
 
 
 
@@ -108,8 +263,8 @@ db.nomina.insertMany(
   ])
 
 
-  3(24 10 3)
-  
+3(24 10 3)
+
 db.nomina.aggregate([
   {
     $match: {

@@ -140,8 +140,6 @@ export class NavigationComponent implements OnInit {
 </svg>
 `));
    }
-   str = new Date()
-   dt = new Date(this.str).toISOString();
    public src: string = "";
 
    ngOnInit() {
@@ -151,34 +149,23 @@ export class NavigationComponent implements OnInit {
       var month = new Date().getMonth()
       this.src = './assets/www' + (month + 1) + '.svg'
 
-
-      if (localStorage.getItem('id')) {
-         this.userService.getUser()
-            .subscribe(
-               (res: any) => {
-                  this.photo = res[0]
-                  //const datteb = new Date(res[0].logindate);
-// console.log(res[0].logindate)
-                  // datelogin = new Date(datteb).toISOString();
-                  // const dateadd = new Date(datesaved).toISOString()
-                  const datesaved = new Date(localStorage.getItem('logindate')!);
-                  var datesavedwww= new Date ()
-                  datesavedwww.setMinutes(datesaved.getMinutes() - 3 )
-
-                  var datesavedadd = new Date ()
-                  datesavedadd.setMinutes(datesaved.getMinutes() + 60*72 )
-
-                  if (localStorage.getItem('logindate') && datesavedwww.toISOString() < this.dt && this.dt <= datesavedadd.toISOString()) {
-                     console.log(datesavedwww.toISOString() < this.dt, this.dt < datesavedadd.toISOString())
-                  }else{
-                     console.log(datesavedwww.toISOString() < this.dt, this.dt < datesavedadd.toISOString())
-                     this.authService.logout()
-                  }
-                  //localStorage.setItem('imguser', res.foto);
-               },
-               err => console.log(err)
-            );
-      };
+      setTimeout(() => {
+         if (localStorage.getItem('id')) {
+            this.userService.getUser()
+               .subscribe(
+                  (res: any) => {
+                     this.photo = res[0]
+                     //const datteb = new Date(res[0].logindate);
+                     // console.log(res[0].logindate)
+                     // datelogin = new Date(datteb).toISOString();
+                     // const dateadd = new Date(datesaved).toISOString()
+                     
+                     //localStorage.setItem('imguser', res.foto);
+                  },
+                  err => console.log(err)
+               )
+         }
+      }, 3000);
       /*
               setTimeout
               (() => {

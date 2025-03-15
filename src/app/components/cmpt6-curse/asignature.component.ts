@@ -416,8 +416,12 @@ export class AsignatureComponent implements OnInit {
                             (res: any) => {
                                 this.photo = res[0]
                                 //this.routerr.navigate(['#www'])
-                                console.log('res[0]')
+                                this.savetheme(res[0].unidades[res[0].unidades.length-1]._id,'Conceptual')
+                                this.savetheme(res[0].unidades[res[0].unidades.length-1]._id,'Procedimental')
+                                this.savetheme(res[0].unidades[res[0].unidades.length-1]._id,'Actitudinal')
                                 this.loading = ""
+                                const element = document.getElementById("focusBtn");
+                                element!.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
                             },
                             err => console.log(err)
                         )
@@ -428,8 +432,9 @@ export class AsignatureComponent implements OnInit {
         //console.log(this.archivos[0])
     }
 
-    savetheme(idtheme: string) {
-        this.themesService.createtheme(idtheme, localStorage.getItem('idcurso') || "", localStorage.getItem('id') || "")
+    savetheme(idtheme: string, tipotheme: string) {
+        this.loading = "false"
+        this.themesService.createtheme(idtheme, localStorage.getItem('idcurso') || "", localStorage.getItem('id') || "", tipotheme)
             .subscribe(
                 res => {
                     console.log(res)
@@ -438,6 +443,9 @@ export class AsignatureComponent implements OnInit {
                             .subscribe(
                                 (res: any) => {
                                     this.photo = res[0]
+                                    this.loading = ""
+                                    const element = document.getElementById(idtheme);
+                                    element!.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
                                     //console.log(res[0])
                                 },
                                 err => console.log(err)
@@ -565,13 +573,13 @@ export class AsignatureComponent implements OnInit {
         } else { alert('Debe borrar todos los temas del módulo') }
     }
     open1(ww: any, textw: string, textww: string) {
-        this.modal.open(ww, { size: 'xl', scrollable: true })
+        this.modal.open(ww, { size: 'xl', scrollable: true }) 
         this.text = textw//.replace(new RegExp('</p>', 'g'), '').replace(new RegExp('<p>', 'g'), '')
-        .replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$').
-        replace(/<figure class="media">/g, '').
-        replace(/<\/figure>/g, '')
-        .replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`)
-        .replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`)
+            .replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$').
+            replace(/<figure class="media">/g, '').
+            replace(/<\/figure>/g, '')
+            .replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`)
+            .replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`)
         this.file = textww + ''
         //console.log(textww)
     }

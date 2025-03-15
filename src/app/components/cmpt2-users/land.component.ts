@@ -124,19 +124,29 @@ export class LandComponent implements OnInit {
 	public rol = localStorage.getItem('rol')
 	onImgError(event: any) {
 		//		event.target.src = './assets/negz.jpg'
-		event.target.src = './assets/negz.png'
+		event.target.src = './assets/logo.png'
 	}
 	onImgError2(event: any) {
 		//		event.target.src = './assets/negz.jpg'
 		event.target.src = './assets/www_.jpg'
 	}
-
+	public loading!: string;
+	public _value: number = 0;
+	// public rol = localStorage.getItem('rol');
+	get value(): number {
+			return this._value;
+	}
+	set value(value: number) {
+			if (!isNaN(value) && value <= 100) {
+					this._value = value;
+			}
+	}
 
 	constructor(
 		private router: Router,
 		private userService: UsersService,
 		private task: TaskService,
-        private routerr: ActivatedRoute,
+		private routerr: ActivatedRoute,
 		private curseService: CurseService,
 		private modal: NgbModal
 	) { }
@@ -150,6 +160,14 @@ export class LandComponent implements OnInit {
 				},
 				err => console.log(err)
 			)
+	}
+
+	updategrade(user_id: string, name: string, correo: string, password: string, rol: string, celular: string, carrera: string, event: any, ciclo: string, sexo: string, dni: string, filosophy: string) {
+		this.userService.updatePhoto(user_id, name, correo, password, rol, celular, carrera, event.target.value, ciclo, sexo, dni, filosophy, this.archivos[0])
+			.subscribe((res: any) => {
+				console.log("ok")
+			})
+		// console.log(user_id, name, correo, password, rol, celular, carrera, event.target.value, ciclo, sexo, dni, filosophy, this.archivos[0])
 	}
 
 	//id: string, title: string, description: string, meet: string, photo: File
@@ -194,7 +212,7 @@ export class LandComponent implements OnInit {
 		)
 	}
 
-	Getcursesources() {
+	Getcursesources() { 	
 		this.curseService.Getcursesources().subscribe(
 			(res: any) => {
 				this.cursessource = res
@@ -250,7 +268,42 @@ export class LandComponent implements OnInit {
 		}
 	}
 
+	public name: string = ""
 
+	teacherdocuments(event: any, id: string) {
+		const ww = event.target.files[0]
+		// this.archivos.push(ww)
+		console.log(event.target.files, id)
+		this.name = event.target.files[0].name
+
+		if (event.target.files[0]) {
+			this.curseService.filecurse(id, this.name, "teacher", "codigo", event.target.files[0])
+				.subscribe((res: any) => {
+					this.loading = "false";
+					this.value = Math.round((100 / res.total) * res.loaded);
+					console.log(res.total);
+					console.log(res.loaded);
+					if (res.total == res.loaded && res.type > 0) {
+						this.getallTeacher()
+						this.value = 0
+						this.loading = ""
+					}
+
+				})
+
+		}
+	}
+
+	FileCursedelete(id: string) {
+		if (window.confirm('Desea eliminar archivo?')) {
+				this.curseService.filecursedelete(id)
+						.subscribe((res: any) => {
+								//this.usser();
+								this.getallTeacher();
+
+						})
+		}
+}
 
 	deleteUser(ww: string, nlenght: string, nlengght: string) {
 		if (nlenght == '0' && nlengght == '0') {
@@ -337,12 +390,12 @@ export class LandComponent implements OnInit {
 		this.router.navigate(['/curso', id])
 		localStorage.setItem("idcurso", id)
 	}
- 
+
 
 	selectedUser(id: string) {
 		this.router.navigate(['/user', id])
 		//console.log(id)
-		
+
 	}
 
 	showProduct: boolean = false

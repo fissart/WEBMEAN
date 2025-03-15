@@ -28,10 +28,15 @@ export class TaskService {
     return this.http.post(`${environment.apiURL}/api/task/Controller`, fd, { reportProgress: true, observe: "events" });
   }
 
-  savetaskready(note: string, task: string, respuesta: string, theme: string, unidad: string, curse: string, user: string, asistence: string, filew: File) {
-    //console.log(filew, "archivo")
+  savetaskready(note: string, task: string, respuesta: string, theme: string, unidad: string, curse: string, user: string, asistence: string, codigo:string, ciclo:string, mencion:string, teacher:string, year:string, filew: File) {
+    //console.log(filew, "archivo") 
     const fd = new FormData();
     fd.append('task', task);
+    fd.append('codigo', codigo);
+    fd.append('ciclo', ciclo);
+    fd.append('mencion', mencion);
+    fd.append('teacher', teacher);
+    fd.append('year', year);
     fd.append('solution', respuesta);
     fd.append('note', note);
     fd.append('theme', theme);

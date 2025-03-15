@@ -1,17 +1,190 @@
 export const environment = {
   production: false,
   title: 'Local Environment Heading',
-  //apiURL: 'http://localhost:9797'
+  // apiURL: 'http://localhost:9797'
   apiURL: 'https://www.esfapa.edu.pe:9797'
-};
+}
+
 /*
+<p class="small text-info"> {{file.createdAt | date:'yyyy-MM-dd HH:mm:ss'}} {{file.usser[0].email}}</p>
+
+db.averages.updateMany({title:"Comunicación I",ciclo:"1",year:"2022",mencion:{$in:["E","P","G"]}},{$set:{codigo:"FGCOM101"}})
+
+db.averages.updateMany({title:"Métodos de Estudios Superiores",ciclo:"1",year:"2022",mencion:{$in:["E","P","G"]}},{$set:{codigo:"FGMES105"}})
+
+db.averages.updateMany({title:"Dibujo I",ciclo:"1",year:"2022",mencion:{$in:["E","P","G"]}},{$set:{codigo:"FEDIB115"}})
+
+
+db.averages.aggregate([{
+    $match: {
+        $and: [{
+            ciclo: "8"
+        }, {
+            year: "2022"
+        }]
+    },
+}, {
+    $group: {
+        _id: "$title",
+        ciclo: {
+            $first: '$ciclo'
+        },
+    },
+}, {
+    $lookup: {
+        from: "averages",
+        let: {
+            www: "$_id",
+            ciclo: "$ciclo"
+        },
+        pipeline: [{
+            $match: {
+                $expr: {
+                    $and: [{
+                        $eq: ["$title", '$$www']
+                    }, {
+                        $eq: ["$ciclo", '$$ciclo']
+                    }, {
+                        $eq: ["$year", '2022']
+                    }]
+                }
+            }
+        }, {
+            $group: {
+                _id: "$curse",
+                ciclo: {
+                    $first: '$title'
+                },
+                number: {
+                    $sum: 1
+                },
+            },
+        }, ],
+        as: "avgs",
+    },
+}]).pretty()
+
+
+db.averages.aggregate([
+  {
+    $match: {
+      $and: [
+        { ciclo: "5" },
+        { year: "2022" }
+      ]
+    },
+  },
+  {
+    $group: {
+      _id: "$curse",
+      year: { $first: '$year' },
+      cursos: { $sum: 1 },
+    }
+  },
+])
+
+    {
+      $group: {
+        _id: "$ciclo",
+        notas: { $sum: 1 },
+        mencion: { $first: '$mencion' },
+        sumacreditos: { "$sum": { $multiply: [1, { $toInt: '$credito' }] } },
+        sumanotas: { "$sum": { $multiply: [1, { $toInt: '$nota' }] } },
+        total: { "$sum": { $multiply: [{ $toInt: '$credito' }, { $toInt: '$nota' }] } },
+        records: { $push: "$$ROOT" }
+      }
+    },
+    { $sort: { "_id": 1 } }
+
+    
+const orderw = await Average.aggregate([
+  {
+    $match: {
+      $and: [
+        { ciclo: "5" },
+        { year: "2022" }
+        { title:"Investigación Artística I"}
+      ]
+    },
+  },
+  {
+    $group: {
+      _id: "$title",
+      year: { $first: '$year' },
+      cursos: { $sum: 1 },
+    }
+  },
+])
+
+db.averages.find({curse:ObjectId("62d6d8b4131619ed72f21d05")},{user:1})
+
+db.averages.updateMany({ciclo:"I"}, {$set: {ciclo:"1"}})
+db.averages.updateMany({ciclo:"II"}, {$set: {ciclo:"2"}})
+db.averages.updateMany({ciclo:"III"}, {$set: {ciclo:"3"}})
+db.averages.updateMany({ciclo:"IV"}, {$set: {ciclo:"4"}})
+db.averages.updateMany({ciclo:"V"}, {$set: {ciclo:"5"}})
+db.averages.updateMany({ciclo:"VI"}, {$set: {ciclo:"6"}})
+db.averages.updateMany({ciclo:"VII"}, {$set: {ciclo:"7"}})
+db.averages.updateMany({ciclo:"VIII"}, {$set: {ciclo:"8"}})
+db.averages.updateMany({ciclo:"IX"}, {$set: {ciclo:"9"}})
+db.averages.updateMany({ciclo:"X"}, {$set: {ciclo:"10"}})
+
+db.users.updateMany({ciclo:"I"}, {$set: {ciclo:"1"}})
+db.users.updateMany({ciclo:"II"}, {$set: {ciclo:"2"}})
+db.users.updateMany({ciclo:"III"}, {$set: {ciclo:"3"}})
+db.users.updateMany({ciclo:"IV"}, {$set: {ciclo:"4"}})
+db.users.updateMany({ciclo:"V"}, {$set: {ciclo:"5"}})
+db.users.updateMany({ciclo:"VI"}, {$set: {ciclo:"6"}})
+db.users.updateMany({ciclo:"VII"}, {$set: {ciclo:"7"}})
+db.users.updateMany({ciclo:"VIII"}, {$set: {ciclo:"8"}})
+db.users.updateMany({ciclo:"IX"}, {$set: {ciclo:"9"}})
+db.users.updateMany({ciclo:"X"}, {$set: {ciclo:"10"}})
+
+db.cursesources.updateMany({ciclo:"I"}, {$set: {ciclo:"1"}})
+db.cursesources.updateMany({ciclo:"II"}, {$set: {ciclo:"2"}})
+db.cursesources.updateMany({ciclo:"III"}, {$set: {ciclo:"3"}})
+db.cursesources.updateMany({ciclo:"IV"}, {$set: {ciclo:"4"}})
+db.cursesources.updateMany({ciclo:"V"}, {$set: {ciclo:"5"}})
+db.cursesources.updateMany({ciclo:"VI"}, {$set: {ciclo:"6"}})
+db.cursesources.updateMany({ciclo:"VII"}, {$set: {ciclo:"7"}})
+db.cursesources.updateMany({ciclo:"VIII"}, {$set: {ciclo:"8"}})
+db.cursesources.updateMany({ciclo:"IX"}, {$set: {ciclo:"9"}})
+db.cursesources.updateMany({ciclo:"X"}, {$set: {ciclo:"10"}})
+
+
+{
+    $lookup: {
+      from: "averages",
+      let: { www: "$_id" },
+      pipeline: [
+        { $match: { $expr: { $and: [{ $eq: ["$user", "$$www"] }, { $eq: ["$ciclo", "4"] }, { $eq: ["$year", "2022"] }] } } },
+      ],
+      as: "avgs",
+    },
+  },
+  {
+      $lookup: {
+        from: "users", localField: "_id", foreignField: "_id", as: "uSSer"
+      }
+    },
+db.averages.updateMany( { 'ciclo':'I' }, {$set:{'ciclo':'1'}} )
+db.averages.updateMany( { 'ciclo':'II' }, {$set:{'ciclo':'2'}} )
+db.averages.updateMany( { 'ciclo':'III' }, {$set:{'ciclo':'3'}} )
+db.averages.updateMany( { 'ciclo':'IV' }, {$set:{'ciclo':'4'}} )
+db.averages.updateMany( { 'ciclo':'V' }, {$set:{'ciclo':'5'}} )
+db.averages.updateMany( { 'ciclo':'VI' }, {$set:{'ciclo':'6'}} )
+db.averages.updateMany( { 'ciclo':'VII' }, {$set:{'ciclo':'7'}} )
+db.averages.updateMany( { 'ciclo':'VIII' }, {$set:{'ciclo':'8'}} )
+db.averages.updateMany( { 'ciclo':'IX' }, {$set:{'ciclo':'9'}} )
+db.averages.updateMany( { 'ciclo':'X' }, {$set:{'ciclo':'10'}} )
       
 {{www.length!=0?www.note:null}}
 db.users.updateMany({}, {"$set": {"ciclo": ''}})
 
-db.users.updateMany({email:"fismart@w"}, {"$set": {"filosophy": "wwwww"}})
+db.users.updateMany({rol:"3"}, {"$set": {"tipostd": "R"}})
 db.integers.updateMany({}, {"$set": {"show": "false"}});
-db.curses.updateMany({},{"$unset":{"show":1}});
+db.curses.updateMany({},{"$set":{"show":"flase"}})
+
 //db.integers.deleteMany({user:ObjectId('62cf3499f1443acd8c3dc41e')})//teacher amanda as std
 
 db.integers.deleteMany({user:ObjectId("62d6dac1d89e8b2b50ea9de0")})
@@ -71,30 +244,89 @@ db.users.aggregate([
         { $sort: { "_id": 1 } },
     ], { collation: { locale: "es" }})
 
-db.users.updateMany({mencion:{$nin:["E","G","P","ED"]}, rol:"3"},{$set:{dni,{$set:{mencion:"N",ciclo:"N"}})
+db.averages.aggregate([
+                            { $match: { $expr: { $eq: ["$year", "2022"] } } },
+                  {
+            $lookup: {
+                from: "ccursesources",
+                localField: 'codigo',
+                foreignField: 'codigo',
+                as: "www",
+            },
+        },
+        { $set: { "mencion": {$arrayElemAt:["$averages.mencion",0]} } },
+        { $out: 'averages'}
+      ])
+
+    db.averages.aggregate([         
+                    { $match: { $expr: { $eq: ["$year", "2022"] } } },   
+      {"$group" : {_id:"$ciclo", count:{$sum:1}}}
+])
+
+      db.cursesources.aggregate([          
+                    { $match: { $expr: { $eq: ["$mencion", "E"] } } },   
+                    {
+                        $lookup: {
+                            from: "cursesources",
+                            let: { wwwww: "$requisito", mencion:'$mencion' },
+                            pipeline: [
+                                { $match: { $expr: {$and: [{ $eq: ["$title", "$$wwwww"] }, { $eq: ["$mencion", "$$mencion"] }] }} },
+                            ],
+                            as: "requistiocodigo",
+                        },
+                    },
+                    {     $set: {       requistiocodigo: { $arrayElemAt: ["$requistiocodigo.codigo", 0] }     }   },   
+                    {     $out: 'cursesources'    }
+                  ])
+
+
+    db.users.updateMany({mencion:{$nin:["E","G","P","ED"]}, rol:"3"},{$set:{dni,{$set:{mencion:"N",ciclo:"N"}})
 db.users.updateMany({},{$set:{filosophy:""}})
 db.users.updateMany({rol:"2"},{$set:{filosophy:"New"}})
 db.users.updateMany({rol:"2"},{$set:{mencion:"N"}})
 
-db.averages.aggregate([
-  {
-    $match: {
-      $and: [
-        { ciclo: {$in: ['I', 'III', 'V', 'VII', 'IX']} },
-        { mencion: {$in: ['G', 'E', 'P']} },
-        { year: "2022" }
-      ]
+db.integers.aggregate([
+    { $match: { $expr: { $eq: ["$curse", ObjectId("660d3d1446aee8a09d9575a0")] } } },
+    {
+        $lookup: {
+            from: "users",
+            let: { www: "$user" },
+            pipeline: [
+                { $match: { $expr: { $eq: ["$_id", "$$www"] } } },
+            ],
+            as: "usser",
+        },
     },
-  },
-  {
-    $group: {
-      _id: "$title",
-      mension: { $first: '$title' },
-      codigo: { $first: '$codigo' },
-      cursos: { $sum: 1 },
-    }
-  },
-]).pretty();
+    {
+        $lookup: {
+            from: "tasks",
+            let: { www: "$user" },
+            pipeline: [
+                { $match: { $expr: { $eq: ["$user", "$$www"] } } },
+                {
+                    $group: {
+                        _id: "$unidad",
+                        unidad: { $first: '$unidad' },
+                        curso: { $first: '$curse' },
+                        ntareas: { $sum: 1 },
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "curses",
+                        let: { www: "$curso" },
+                        pipeline: [
+                            { $match: { $expr: { $eq: ["$_id", "$$www"] } } },
+                        ],
+                        as: "curseww",
+                    },
+                },
+
+            ],
+            as: "taskks",
+        },
+    },
+]).pretty()
 
 Puntaje: { $sum: { $multiply: [{ $toInt: '$credito' }, { $toInt: '$nota' }] } },
 
@@ -171,7 +403,7 @@ db.averages.aggregate([
 ]).pretty()
 
 
-db.averages.aggregate([
+db.tasks.aggregate([
     {
         $match: {
           $and: [
@@ -259,77 +491,6 @@ db.example.aggregate([
   { $group : { _id: { "state" : "$city_state" }, total_qty : { "$sum" : "$qty" } } },
 ]);
 
-db.users.insertMany([
-{rol:"3",password:"44334139",dni:"44334139", name:"VILCA PAREJA, YURI ANDERSON", email:"yurivilca@esfapa.edu.pe", celular:"999196122"},
-{rol:"3",password:"76582573",dni:"76582573", name:"VILLANTOY SALCEDO, JUDITH LILIANA", email:"judithvillantoy@esfapa.edu.pe", celular:"976716338"},
-{rol:"3",password:"79625848",dni:"79625848", name:"ZAPATA MENDOZA, YANETH ROSSMERY", email:"yanethzapata@esfapa.edu.pe", celular:"920827337"},
-]);
-
-
-db.users.insertMany([
-{rol:"3", password:"28298872", dni:"28298872", name:"AÑAÑOS CORDOVA, MARCEL MAGALY", email:"marcelañaños@esfapa.edu.pe", celular:"990081022"},
-{rol:"3", password:"72916285", dni:"72916285", name:"AVILES BUSTILLOS, ELIANA PAOLA", email:"alianaaviles@esfapa.edu.pe", celular:"953081356"},
-{rol:"3", password:"60045251", dni:"60045251", name:"ASTO HUAMANI, ANYELI", email:"anyeliasto@esfapa.edu.pe", celular:"925288922"},
-{rol:"3", password:"73048527", dni:"73048527", name:"CANCHO ROMANI, MELANI LUCERO", email:"malanicancho@esfapa.edu.pe", celular:"917439677"},
-{rol:"3", password:"60920241", dni:"60920241", name:"DUEÑAS MICULLYA, JUAN DIEGO", email:"juandueñas@esfapa.edu.pe", celular:"901887170"},
-{rol:"3", password:"71269080", dni:"71269080", name:"ESCRIBA GOMEZ, MIGUEL ANGEL", email:"miguelescriba@esfapa.edu.pe", celular:"935752705"},
-{rol:"3", password:"70654640", dni:"70654640", name:"FELICES CERNA, RICKY ANDERSON", email:"rickyfelices@esfapa.edu.pe", celular:"930255365"},
-{rol:"3", password:"74037346", dni:"74037346", name:"GALVEZ ANDIA, MALU SHANDIRA", email:"malugalvez@esfapa.edu.pe", celular:"961416790"},
-{rol:"3", password:"70293213", dni:"70293213", name:"GAMBOA SALCEDO, FERNANDO JOSE", email:"fernandogamboa@esfapa.edu.pe", celular:"958147256"},
-{rol:"3", password:"74926232", dni:"74926232", name:"GALLARDO JIMENEZ, MARIA GRACIA", email:"mariagallardo@esfapa.edu.pe", celular:"959896185"},
-{rol:"3", password:"70391898", dni:"70391898", name:"HUARIPUMA HUAMANI, ANGIE CRISTELL", email:"angiehuaripuma@esfapa.edu.pe", celular:"930392163"},
-{rol:"3", password:"74966072", dni:"74966072", name:"HUAMAN TINEO, JAVIER", email:"javierhuaman@esfapa.edu.pe", celular:"914905406"},
-{rol:"3", password:"70222446", dni:"70222446", name:"JAIME MAURICIO, WILLIAMS", email:"williamsjaime@esfapa.edu.pe", celular:"913253851"},
-{rol:"3", password:"44800793", dni:"44800793", name:"JULCA JUÁREZ, CECILIA ANDREA", email:"ceciliajulca@esfapa.edu.pe", celular:"966010009"},
-{rol:"3", password:"75550374", dni:"75550374", name:"LUJAN HUAMANI, MAYLI YASURI", email:"maylilujan@esfapa.edu.pe", celular:"993170482"},
-{rol:"3", password:"76942046", dni:"76942046", name:"PARIONA LUNAZCO, ZUNILDA", email:"zunildapariona@esfapa.edu.pe", celular:"982106591"},
-{rol:"3", password:"60280568", dni:"60280568", name:"PEREZ ESPINO, LEYDE ANDREA", email:"leydeperez@esfapa.edu.pe", celular:"943926755"},
-{rol:"3", password:"77223212", dni:"77223212", name:"QUISPE ÑAHUI, KAROL DEVORA", email:"karolquispe@esfapa.edu.pe", celular:"916193977"},
-{rol:"3", password:"77143014", dni:"77143014", name:"QUISPE SOLIER, LISSETH", email:"lissethquisspe@esfapa.edu.pe", celular:"945013747"},
-{rol:"3", password:"71892546", dni:"71892546", name:"QUISPE JORGE, JHONATAN ", email:"jhonatanquispe@esfapa.edu.pe", celular:"914540829"},
-{rol:"3", password:"74203130", dni:"74203130", name:"REMACHI TOMAYLLA, ANA MARIEL", email:"anaremachi@esfapa.edu.pe", celular:"900644603"},
-{rol:"3", password:"60229950", dni:"60229950", name:"ROJAS MIRANDA, ROSA LUZ", email:"rosarojas@esfapa.edu.pe", celular:"973469101"},
-{rol:"3", password:"60862648", dni:"60862648", name:"SALAZAR QUISPE, ERIKA ANAHI", email:"erikasalazar@esfapa.edu.pe", celular:"973814950"},
-{rol:"3", password:"71557596", dni:"71557596", name:"SANTIAGO QUISPE, ANA EDITH", email:"anasantiago@esfapa.edu.pe", celular:"990929928"},
-{rol:"3", password:"70565842", dni:"70565842", name:"TINEO AGUIRRE, FRANK KEVIN", email:"franktineo@esfapa.edu.pe", celular:"970614678"},
-{rol:"3", password:"76256740", dni:"76256740", name:"TORRES HUAMAN, KELLY SHANNON", email:"kellytorres@esfapa.edu.pe", celular:"900948907"},
-{rol:"3", password:"70790755", dni:"70790755", name:"VELARDE HURTADO, IRVIN", email:"irvinvelarde@esfapa.edu.pe", celular:"963440823"},
-{rol:"3", password:"70211974", dni:"70211974", name:"YARANGA MIRANDA, RONY", email:"ronyyaranga@esfapa.edu.pe", celular:"921409438"},
-]);
-
-db.users.insertMany([
-{rol:"3",password:"75168638",dni:"75168638",	name:"AUQUI ROBLES, RAFAEL", email:"rafaelauqui@esfapa.edu.pe", celular:"976860126"},
-{rol:"3",password:"77085317",dni:"77085317",	name:"BECERRA CABRERA, LUZ NELIA", email:"luzbacerra@esfapa.edu.pe", celular:"918699156"},
-{rol:"3",password:"61335202",dni:"61335202",	name:"CAMBORDA MEDINA, ROSETTA JAZMIN", email:"rosettacamborda@esfapa.edu.pe", celular:"991833731"},
-{rol:"3",password:"45459234",dni:"45459234",	name:"DURAND ARAUJO, JOSEPH", email:"josephdurand@esfapa.edu.pe", celular:"993809867"},
-{rol:"3",password:"61421637",dni:"61421637",	name:"GALLARDO PAREDES, LEVY MAHEL", email:"levygallardo@esfapa.edu.pe", celular:"916046647"},
-{rol:"3",password:"74590640",dni:"74590640",	name:"HUALLPA PRETELL, RUBI YOLANDA", email:"rubihuallpa@esfapa.edu.pe", celular:"932777843"},
-{rol:"3",password:"70179787",dni:"70179787",	name:"HUAYTA CHUÑOCCA, CRISTHOFER", email:"cristhoferhuayta@esfapa.edu.pe", celular:"938429646"},
-{rol:"3",password:"60043800",dni:"60043800",	name:"ORIUNDO NUÑEZ, CARL EULER", email:"carloriundo@esfapa.edu.pe", celular:"962933224"},
-{rol:"3",password:"72484120",dni:"72484120",	name:"ORTIZ JUOLIZBERTTY, AZUMI URSULA", email:"azumiortiz@esfapa.edu.pe", celular:"914887369"},
-{rol:"3",password:"73956498",dni:"73956498",	name:"PALOMINO CORAS, HENRY ERIK", email:"henrypalomino@esfapa.edu.pe", celular:"900723925"},
-{rol:"3",password:"60444970",dni:"60444970",	name:"PINCO CAMPOS, JHOSEPH ANTHONY", email:"jhosephpinco@esfapa.edu.pe", celular:"955823415"},
-{rol:"3",password:"47189462",dni:"47189462",	name:"QUISPE HUAYA, BERNABE SANDO", email:"bernabequispe@esfapa.edu.pe", celular:"977118313"},
-{rol:"3",password:"60922696",dni:"60922696",	name:"RAMOS RUA, DIDIER CLEYDER", email:"didierramos@esfapa.edu.pe", celular:"952816479"},
-{rol:"3",password:"72630099",dni:"72630099",	name:"TIPPE TORRES, LUIS CARLOS", email:"luistippe@esfapa.edu.pe", celular:"966699777"},
-{rol:"3",password:"70414626",dni:"70414626",	name:"TUEROS GOMEZ, SHIRLEY", email:"shirleytueros@esfapa.edu.pe", celular:"954274917"},
-{rol:"3",password:"70460587",dni:"70460587",	name:"TUMBALOBOS HUAMAN, ANGIE SHARAI", email:"angietumbalobos@esfapa.edu.pe", celular:"966699777"},
-])
-
-db.users.insertMany([
-{dni:"60862571",password:"60862571", name:"ALEJOS ROJAS, GUSTAVO", email:"gustavoalejos@esfapa.edu.pe",celular:"913215062"},
-{dni:"62041065",password:"62041065", name:"CASAFRANCA ZAMORA, GABI MILAGROS", email:"gabicasafranca@esfapa.edu.pe",celular:"986861082"},
-{dni:"70568815",password:"70568815", name:"GUTIERREZ ALCARRAZ, NORMA", email:"normagutierrez@esfapa.edu.pe",celular:"907841845"},
-{dni:"60998112",password:"60998112", name:"JAIME TACAS, YEREMY JOSE", email:"yeremyjaime@esfapa.edu.pe",celular:"966103810"},
-{dni:"46995549",password:"46995549", name:"LUJAN ROCA, WALTER LEONARDO", email:"walterlujan@esfapa.edu.pe",celular:"931431560"},
-{dni:"44672544",password:"44672544", name:"PALACIOS HUAMAN, MONICA", email:"Mmonicapalacios@esfapa.edu.pe",celular:"937180250"},
-{dni:"61271869",password:"61271869", name:"PALOMINO VARGAS, ADRIANA SOFIA", email:"adrianapalomino@esfapa.edu.pe",celular:"914654877"},
-{dni:"72223376",password:"72223376", name:"PEÑA DE LA CRUZ, MELISSA GRIT", email:"melissapeña@esfapa.edu.pe",celular:"922924918"},
-{dni:"77793910",password:"77793910", name:"POMA CARHUAPOMA, JORGE LUIS", email:"jorgepoma@esfapa.edu.pe",celular:"900174721"},
-{dni:"70463035",password:"70463035", name:"SARAS LLAVE, ERICK YOMAR", email:"ericksaras@esfapa.edu.pe",celular:"945212218"},
-{dni:"73772879",password:"73772879", name:"SALVATIERRA ROA, NATALY SAYURY", email:"natalysalvatierra@esfapa.edu.pe",celular:"910925520"},
-])
-
 
 
 //1
@@ -388,6 +549,7 @@ Dibujo III
 
 
 //3
+
 db.cursesources.insertMany(
 [ 
 {ciclo:"I", mension:"AP", mencion:"G", codigo:"FGCOM101", title:"Comunicación I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -398,10 +560,10 @@ db.cursesources.insertMany(
 {ciclo:"I", mension:"AP", mencion:"G", codigo:"CAMVI111", title:"Morfología Visual I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
 {ciclo:"I", mension:"AP", mencion:"G", codigo:"FETAP113", title:"Taller Principal I (PEG)", teoria:"2", practica:"8", credito:"3", requisito: "No tiene"},
 {ciclo:"I", mension:"AP", mencion:"G", codigo:"FEDIB115", title:"Dibujo I", teoria:"2", practica:"6", credito:"5", requisito: "No tiene"},
-{ciclo:"I", mension:"AP", mencion:"G", codigo:"ESFA01", title:"Taller Principal Diseño Gráfico I", teoria:"2", practica:"8", credito:"3", requisito: "Ninguno"},
+{ciclo:"I", mension:"AP", mencion:"G", codigo:"ESFA01", title:"Taller Principal Diseño Gráfico I", teoria:"2", practica:"8", credito:"3", requisito: "No tiene"},
 {ciclo:"II", mension:"AP", mencion:"G", codigo:"FGCOM102", title:"Comunicación II", teoria:"2", practica:"0", credito:"2", requisito: "Comunicación I"},
 {ciclo:"II", mension:"AP", mencion:"G", codigo:"FGAIN104", title:"Arte e Interculturalidad", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
-{ciclo:"II", mension:"AP", mencion:"G", codigo:"CATMA108", title:"Tecnología de los Materiales II", teoria:"2", practica:"0", credito:"2", requisito: "Tecnolo. de los Materi. I"},
+{ciclo:"II", mension:"AP", mencion:"G", codigo:"CATMA108", title:"Tecnología de los Materiales II", teoria:"2", practica:"0", credito:"2", requisito: "Tecnología de los Materiales I"},
 {ciclo:"II", mension:"AP", mencion:"G", codigo:"CAFVI110", title:"Fundamentos Visuales II", teoria:"2", practica:"0", credito:"2", requisito: "Fundamentos Visuales I"},
 {ciclo:"II", mension:"AP", mencion:"G", codigo:"CAMVI112", title:"Morfología Visual II", teoria:"2", practica:"0", credito:"2", requisito: "Morfología Visual I"},
 {ciclo:"II", mension:"AP", mencion:"G", codigo:"CAHAR114", title:"Historia del Arte I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -445,7 +607,7 @@ db.cursesources.insertMany(
 {ciclo:"VI", mension:"AP", mencion:"G", codigo:"ESFA06", title:"Taller Principal Diseño Gráfico VI", teoria:"2", practica:"8", credito:"3", requisito: "Taller Principal Diseño Gráfico V"},
 {ciclo:"VII", mension:"AP", mencion:"G", codigo:"CAHAR401", title:"Historia del Arte VI", teoria:"2", practica:"0", credito:"2", requisito: "Historia del Arte V"},
 {ciclo:"VII", mension:"AP", mencion:"G", codigo:"CACRA403", title:"Crítica del Arte", teoria:"2", practica:"0", credito:"2", requisito: "Estética del Arte"},
-{ciclo:"VII", mension:"AP", mencion:"G", codigo:"FETAP405", title:"Taller Principal VII", teoria:"2", practica:"8", credito:"3", requisito: "Taller Principal VI (PEG)"},
+{ciclo:"VII", mension:"AP", mencion:"G", codigo:"FETAP405", title:"Taller Principal VII (PEG)", teoria:"2", practica:"8", credito:"3", requisito: "Taller Principal VI (PEG)"},
 {ciclo:"VII", mension:"AP", mencion:"G", codigo:"FEDIB407", title:"Dibujo VII", teoria:"2", practica:"6", credito:"5", requisito: "Dibujo VI"},
 {ciclo:"VII", mension:"AP", mencion:"G", codigo:"FEAVI409", title:"Arte Virtual", teoria:"2", practica:"0", credito:"2", requisito: "Diseño Artístico Digital II"},
 {ciclo:"VII", mension:"AP", mencion:"G", codigo:"FEINA411", title:"Investigación Artística I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -456,7 +618,7 @@ db.cursesources.insertMany(
 {ciclo:"VIII", mension:"AP", mencion:"G", codigo:"FEDIB408", title:"Dibujo VIII", teoria:"2", practica:"6", credito:"5", requisito: "Dibujo VII"},
 {ciclo:"VIII", mension:"AP", mencion:"G", codigo:"FESAD410", title:"Seminario Artístico Digital I", teoria:"4", practica:"0", credito:"4", requisito: "Arte Virtual"},
 {ciclo:"VIII", mension:"AP", mencion:"G", codigo:"FEINA412", title:"Investigación Artística II", teoria:"2", practica:"0", credito:"2", requisito: "Investigación Artística I"},
-{ciclo:"VIII", mension:"AP", mencion:"G", codigo:"FETCR416", title:"Taller de Conservación y RestauraciónI", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
+{ciclo:"VIII", mension:"AP", mencion:"G", codigo:"FETCR416", title:"Taller de Conservación y Restauración I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
 {ciclo:"VIII", mension:"AP", mencion:"G", codigo:"ESFA08", title:"Taller Principal Diseño Gráfico VIII", teoria:"2", practica:"8", credito:"4", requisito: "Taller Principal Diseño Gráfico VII"},
 {ciclo:"IX", mension:"AP", mencion:"G", codigo:"CAPAC501", title:"Proyectos Artísticos Culturales", teoria:"2", practica:"0", credito:"2", requisito: "Gestión Empresarial"},
 {ciclo:"IX", mension:"AP", mencion:"G", codigo:"FETAP503", title:"Taller Principal IX (PEG)", teoria:"0", practica:"14", credito:"3", requisito: "Taller Principal VIII (PEG)"},
@@ -481,7 +643,7 @@ db.cursesources.insertMany(
 {ciclo:"I", mension:"AP", mencion:"P", codigo:"FEDIB115", title:"Dibujo I", teoria:"2", practica:"6", credito:"5", requisito: "No tiene"},
 {ciclo:"II", mension:"AP", mencion:"P", codigo:"FGCOM102", title:"Comunicación II", teoria:"2", practica:"0", credito:"2", requisito: "Comunicación I"},
 {ciclo:"II", mension:"AP", mencion:"P", codigo:"FGAIN104", title:"Arte e Interculturalidad", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
-{ciclo:"II", mension:"AP", mencion:"P", codigo:"CATMA108", title:"Tecnología de los Materiales II", teoria:"2", practica:"0", credito:"2", requisito: "Tecnolo. de los Materi. I"},
+{ciclo:"II", mension:"AP", mencion:"P", codigo:"CATMA108", title:"Tecnología de los Materiales II", teoria:"2", practica:"0", credito:"2", requisito: "Tecnología de los Materiales I"},
 {ciclo:"II", mension:"AP", mencion:"P", codigo:"CAFVI110", title:"Fundamentos Visuales II", teoria:"2", practica:"0", credito:"2", requisito: "Fundamentos Visuales I"},
 {ciclo:"II", mension:"AP", mencion:"P", codigo:"CAMVI112", title:"Morfología Visual II", teoria:"2", practica:"0", credito:"2", requisito: "Morfología Visual I"},
 {ciclo:"II", mension:"AP", mencion:"P", codigo:"CAHAR114", title:"Historia del Arte I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -520,7 +682,7 @@ db.cursesources.insertMany(
 {ciclo:"VI", mension:"AP", mencion:"P", codigo:"FECER318", title:"Cerámica I", teoria:"4", practica:"0", credito:"4", requisito: "No tiene"},
 {ciclo:"VII", mension:"AP", mencion:"P", codigo:"CAHAR401", title:"Historia del Arte VI", teoria:"2", practica:"0", credito:"2", requisito: "Historia del Arte V"},
 {ciclo:"VII", mension:"AP", mencion:"P", codigo:"CACRA403", title:"Crítica del Arte", teoria:"2", practica:"0", credito:"2", requisito: "Estética del Arte"},
-{ciclo:"VII", mension:"AP", mencion:"P", codigo:"FETAP405", title:"Taller Principal VII", teoria:"2", practica:"8", credito:"6", requisito: "Taller Principal VI (PEG)"},
+{ciclo:"VII", mension:"AP", mencion:"P", codigo:"FETAP405", title:"Taller Principal VII (PEG)", teoria:"2", practica:"8", credito:"6", requisito: "Taller Principal VI (PEG)"},
 {ciclo:"VII", mension:"AP", mencion:"P", codigo:"FEDIB407", title:"Dibujo VII", teoria:"2", practica:"6", credito:"5", requisito: "Dibujo VI"},
 {ciclo:"VII", mension:"AP", mencion:"P", codigo:"FEAVI409", title:"Arte Virtual", teoria:"2", practica:"0", credito:"2", requisito: "Diseño Artístico Digital II"},
 {ciclo:"VII", mension:"AP", mencion:"P", codigo:"FEINA411", title:"Investigación Artística I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -530,7 +692,7 @@ db.cursesources.insertMany(
 {ciclo:"VIII", mension:"AP", mencion:"P", codigo:"FEDIB408", title:"Dibujo VIII", teoria:"2", practica:"6", credito:"5", requisito: "Dibujo VII"},
 {ciclo:"VIII", mension:"AP", mencion:"P", codigo:"FESAD410", title:"Seminario Artístico Digital I", teoria:"4", practica:"0", credito:"4", requisito: "Arte Virtual"},
 {ciclo:"VIII", mension:"AP", mencion:"P", codigo:"FEINA412", title:"Investigación Artística II", teoria:"2", practica:"0", credito:"2", requisito: "Investigación Artística I"},
-{ciclo:"VIII", mension:"AP", mencion:"P", codigo:"FETCR416", title:"Taller de Conservación y RestauraciónI", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
+{ciclo:"VIII", mension:"AP", mencion:"P", codigo:"FETCR416", title:"Taller de Conservación y Restauración I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
 {ciclo:"IX", mension:"AP", mencion:"P", codigo:"CAPAC501", title:"Proyectos Artísticos Culturales", teoria:"2", practica:"0", credito:"2", requisito: "Gestión Empresarial"},
 {ciclo:"IX", mension:"AP", mencion:"P", codigo:"FETAP503", title:"Taller Principal IX (PEG)", teoria:"0", practica:"14", credito:"7", requisito: "Taller Principal VIII (PEG)"},
 {ciclo:"IX", mension:"AP", mencion:"P", codigo:"FESAD505", title:"Seminario Artístico Digital II", teoria:"4", practica:"0", credito:"4", requisito: "Seminario Artístico Digital I"},
@@ -552,7 +714,7 @@ db.cursesources.insertMany(
 {ciclo:"I", mension:"AP", mencion:"E", codigo:"FEDIB115", title:"Dibujo I", teoria:"2", practica:"6", credito:"5", requisito: "No tiene"},
 {ciclo:"II", mension:"AP", mencion:"E", codigo:"FGCOM102", title:"Comunicación II", teoria:"2", practica:"0", credito:"2", requisito: "Comunicación I"},
 {ciclo:"II", mension:"AP", mencion:"E", codigo:"FGAIN104", title:"Arte e Interculturalidad", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
-{ciclo:"II", mension:"AP", mencion:"E", codigo:"CATMA108", title:"Tecnología de los Materiales II", teoria:"2", practica:"0", credito:"2", requisito: "Tecnolo. de los Materi. I"},
+{ciclo:"II", mension:"AP", mencion:"E", codigo:"CATMA108", title:"Tecnología de los Materiales II", teoria:"2", practica:"0", credito:"2", requisito: "Tecnología de los Materiales I"},
 {ciclo:"II", mension:"AP", mencion:"E", codigo:"CAFVI110", title:"Fundamentos Visuales II", teoria:"2", practica:"0", credito:"2", requisito: "Fundamentos Visuales I"},
 {ciclo:"II", mension:"AP", mencion:"E", codigo:"CAMVI112", title:"Morfología Visual II", teoria:"2", practica:"0", credito:"2", requisito: "Morfología Visual I"},
 {ciclo:"II", mension:"AP", mencion:"E", codigo:"CAHAR114", title:"Historia del Arte I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -591,7 +753,7 @@ db.cursesources.insertMany(
 {ciclo:"VI", mension:"AP", mencion:"E", codigo:"FECER318", title:"Cerámica I", teoria:"4", practica:"0", credito:"4", requisito: "No tiene"},
 {ciclo:"VII", mension:"AP", mencion:"E", codigo:"CAHAR401", title:"Historia del Arte VI", teoria:"2", practica:"0", credito:"2", requisito: "Historia del Arte V"},
 {ciclo:"VII", mension:"AP", mencion:"E", codigo:"CACRA403", title:"Crítica del Arte", teoria:"2", practica:"0", credito:"2", requisito: "Estética del Arte"},
-{ciclo:"VII", mension:"AP", mencion:"E", codigo:"FETAP405", title:"Taller Principal VII", teoria:"2", practica:"8", credito:"6", requisito: "Taller Principal VI (PEG)"},
+{ciclo:"VII", mension:"AP", mencion:"E", codigo:"FETAP405", title:"Taller Principal VII (PEG)", teoria:"2", practica:"8", credito:"6", requisito: "Taller Principal VI (PEG)"},
 {ciclo:"VII", mension:"AP", mencion:"E", codigo:"FEDIB407", title:"Dibujo VII", teoria:"2", practica:"6", credito:"5", requisito: "Dibujo VI"},
 {ciclo:"VII", mension:"AP", mencion:"E", codigo:"FEAVI409", title:"Arte Virtual", teoria:"2", practica:"0", credito:"2", requisito: "Diseño Artístico Digital II"},
 {ciclo:"VII", mension:"AP", mencion:"E", codigo:"FEINA411", title:"Investigación Artística I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
@@ -601,7 +763,7 @@ db.cursesources.insertMany(
 {ciclo:"VIII", mension:"AP", mencion:"E", codigo:"FEDIB408", title:"Dibujo VIII", teoria:"2", practica:"6", credito:"5", requisito: "Dibujo VII"},
 {ciclo:"VIII", mension:"AP", mencion:"E", codigo:"FESAD410", title:"Seminario Artístico Digital I", teoria:"4", practica:"0", credito:"4", requisito: "Arte Virtual"},
 {ciclo:"VIII", mension:"AP", mencion:"E", codigo:"FEINA412", title:"Investigación Artística II", teoria:"2", practica:"0", credito:"2", requisito: "Investigación Artística I"},
-{ciclo:"VIII", mension:"AP", mencion:"E", codigo:"FETCR416", title:"Taller de Conservación y RestauraciónI", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
+{ciclo:"VIII", mension:"AP", mencion:"E", codigo:"FETCR416", title:"Taller de Conservación y Restauración I", teoria:"2", practica:"0", credito:"2", requisito: "No tiene"},
 {ciclo:"IX", mension:"AP", mencion:"E", codigo:"CAPAC501", title:"Proyectos Artísticos Culturales", teoria:"2", practica:"0", credito:"2", requisito: "Gestión Empresarial"},
 {ciclo:"IX", mension:"AP", mencion:"E", codigo:"FETAP503", title:"Taller Principal IX (PEG)", teoria:"0", practica:"14", credito:"7", requisito: "Taller Principal VIII (PEG)"},
 {ciclo:"IX", mension:"AP", mencion:"E", codigo:"FESAD505", title:"Seminario Artístico Digital II", teoria:"4", practica:"0", credito:"4", requisito: "Seminario Artístico Digital I"},
@@ -622,7 +784,7 @@ db.cursesources.insertMany(
 {ciclo:"I", mension:"EA", mencion:"ED", codigo :"AFPEE115", title:"Elementos Estéticos I", teoria:"2", practica:"0", credito:"2", requisito:"No tiene"},
 {ciclo:"I", mension:"EA", mencion:"ED", codigo :"AFPMV117", title:"Morfología Visual", teoria:"2", practica:"0", credito:"2", requisito:"No tiene"},
 {ciclo:"II", mension:"EA", mencion:"ED", codigo :"ABCOM102", title:"Comunicación II", teoria:"2", practica:"2", credito:"3", requisito:"Comunicación I"},
-{ciclo:"II", mension:"EA", mencion:"ED", codigo :"ABMEV104", title:"Métodos de Estudio Virtual", teoria:"2", practica:"0", credito:"2", requisito:"Mét. de Estu. Superiores"},
+{ciclo:"II", mension:"EA", mencion:"ED", codigo :"ABMEV104", title:"Métodos de Estudio Virtual", teoria:"2", practica:"0", credito:"2", requisito:"Métodos de Estudios Superiores"},
 {ciclo:"II", mension:"EA", mencion:"ED", codigo :"AEDIA106", title:"Didáctica de las Artes I", teoria:"2", practica:"0", credito:"2", requisito:"No tiene"},
 {ciclo:"II", mension:"EA", mencion:"ED", codigo :"AFPDI108", title:"Dibujo II", teoria:"2", practica:"2", credito:"3", requisito:"Dibujo I"},
 {ciclo:"II", mension:"EA", mencion:"ED", codigo :"AFPPI110", title:"Pintura II", teoria:"2", practica:"4", credito:"4", requisito:"Pintura I"},
@@ -661,32 +823,48 @@ db.cursesources.insertMany(
 {ciclo:"VI", mension:"EA", mencion:"ED", codigo :"AFPGR318", title:"Grabado II", teoria:"0", practica:"6", credito:"3", requisito:"Grabado I"},
 {ciclo:"VI", mension:"EA", mencion:"ED", codigo :"AFPMU322", title:"Música I", teoria:"4", practica:"0", credito:"4", requisito:"No tiene"},
 {ciclo:"VII", mension:"EA", mencion:"ED", codigo :"ABFIL403", title:"Filosofía II", teoria:"4", practica:"0", credito:"4", requisito:"Filosofía I"},
-{ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AECTG405", title:"Currículo Tecnología y Gestión II", teoria:"4", practica:"0", credito:"4", requisito:"Curríc. Tecn. y Gestión I"},
+{ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AECTG405", title:"Currículo Tecnología y Gestión II", teoria:"4", practica:"0", credito:"4", requisito:"Currículo Tecnología y Gestión I"},
 {ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AFPRE409", title:"Retrato I", teoria:"0", practica:"2", credito:"1", requisito:"Taller Regional II"},
 {ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AFPGR411", title:"Grabado III", teoria:"0", practica:"6", credito:"3", requisito:"Grabado II"},
 {ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AFPCE413", title:"Cerámica I", teoria:"0", practica:"2", credito:"1", requisito:"No tiene"},
 {ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AFPMU415", title:"Música II", teoria:"0", practica:"4", credito:"2", requisito:"Música I"},
 {ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AFPTE417", title:"Teatro I", teoria:"0", practica:"4", credito:"2", requisito:"No tiene"},
 {ciclo:"VII", mension:"EA", mencion:"ED", codigo :"AFPPP419", title:"Tutoría y Práctica Pedagógica I", teoria:"4", practica:"0", credito:"4", requisito:"No tiene"},
-{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"ABEST402", title:"Estadística", teoria:"2", practica:"0", credito:"2", requisito:"Matemática"},
-{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AECTG406", title:"Currículo Tecnología y Gestión III", teoria:"4", practica:"0", credito:"4", requisito:"Curríc. Tecn. y Gestión II"},
-{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AEINV408", title:"Investigación I", teoria:"4", practica:"0", credito:"4", requisito:"Mét. de Estudio Virtual"},
+{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"ABEST402", title:"Estadística", teoria:"2", practica:"0", credito:"2", requisito:"Matemática I"},
+{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AECTG406", title:"Currículo Tecnología y Gestión III", teoria:"4", practica:"0", credito:"4", requisito:"Currículo Tecnología y Gestión II"},
+{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AEINV408", title:"Investigación I", teoria:"4", practica:"0", credito:"4", requisito:"Métodos de Estudio Virtual"},
 {ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AFPRE410", title:"Retrato II", teoria:"0", practica:"2", credito:"1", requisito:"Retrato I"},
 {ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AFPIA412", title:"Integración Artística I", teoria:"0", practica:"4", credito:"2", requisito:"Grabado III"},
 {ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AFPCE414", title:"Cerámica II", teoria:"0", practica:"4", credito:"2", requisito:"Cerámica I"},
 {ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AFPTE418", title:"Teatro II", teoria:"0", practica:"4", credito:"2", requisito:"Teatro I"},
-{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AFPPP420", title:"Tutoría y Práctica Pedagógica II", teoria:"0", practica:"6", credito:"3", requisito:"Tuto. y Práct. Pedagóg. I"},
-{ciclo:"IX", mension:"EA", mencion:"ED", codigo :"AECTG501", title:"Currículo Tecnología y Gestión IV", teoria:"4", practica:"0", credito:"4", requisito:"Curríc. Tecn. y Gesti. III"},
+{ciclo:"VIII", mension:"EA", mencion:"ED", codigo :"AFPPP420", title:"Tutoría y Práctica Pedagógica II", teoria:"0", practica:"6", credito:"3", requisito:"Tutoría y Práctica Pedagógica I"},
+{ciclo:"IX", mension:"EA", mencion:"ED", codigo :"AECTG501", title:"Currículo Tecnología y Gestión IV", teoria:"4", practica:"0", credito:"4", requisito:"Currículo Tecnología y Gestión III"},
 {ciclo:"IX", mension:"EA", mencion:"ED", codigo :"AEINV503", title:"Investigación II", teoria:"6", practica:"0", credito:"6", requisito:"Investigación I"},
 {ciclo:"IX", mension:"EA", mencion:"ED", codigo :"AFPIA412", title:"Integración Artística II", teoria:"0", practica:"4", credito:"2", requisito:"Integración Artística I"},
 {ciclo:"IX", mension:"EA", mencion:"ED", codigo :"AFPDA507", title:"Danza I", teoria:"0", practica:"4", credito:"2", requisito:"Teatro II"},
-{ciclo:"IX", mension:"EA", mencion:"ED", codigo :"AFPPP509", title:"Tutoría y Práctica Pedagógica III", teoria:"0", practica:"12", credito:"6", requisito:"Tuto. y Práct. Pedagóg. II"},
+{ciclo:"IX", mension:"EA", mencion:"ED", codigo :"AFPPP509", title:"Tutoría y Práctica Pedagógica III", teoria:"0", practica:"12", credito:"6", requisito:"Tutoría y Práctica Pedagógica II"},
 {ciclo:"X", mension:"EA", mencion:"ED", codigo :"AEINV504", title:"Investigación III", teoria:"6", practica:"0", credito:"6", requisito:"Investigación II"},
 {ciclo:"X", mension:"EA", mencion:"ED", codigo :"AFPOA506", title:"Obra Artística", teoria:"0", practica:"4", credito:"2", requisito:"Integración Artística II"},
 {ciclo:"X", mension:"EA", mencion:"ED", codigo :"AFPDA508", title:"Danza II", teoria:"0", practica:"4", credito:"2", requisito:"Danza I"},
-{ciclo:"X", mension:"EA", mencion:"ED", codigo :"AFPPP510", title:"Tutoría y Práctica Pedagógica IV", teoria:"0", practica:"16", credito:"8", requisito:"Tuto. y Práct. Pedag. III"},
+{ciclo:"X", mension:"EA", mencion:"ED", codigo :"AFPPP510", title:"Tutoría y Práctica Pedagógica IV", teoria:"0", practica:"16", credito:"8", requisito:"Tutoría y Práctica Pedagógica III"},
 ]);
  
+
+
+      db.cursesources.aggregate([          
+                    {
+                        $lookup: {
+                            from: "cursesources",
+                            let: { wwwww: "$requisito", mencion:'$mencion' },
+                            pipeline: [
+                                { $match: { $expr: {$and: [{ $eq: ["$title", "$$wwwww"] }, { $eq: ["$mencion", "$$mencion"] }] }} },
+                            ],
+                            as: "requisitocodigo",
+                        },
+                    },
+                    {     $set: {       requisitocodigo: { $arrayElemAt: ["$requisitocodigo.codigo", 0] }     }   },   
+                    {     $out: 'cursesources'    }
+                  ])
 
 
 db.cursesources.aggregate([
@@ -752,6 +930,22 @@ db.users.aggregate([{
 },
 { $replaceRoot: { newRoot: '$name' } }])
 
+  db.users.aggregate([
+  {$addFields:{www:"www"}}
+  ]).toArray().forEach(function(www){
+    db.averages.updateMany({user:www._id},{$set:{www:www}}  )
+  })
+
+console.log(memes);
+
+db.averages.find().toArray((err, memes) => {
+    console.log(memes);
+});
+
+toArray().forEach(function(myDoc){
+  db.www.update({_id:www._id},{$set:{www:www}}  )
+}
+
 db.users.updateMany( { name: { $exists : true } }, [ { "$set": { "state": doc.state.toUpperCase() } } ] )
 
 
@@ -760,7 +954,7 @@ db.users.updateMany( { name: { $exists : true } }, [ { "$set": { "state": doc.st
 db.curses.updateMany({}, {"$set": {"show": "false"}})
 
 //insertar nuevo campo a algunos datos de la colleccion con un dato en particular
-db.users.update( { 'carreramension':'EDUCACIÓN ARTÍSTICA' }, {$set:{'mension':'ED'}} )
+db.users.updateMany( { 'rol':'3' }, {$set:{'tipostd':'R'}} )
 
 //rename field
 db.users.updateMany({}, {$rename:{"identificacion_nacional":"dni"}}, false, true)
@@ -774,7 +968,7 @@ db.wwws.update( {'_id':ObjectId('623bcd104e6f90b190a6d1d7')}, { $unset: { type: 
 db.users.update( {'dni':'74217930'}, { $unset: { 'foto': "uploads/user/74217930.jpg" } } )
 
 //borrar un campo de todo los documentos
-db.collection.updateMany({}, {$unset: {"fieldName": ""}})
+db.averages.updateMany({}, {$unset: {"www": ""}})
 
 //Remover collection
 db.users.deletemany( {'curse':ObjectId('62fc1fadfecd2931bda289b5')} )

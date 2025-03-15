@@ -1,6 +1,7 @@
 <div Ngxheadroom [options]="options" class="fixed-navbar">
 	<app-navigation></app-navigation>
 </div>
+<div class="height"></div>
 
 <!-- opencopy -->
 <ng-template #wwcopy let-modal>
@@ -67,7 +68,9 @@
 <!--modal item and subitem www-->
 <ng-template #www let-modal>
   <div class="modal-header text-center">
-    {{text}}
+    {{text}} <a [href]="apiUrl+'/'+ text" class="btn btn-light" target='_blanck'>Descargar
+      <!-- <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+    </a>
   </div>
   <div class="modal-body" *ngIf="text">
     <img
@@ -91,7 +94,7 @@
 <div *ngIf="show!='ok'" class="container text-center">
   <button [ngClass]="[showphilosophy?'btn btn-info ':'btn btn-light']" (click)="showphilosophyteacher()">{{
     showphilosophy
-    ? 'DOCENTE': 'DOCENTE'}}</button>
+    ? 'FILOSOFIA DEL DOCENTE': 'FILOSOFIA DEL DOCENTE'}}</button>
 </div>
 <div *ngIf="show!='ok' && showphilosophy" class="p-2 my-3 container">
 
@@ -108,7 +111,7 @@
     “Felipe Guamán Poma de Ayala”
   </div>
   <div class="container col-md-3 p-1 justify-content-center align-items-center text-center">
-    <img src="./assets/esfap.png" class="img-fluid" alt="Responsive image">
+    <img src="./assets/logo.png" class="img-fluid" alt="Responsive image">
   </div>
 
   <div class="container h6 text-center text-uppercase">
@@ -156,19 +159,19 @@
         <div class="d-flex justify-content-center bg-highlight">
           <div class="btn-group mt-2 w-100" role="group" aria-label="Basic example">
             <button *ngIf="photouser.rol==1 || photouser.rol==2 && show!='ok'" class="btn btn-info" (click)="open1(ww, $any(photo).description,$any(photo).img)"
-              [disabled]="loading">
-              <mat-icon svgIcon="expand" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              [disabled]="loading">{{photo.time}}Ver curso 
+              <!-- <mat-icon svgIcon="expand" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
             </button>
             <button *ngIf="photouser.rol==1 || photouser.rol==2 && show!='ok'" class="btn btn-light shadow-none p-1"
-              (click)="CreateSection(photo.user, photo._id, photo.codigo)" [disabled]="loading">
-              <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              (click)="CreateSection(photo.user, photo._id, photo.codigo)" [disabled]="loading">Crear unidad
+              <!-- <mat-icon svgIcon="file" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
             </button>
-            <button class="btn btn-warning shadow-none" (click)="std(photo._id)" [disabled]="loading">
-              <mat-icon svgIcon="student" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+            <button class="btn btn-warning shadow-none" (click)="std(photo._id)" [disabled]="loading">Resumen curso
+              <!-- <mat-icon svgIcon="student" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
             </button>
             <button *ngIf="photouser.rol==1 || photouser.rol==2 && show!='ok'" class="btn btn-info shadow-none"
-              (click)="selectedCard(photo._id)" [disabled]="loading">
-              <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              (click)="selectedCard(photo._id)" [disabled]="loading">Editar curso
+              <!-- <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
             </button>
           </div>
         </div>
@@ -179,37 +182,36 @@
 
 
     <!--Unidades-->
-    <div class="row m-0 justify-content-center" *ngIf="show!='ok'">
+    <div class="row mt-0 p-0 border rounded justify-content-center" *ngIf="show!='ok'" id="focusBtn">
       <div class="col-md-6 p-3" *ngFor="let photo of photo.unidades index as i">
         <div class="justify-content-center p-1 rounded border">
           <div class="mt-1">
             <a class="btn rounded-0  text-uppercase w-100" style="font-weight: 500"
               (click)="open1(ww, $any(photo).description, $any(photo)._id)">
-              Unidad {{i+1}}: {{photo.title}}
+              Unidad {{i+1}}: {{photo.title}} [{{photo.conceptual*100}}% {{photo.procedimental*100}}% {{photo.actitudinal*100}}%]
             </a>
             <div class='border-0 p-0 btn-group d-flex' *ngIf="photouser.rol==1 || photouser.rol==2">
-              <button class="btn btn-light shadow-none" (click)="opencopy(wwcopy, photo._id)">Copiar
+              <!-- <button class="btn btn-light shadow-none" [disabled]="loading" (click)="opencopy(wwcopy, photo._id)">Copiar
+              </button> -->
+              <button class="btn btn-warning shadow-none" [disabled]="loading" (click)="savetheme(photo._id, 'Procedimental')">Crearwww sesión
                 <!-- <mat-icon svgIcon="file" aria-hidden="flase" aria-label="Example thumbs up SVG icon"></mat-icon> -->
               </button>
-              <button class="btn btn-warning shadow-none" (click)="savetheme(photo._id)">Crear
-                <!-- <mat-icon svgIcon="file" aria-hidden="flase" aria-label="Example thumbs up SVG icon"></mat-icon> -->
-              </button>
-              <button class="btn btn-primary shadow-none" (click)="editunity(photo._id)">Editar
+              <button class="btn btn-primary shadow-none" (click)="editunity(photo._id)">Editar unidad
                 <!-- <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
               </button>
-              <button class="btn btn-danger shadow-none" (click)="errasesection(photo._id, photo.temas.length)">
-                Borrar
+              <button class="btn btn-danger shadow-none" [disabled]="loading" (click)="errasesection(photo._id, photo.temas.length)">
+                Borrar unidad
               </button>
             </div>
           </div>
 
-          <div class="row justify-content-center p-2 pt-0">
+          <div class="row justify-content-center p-2 pt-0" [id]="photo._id">
             <div class="col-md-6 p-2" *ngFor="let subItem of photo['temas'] index as i">
-              <div class="rounded p-1 border">
+              <div [ngClass]="[subItem.task=='Conceptual' ? 'border border-info rounded p-1':subItem.task=='Actitudinal' ?'border border-warning rounded p-1':'border border-bg-secondary rounded p-1']">
                 <div class="">
                   <a class="btn w-100" style="width:100%" style="font-weight: 500; color:rgb(14, 92, 165)"
                     (click)="open1(ww, $any(subItem).description, $any(subItem).img)">
-                    S{{i+1}}: {{subItem.title}}
+                    S{{i+1}}: {{subItem.title}} ({{subItem.task}})
                   </a>
                 </div>
                 <div class='border-0 p-0 btn-group d-flex'>
@@ -219,7 +221,7 @@
                   </button> -->
                   <button *ngIf="photouser.rol==1 || photouser.rol==2" class="btn btn-sm btn-outline-danger shadow-none"
                     (click)="errase(subItem._id,subItem.usertask.length)">
-                    Borrar
+                    Borrar sesion
                   </button>
                 </div>
 
@@ -291,7 +293,7 @@
           <div class="justify-content-center rounded bg-info p-1 d-flex">
             <button class="btn btn-light card-photo shadow-none"
               (click)="open2(www, subItem.img)">{{subItem.title}}</button>
-            <a [href]="apiUrl+'/'+ subItem.img" class="btn btn-warning" target="_blank">Download</a>
+            <!-- <a [href]="apiUrl+'/'+ subItem.img" class="btn btn-warning" target="_blank">Download</a> -->
           </div>
         </div>
       </div>
@@ -312,9 +314,7 @@
                 <button *ngIf="file.type=='silabo'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">Download
-                <!-- <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
-              </a>
+              
             </div>
           </ng-container>
         </div>
@@ -329,9 +329,7 @@
                 <button *ngIf="file.type=='resumen'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">Download
-                <!-- <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
-              </a>
+              
             </div>
           </ng-container>
         </div>
@@ -346,9 +344,7 @@
                 <button *ngIf="file.type=='material'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">Download
-                <!-- <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
-              </a>
+              
             </div>
           </ng-container>
         </div>
@@ -363,9 +359,7 @@
                 <button *ngIf="file.type=='registro'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">Download
-                <!-- <mat-icon svgIcon="dload" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
-              </a>
+              
             </div>
           </ng-container>
         </div>
@@ -380,9 +374,7 @@
                 <button *ngIf="file.type=='horario'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">
-                Download
-              </a>
+              
             </div>
           </ng-container>
         </div>
@@ -397,9 +389,7 @@
                 <button *ngIf="file.type=='ocurrencia'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">
-                Download
-              </a>
+              
             </div>
           </ng-container>
         </div>
@@ -413,9 +403,9 @@
                 <button *ngIf="file.type=='plan'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">
+              <!-- <a [href]="apiUrl+'/'+ file.img" class="btn btn-light">
                 Download
-              </a>
+              </a> -->
             </div>
           </ng-container>
         </div>
@@ -430,9 +420,9 @@
                 <button *ngIf="file.type=='proyecto'" class="btn  btn-outline-info my-1 card-photo shadow-none"
                   (click)="open2(www, file.img)">{{file.title}}</button>
               </div>
-              <a [href]="apiUrl+'/'+ file.img" class="btn btn-info">
+              <!-- <a [href]="apiUrl+'/'+ file.img" class="btn btn-info">
                 Download
-              </a>
+              </a> -->
             </div>
           </ng-container>
         </div>

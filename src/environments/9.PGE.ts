@@ -1,87 +1,50 @@
-db.users.updateMany({
-  password: {
+    db.averages.updateMany({
+  user: {
     $in:
       [
-        "20232122",
-        "20232104",
-        "20182111",
-        "20232501",
-        "20232901",
-        "20230120",
-        "20230112",
-        "20232504",
-        "20232509",
-        "20232508",
-        "20232105",
-        "20230502",
-        "20210303",
-        "20230111",
-        "20232124",
-        "20230109",
-        "20230117",
-        "20232125",
-        "20223400",
-        "20182135",
-        "20232114",
-        "20232115",
-        "20232111",
-        "20230101",
-        "20105255",
-        "20230118",
-        "20232102",
-        "20220120",
-        "20230509",
-        "20222121",
-        "20232121",
-        "20230106",
-        "20232120",
-        "20232110",
-        "20230503",
-        "20182110",
-        "20222116",
-        "20210113",
-        "20232506",
-        "20232118",
-        "20232123",
-        "20232117",
-        "20233201",
-        "20230114",
-        "20232103",
-        "20232106",
-        "20230102",
-        "20232113",
-        "20220104",
-        "20232108",
-        "20233701",
-        "20232602",
-        "20202112",
-        "20232505",
-        "20232116",
-        "20230108",
-        "20233801",
-        "20230504",
-        "20230122",
-        "20232507",
-        "20230508",
-        "20232101",
-        "20232109",
-        "20230121",
-        "20230119",
-        "20232502",
-        "20230501",
-        "20230110",
-        "20230506",
-        "20230505",
-        "20232107",
-        "20230507",
-        "20230105",
-        "20230115",
-        "20232503",
-        "20230116",
-        "20230510",
+ObjectId("62d6dac1d89e8b2b50ea9ebc") ,
+ObjectId("62d6dac1d89e8b2b50ea9ebd") ,
+ObjectId("62d6dac1d89e8b2b50ea9ebe") ,
+ObjectId("62d6dac1d89e8b2b50ea9ebf") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec0") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec1") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec2") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec3") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec4") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec5") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec6") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec7") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec8") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec9") ,
+ObjectId("62d6dac1d89e8b2b50ea9f4b") ,
+ObjectId("62d6dac1d89e8b2b50ea9eca") ,
+ObjectId("62d6dac1d89e8b2b50ea9ecb") ,
+ObjectId("62d6dac1d89e8b2b50ea9ecc") ,
+ObjectId("62d6dac1d89e8b2b50ea9ecd") ,
+ObjectId("62d6dac1d89e8b2b50ea9ece") ,
+ObjectId("62d6dac1d89e8b2b50ea9ebc") ,
+ObjectId("62d6dac1d89e8b2b50ea9ebd") ,
+ObjectId("62d6dac1d89e8b2b50ea9ebe") ,
+ObjectId("62d6dac1d89e8b2b50ea9ebf") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec0") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec1") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec2") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec3") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec4") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec5") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec6") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec7") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec8") ,
+ObjectId("62d6dac1d89e8b2b50ea9ec9") ,
+ObjectId("62d6dac1d89e8b2b50ea9f4b") ,
+ObjectId("62d6dac1d89e8b2b50ea9eca") ,
+ObjectId("62d6dac1d89e8b2b50ea9ecb") ,
+ObjectId("62d6dac1d89e8b2b50ea9ecc") ,
+ObjectId("62d6dac1d89e8b2b50ea9ecd") ,
+ObjectId("62d6dac1d89e8b2b50ea9ece") ,       
       ]
-  }
-}, { "$set": { "grupo": "A"} })
+  },ciclo:"1",year:"2022",title:""
+}, { "$set": { "mencion": "E"} })
 
 db.users.updateMany({
   dni: {
@@ -189,3 +152,54 @@ db.nomina.aggregate([
   },
   { $sort: { "userw.name": 1 } }
 ]).pretty();
+
+
+
+
+
+{ "_id" : ObjectId("62daba130e09fe6b31421713"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dbf") }
+{ "_id" : ObjectId("62daba1e0e09fe6b31421716"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc0") }
+{ "_id" : ObjectId("62daba360e09fe6b31421719"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc1") }
+{ "_id" : ObjectId("62daba3a0e09fe6b3142171c"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc2") }
+{ "_id" : ObjectId("62daba4e0e09fe6b3142171f"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc3") }
+{ "_id" : ObjectId("62daba540e09fe6b31421722"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dcc") }
+{ "_id" : ObjectId("62daba6b0e09fe6b31421729"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc4") }
+{ "_id" : ObjectId("62daba730e09fe6b3142172c"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc5") }
+{ "_id" : ObjectId("62daba770e09fe6b3142172f"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc6") }
+{ "_id" : ObjectId("62daba810e09fe6b31421732"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc7") }
+{ "_id" : ObjectId("62daba860e09fe6b31421735"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc8") }
+{ "_id" : ObjectId("62daba9e0e09fe6b31421738"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dc9") }
+{ "_id" : ObjectId("62dabaa50e09fe6b3142173b"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dca") }
+{ "_id" : ObjectId("62dabaad0e09fe6b3142173e"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dcb") }
+{ "_id" : ObjectId("62dabab80e09fe6b31421741"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dcd") }
+{ "_id" : ObjectId("62dabac20e09fe6b31421744"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dce") }
+{ "_id" : ObjectId("62dabacb0e09fe6b31421747"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dcf") }
+{ "_id" : ObjectId("62dabada0e09fe6b3142174a"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd0") }
+{ "_id" : ObjectId("62dabade0e09fe6b3142174d"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd1") }
+{ "_id" : ObjectId("62dabaec0e09fe6b31421750"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd2") }
+{ "_id" : ObjectId("62dabafb0e09fe6b31421753"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd3") }
+{ "_id" : ObjectId("62dabb020e09fe6b31421756"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd4") }
+{ "_id" : ObjectId("62dabb0d0e09fe6b31421759"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd5") }
+{ "_id" : ObjectId("62dabb170e09fe6b3142175c"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd6") }
+{ "_id" : ObjectId("62dabb220e09fe6b3142175f"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd7") }
+{ "_id" : ObjectId("62dabb270e09fe6b31421762"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd8") }
+{ "_id" : ObjectId("62dabb2e0e09fe6b31421765"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dd9") }
+{ "_id" : ObjectId("62dabb360e09fe6b31421768"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dda") }
+{ "_id" : ObjectId("62dabb3f0e09fe6b3142176b"), "user" : ObjectId("62d6dac1d89e8b2b50ea9ddb") }
+{ "_id" : ObjectId("62dabb4f0e09fe6b3142176e"), "user" : ObjectId("62d6dac1d89e8b2b50ea9ddc") }
+{ "_id" : ObjectId("62dabb590e09fe6b31421771"), "user" : ObjectId("62d6dac1d89e8b2b50ea9ddd") }
+{ "_id" : ObjectId("62dabb620e09fe6b31421774"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dde") }
+{ "_id" : ObjectId("62dabb6b0e09fe6b31421777"), "user" : ObjectId("62d6dac1d89e8b2b50ea9ddf") }
+{ "_id" : ObjectId("62dabb830e09fe6b3142177a"), "user" : ObjectId("64022bb8802b1c61ce210998") }
+{ "_id" : ObjectId("62dabb8b0e09fe6b3142177d"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de1") }
+{ "_id" : ObjectId("62dabb9f0e09fe6b31421780"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de2") }
+{ "_id" : ObjectId("62dabba70e09fe6b31421783"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de3") }
+{ "_id" : ObjectId("62dabbad0e09fe6b31421786"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de4") }
+{ "_id" : ObjectId("62dabbcb0e09fe6b31421789"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de5") }
+{ "_id" : ObjectId("62dabbd30e09fe6b3142178c"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de6") }
+{ "_id" : ObjectId("62dabbd90e09fe6b31421790"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de7") }
+{ "_id" : ObjectId("62dabbe20e09fe6b31421793"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de8") }
+{ "_id" : ObjectId("62dabbed0e09fe6b31421796"), "user" : ObjectId("62d6dac1d89e8b2b50ea9de9") }
+{ "_id" : ObjectId("62dabbf40e09fe6b31421799"), "user" : ObjectId("62d6dac1d89e8b2b50ea9dea") }
+{ "_id" : ObjectId("62dabbfb0e09fe6b3142179c"), "user" : ObjectId("62d6dac1d89e8b2b50ea9deb") }
+{ "_id" : ObjectId("62ea635dc060ee8a3ee6acc8"), "user" : ObjectId("62d6dac1d89e8b2b50ea9f50") }

@@ -15,10 +15,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('id')) {
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/'])
     }
   }
-
+ 
   loginw(email: HTMLInputElement, password: HTMLInputElement) {
     this.www
       .sign(email.value, password.value)
@@ -30,17 +30,17 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('rol', res.user.rol);
             localStorage.setItem('imguser', res.user.foto);
             localStorage.setItem('logindate', res.user.logindate);
-            this.router.navigate(['/dashboard'])
+            this.router.navigate(['/'])
+            this.www.updaterestricted_datelogin().subscribe(
+              res => {
+                
+              },
+              err => console.log(err)
+            )
           } else {
             alert(res.user.msg)
             // console.log(res)
           }
-          this.www.updaterestricted_datelogin().subscribe(
-            res => {
-              
-            },
-            err => console.log(err)
-          )
         },
         err => console.log(err)
       )

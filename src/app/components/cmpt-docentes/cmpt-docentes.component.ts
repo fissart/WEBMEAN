@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { UsersService } from "../../services/users.service"
 
 
 @Component({
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cmpt-docentes.component.css']
 })
 export class CmptDocentesComponent implements OnInit {
+  public text!: string;
   public title!: string;
   public description!: string;
   public img!: string;
@@ -23,6 +25,7 @@ export class CmptDocentesComponent implements OnInit {
   type!: string;
   name!: string;
   id!: string;
+  iduser=localStorage.getItem('id');
   public archivos: any = [];
   apiUrl = environment.apiURL;
   rol = localStorage.getItem('rol')
@@ -30,9 +33,27 @@ export class CmptDocentesComponent implements OnInit {
   private router: ActivatedRoute,
   private routerr: Router,
   private Service: Svc14MVService,
+  private userService: UsersService,
   private modal: NgbModal,
   ) { }
+	wwwww = []
 
+	open2w(www: any, textw: string) {
+		this.modal.open(www, { size: 'xl', scrollable: true })
+		this.text = textw
+
+	}
+
+
+  getallTeacher() {
+		this.userService.getteacher().subscribe(
+			(res: any) => {
+				this.wwwww = res
+				console.log(res, "teachers")
+			},
+			err => console.log(err)
+		)
+	}
   capturandoFile(event: any) {
   const ww = event.target.files[0];
   this.archivos = [];
@@ -84,6 +105,7 @@ export class CmptDocentesComponent implements OnInit {
   this.router.params.subscribe(params => {
   console.log(localStorage.getItem('idcurso') || "" )
   this.gets()
+  this.getallTeacher()
   });
   }
 

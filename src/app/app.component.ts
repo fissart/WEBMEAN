@@ -19,7 +19,7 @@ export class AppComponent {
     var month = new Date().getMonth()
     this.src = 'www' + (month + 1)
   
-    console.log('www change'); 
+    //console.log('www change'); 
     this.favIcon.href  = 'assets/www' + (month + 1)+'.svg';//assets/www3.svg
   }
   /* constructor() {

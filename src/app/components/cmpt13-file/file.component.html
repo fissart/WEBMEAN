@@ -87,7 +87,7 @@
             <div class="col-md-6 p-2" *ngFor="let subItem of photo['temas'] index as i">
               <div [ngClass]="[subItem.usertask.length!=0 ? 'cardnew bg-white p-3':'cardnew_ p-3 border']"
                 class="justify-content-center align-items-center">
-                <div class="h6 text-center">S{{i+1}}: {{subItem.title}}</div>
+                  <div class="h6 text-center">S{{i+1}}: {{subItem.title}}</div>
                 <button class="btn card-photo" (click)="open1(ww, $any(subItem).description)">Teoría</button>
                 <button class="btn shadow-none card-photo" (click)="open1(ww, $any(subItem).task)">Tarea
                   asignada</button>

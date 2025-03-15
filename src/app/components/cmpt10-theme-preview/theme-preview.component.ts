@@ -87,12 +87,12 @@ export class ThemePreviewComponent implements OnInit {
       //   width: 1000
       // },
       // autoPaging: 'text',
-      html2canvas: { 
+      html2canvas: {
         scale: 1,
         allowTaint: true,
         // dpi: 300,
         letterRendering: true,
-        logging: false, 
+        logging: false,
       },
       // width: 1500,
     });
@@ -119,24 +119,24 @@ export class ThemePreviewComponent implements OnInit {
 
   }
 
-public showww="wwwww"
-  public Editor = ClassicEditor;
+  public Editor = ClassicEditor
   public onChange(event: any) {
     console.log(event.editor.getData())
     var ttt = event.editor.getData()
-    this.session=ttt
-    this.showww=ttt//.replace(new RegExp('</p>', 'g'), '').replace(new RegExp('<p>', 'g'), '')
-    .replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$').
-    replace(/<figure class="media">/g, '').
-    replace(/<\/figure>/g, '')
-    .replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`)
-    .replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`)
+    this.session = ttt
+    this.showww = ttt//.replace(new RegExp('</p>', 'g'), '').replace(new RegExp('<p>', 'g'), '')
+      .replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$').
+      replace(/<figure class="media">/g, '').
+      replace(/<\/figure>/g, '')
+      .replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`)
+      .replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`)
   }
 
 
   photo: any = []
   session: string = "www"
   markdown: string = "www"
+  showww: string = "www"
   markdown2: string = "www"
   markdown3: string = "www"
   id!: string
@@ -551,10 +551,11 @@ public showww="wwwww"
   createNotes(event: any) {
     if (window.confirm('Desea introducir nota común a todos?')) {
       var ntger = this.photo.integgers
+      var str = new Date()
       for (var k = 0; k < ntger.length; k++) {
         console.log(ntger[k].Usser[0]._id, event.target.value)
         this.loading = "false"
-        this.task.savetaskready(event.target.value, "Tarea", "Respuesta", this.photo._id, this.photo.unidad, this.photo.curse, ntger[k].Usser[0]._id, '', this.archivos[0])
+        this.task.savetaskready(event.target.value, "Tarea", "Respuesta", this.photo._id, this.photo.unidad, this.photo.curse, '', '', '', ntger[k].Usser[0]._id, '', 'teacher', str.getFullYear() + '', this.archivos[0])
           .subscribe(
             (res: any) => {
               this.gettheme()
@@ -586,13 +587,14 @@ public showww="wwwww"
     this.gettheme()
   }
 
-
-  savetask(event: any, theme: string, unity: string, curse: string, user: string) {
+  //codigo, ciclo, mencion 
+  savetask(event: any, theme: string, unity: string, curse: string, user: string, codigo: string, ciclo: string, mencion: string, teacher: string) {
     console.log(event.target.value)
+    var str = new Date()
     this.loading = "false"
     if (event.target.value <= 20 && event.target.value >= 0) {
       //console.log(event.target.value, "this.idunity", theme, unity, curse, user)
-      this.task.savetaskready(event.target.value, "Tarea", "Respuesta", theme, unity, curse, user, '', this.archivos[0])
+      this.task.savetaskready(event.target.value, "Tarea", "Respuesta", theme, unity, curse, user, '', codigo, ciclo, mencion, teacher, str.getFullYear() + '', this.archivos[0])
         .subscribe(
           (res: any) => {
             this.gettheme()
@@ -609,13 +611,13 @@ public showww="wwwww"
     console.log("event.target.value")
     this.loading = "false"
     //if () {
-    this.task.savetaskready('', "Tarea", "Respuesta", theme, unity, curse, user, '', this.archivos[0])
-      .subscribe(
-        (res: any) => {
-          this.gettheme()
-        },
-        err => console.log(err)
-      )
+    // this.task.savetaskready('', "Tarea", "Respuesta", theme, unity, curse, user, '', this.archivos[0])
+    //   .subscribe(
+    //     (res: any) => {
+    //       this.gettheme()
+    //     },
+    //     err => console.log(err)
+    //   )
     // } else {
     //   alert("Introdusca nota vigesimal")
     //   this.gettheme()
@@ -709,7 +711,6 @@ public showww="wwwww"
   }
 
 
-
   errasetask(idtask: string) {
     if (window.confirm('Desea eliminar la tarea?')) {
       this.loading = "false"
@@ -739,6 +740,7 @@ public showww="wwwww"
 
   onContentChangedw = (event: any) => {
     this.markdown = event.html
+    console.log(event.html)
   }
   onContentChangeww = (event: any) => {
     this.markdown2 = event.html
@@ -759,38 +761,50 @@ public showww="wwwww"
       this.themesService.gettheme(params['idtheme'], localStorage.getItem('idcurso') || "")
         .subscribe(
           (res: any) => {
-            console.log(res[0].description.replace(new RegExp("<oembed url", "g"), "<iframe src").replace(new RegExp("</oembed>", "g"), "</iframe>").replace(new RegExp("/video", "g"), "/embed/video"))
+            console.log(res[0])
             this.photo = res[0]
             this.markdown3 = res[0].solution
             this.markdown2 = res[0].task
             this.markdown = res[0].description
+            this.showww = res[0].description//.replace(new RegExp('</p>', 'g'), '').replace(new RegExp('<p>', 'g'), '')
+      .replace(/(<script type="math\/tex; mode=display">)(.*)(<\/script>)/g, '$$$$$2$$$$').
+      replace(/<figure class="media">/g, '').
+      replace(/<\/figure>/g, '')
+      .replace(/(<oembed url="https:\/\/www.dailymotion.com\/video\/)(.*?)("><\/oembed>)/g, `<iframe width='100%' height='350' src="https://www.dailymotion.com/embed/video/$2"></iframe>`)
+      .replace(/(<script type="math\/tex">)(.*)(<\/script>)/g, '$$$2$$').replace(/(<oembed url="https:\/\/www.youtube.com\/watch\?v=)(.*?)(".*?oembed>|&.*?oembed>)/g, `<iframe width='100%' height='350' src="https://www.youtube.com/embed/$2"></iframe>`)
+  
             this.id = res[0]._id
             this.loading = ""
 
             // console.log(res[0].tassks.length< 1)
 
-            if (res[0].tassks.length < 1) {
-              this.task.savetaskready('', "Tarea", "Respuesta", res[0]._id, res[0].unidad, res[0].curse, res[0].user, '', this.archivos[0])
-                .subscribe(
-                  (res: any) => {
-                    this.gettheme()
-                  },
-                  err => console.log(err)
-                )
-            } else { console.log("www") }
+            // if (res[0].tassks.length < 1) {
+            //   this.task.savetaskready('', "Tarea", "Respuesta", res[0]._id, res[0].unidad, res[0].curse, res[0].user, '', this.archivos[0])
+            //     .subscribe(
+            //       (res: any) => {
+            //         this.gettheme()
+            //       },
+            //       err => console.log(err)
+            //     )
+            // } else { console.log("www") }
 
             var www = [];
+            var permisos = [];
 
-            for (var j = 0; j < res[0].integgers.length; j++) {
-              if (res[0].integgers[j].Usser[0].tassk.length >= 1) {
-                www.push(Number(res[0].integgers[j].Usser[0].tassk[0].note))
+            for (var j = 0; j < res[0].curso[0].integgers.length; j++) {
+              if (res[0].curso[0].integgers[j].tassk.length >= 1) {
+                www.push(Number(res[0].curso[0].integgers[j].tassk[0].note))
+                console.log(Number(res[0].curso[0].integgers[j].tassk[0].note))
               } else {
                 www.push(0)
+              }
+              if (res[0].curso[0].integgers[j].tipostd=='P') {
+                permisos.push(res[0].curso[0].integgers[j].tipostd)
               }
             }
             this.resumena = www.filter(w => w > 10).length
             this.resumenc = www.filter(w => w == 10).length
-            this.resumend = www.filter(w => w < 10).length
+            this.resumend = www.filter(w => w < 10).length-permisos.length
           },
           err => console.log(err)
         )
@@ -800,7 +814,7 @@ public showww="wwwww"
   DateNow: string = ""
 
   getTimeNow() {
-    var str = new Date()  
+    var str = new Date()
     let day = str.getDate()
     let month = str.getMonth() + 1
     let year = str.getFullYear()
@@ -899,5 +913,25 @@ public showww="wwwww"
     return false
   }
 
+  onChangetype(title: string, event: any, solution: string, time: string) {
+    //this.subtype = event.target.value
+    this.loading = "false"
+    console.log(this.id, title, this.session, event.target.value, solution, time, this.archivos[0])
+    this.themesService.updateTheme(this.id, title, this.session, event.target.value, solution, time, this.archivos[0])
+      .subscribe(
+        (res: any) => {
+          this.loading = "false"
+          this.value = Math.round((100 / res.total) * res.loaded)
+          console.log(res)
+          //console.log(res.loaded)
+          if (res.total == res.loaded && res.type > 0) {
+            this.loading = ""
+            //this.routerr.navigate([`/curso/${localStorage.getItem('idcurso') || ""}`])
+          }
+        },
+        err => console.log(err)
+      )
+    return false
+  }
 
 }

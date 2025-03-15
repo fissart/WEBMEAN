@@ -32,7 +32,7 @@ import { Cmpt30DOCUMENTOSComponent } from './components/cmpt30-documentos/cmpt30
 import { CmptPromocionComponent } from './components/cmpt-promocion/cmpt-promocion.component';
 import { CmptDocentesComponent } from './components/cmpt-docentes/cmpt-docentes.component';
 import { CmptStoreEsfaComponent } from './components/cmpt-store-esfa/cmpt-store-esfa.component';
-
+import { Cmpt29EVENTOSComponent } from './components/cmpt29-eventos/cmpt29-eventos.component';
 
 const routes: Routes = [
   { path: '', component: LandwwwComponent },
@@ -49,6 +49,7 @@ const routes: Routes = [
   { path: 'Cmpt24BIBLIOTECAComponent', component: Cmpt24BIBLIOTECAComponent },
   { path: 'Cmpt26PREComponent', component: Cmpt26PREComponent },
   { path: 'Cmpt28EGRESADOSComponent', component: Cmpt28EGRESADOSComponent },
+  { path: 'Cmpt29EVENTOSComponent', component: Cmpt29EVENTOSComponent },
   { path: 'Cmpt30DOCUMENTOSComponent', component: Cmpt30DOCUMENTOSComponent },
   { path: 'CmptPromocionComponent', component: CmptPromocionComponent },
   { path: 'CmptDocentesComponent', component: CmptDocentesComponent },

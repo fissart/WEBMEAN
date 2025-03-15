@@ -22,29 +22,39 @@ export class UnityPreviewComponent implements OnInit {
     //     },
     //     errorColor: '#cc0000',
     // };
-    id!: string;
-    markdown!: string;
+    id!: string
+    markdown!: string
 
-    markdown2!: string;
-    markdown3!: string;
+    markdown2!: string
+    markdown3!: string
+    public conceptual: string = "";
+    procedimental!: string
+    actitudinal!: string
 
-    apiUrl = environment.apiURL;
+    apiUrl = environment.apiURL
 
     constructor(private curseService: CurseService, private router: ActivatedRoute, private routerr: Router
     ) { }
 
+    www(avent:any){
+        console.log(event)
+        // this.procedimental==1-Number(this.actitudinal+this.conceptual)+''
+    }
     ngOnInit(): void {
         this.router.params.subscribe(params => {
-            //this.id=params['idunity'];
+            //this.id=params['idunity']
             this.curseService.getUnity(params['idunity'])
                 .subscribe(
                     (res: any) => {
-                        this.photo = res;
-                        //console.log(res);
-                        this.markdown = res.description;
-                        this.markdown2 = res.task;
-                        this.markdown3 = res.test;
-                        this.id = res._id;
+                        this.photo = res
+                        console.log(res)
+                        this.markdown = res.description
+                        this.markdown2 = res.task
+                        this.markdown3 = res.test
+                        this.conceptual = res.conceptual
+                        this.procedimental = res.procedimental
+                        this.actitudinal = res.actitudinal
+                        this.id = res._id
                     },
                     err => console.log(err)
                 )
@@ -52,8 +62,8 @@ export class UnityPreviewComponent implements OnInit {
     }
 
 
-    updateUnity(id: HTMLInputElement, title: HTMLInputElement, description: HTMLTextAreaElement, task: HTMLTextAreaElement, test: HTMLTextAreaElement, time: HTMLInputElement, timeex: HTMLInputElement) {
-        this.curseService.updateUnity(this.id, title.value, description.value, task.value, test.value, time.value, timeex.value)
+    updateUnity(id: HTMLInputElement, title: HTMLInputElement, description: HTMLTextAreaElement, task: HTMLTextAreaElement, test: HTMLTextAreaElement, time: HTMLInputElement, timeex: HTMLInputElement, conceptual: HTMLInputElement, procedimental: HTMLInputElement, actitudinal: HTMLInputElement) {
+        this.curseService.updateUnity(this.id, title.value, description.value, task.value, test.value, time.value, timeex.value, conceptual.value, procedimental.value, actitudinal.value)
             .subscribe(
                 res => {
                     //console.log(res);

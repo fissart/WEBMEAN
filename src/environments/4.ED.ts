@@ -1,3 +1,21 @@
+{ "_id" : "Retrato I", "year" : "2022", "title" : "Retrato I", "number" : 33 }
+{ "_id" : "Música II", "year" : "2022", "title" : "Música II", "number" : 33 }
+{ "_id" : "Arte Virtual", "year" : "2022", "title" : "Arte Virtual", "number" : 20 }
+{ "_id" : "Dibujo VII", "year" : "2022", "title" : "Dibujo VII", "number" : 20 }
+{ "_id" : "Teatro I", "year" : "2022", "title" : "Teatro I", "number" : 33 }
+{ "_id" : "Taller Principal VII (PEG)", "year" : "2022", "title" : "Taller Principal VII (PEG)", "number" : 20 }
+{ "_id" : "Crítica del Arte", "year" : "2022", "title" : "Crítica del Arte", "number" : 20 }
+{ "_id" : "Cerámica I", "year" : "2022", "title" : "Cerámica I", "number" : 33 }
+{ "_id" : "Cerámica II", "year" : "2022", "title" : "Cerámica II", "number" : 20 }
+{ "_id" : "Tutoría y Práctica Pedagógica I", "year" : "2022", "title" : "Tutoría y Práctica Pedagógica I", "number" : 33 }
+{ "_id" : "Grabado III", "year" : "2022", "title" : "Grabado III", "number" : 33 }
+{ "_id" : "Historia del Arte VI", "year" : "2022", "title" : "Historia del Arte VI", "number" : 20 }
+{ "_id" : "Currículo Tecnología y Gestión II", "year" : "2022", "title" : "Currículo Tecnología y Gestión II", "number" : 33 }
+{ "_id" : "Filosofía II", "year" : "2022", "title" : "Filosofía II", "number" : 33 }
+{ "_id" : "Investigación Artística I", "year" : "2022", "title" : "Investigación Artística I", "number" : 20 }
+
+
+
 db.users.updateMany({
   dni: {
     $in:

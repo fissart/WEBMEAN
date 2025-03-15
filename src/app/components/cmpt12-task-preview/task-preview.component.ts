@@ -34,19 +34,9 @@ export class TaskPreviewComponent implements OnInit {
   public Editorw = ClassicEditor
 
 
-  public conf = {
+  public optionss = {
     language: 'es', toolbar: {
-      items: [
-        'Math',
-        'blockQuote',
-        'bulletedList',
-        'numberedList',
-        'bold',
-        'italic',
-        'indent',
-        'outdent',
-        'undo',
-        'redo']
+      items: ['heading', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'indent', 'outdent', 'blockQuote', 'insertTable', 'math', 'undo', 'redo']
     }
   }
 

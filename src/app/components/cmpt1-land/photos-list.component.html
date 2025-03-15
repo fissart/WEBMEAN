@@ -1,5 +1,5 @@
 <div Ngxheadroom [options]="options" class="fixed-navbar">
-	<app-navigation></app-navigation>
+  <app-navigation></app-navigation>
 </div>
 <div class="height"></div>
 
@@ -127,7 +127,7 @@ File
 </ng-template>
 
 <div class="container" id="print-section2">
-<button class="btn btn-info" printSectionId="print-section2" [useExistingCss]="true" ngxPrint>  Imprimir  </button>
+  <!-- <button class="btn btn-info" printSectionId="print-section2" [useExistingCss]="true" ngxPrint>  Imprimir  </button> -->
   <div *ngIf="rol=='1'" class="flex row text-center" style="margin: .2cm;">
     <div class="p-1 col-md-4">
       <button class="btn border border-warning w-100" routerLink="/registro">
@@ -148,7 +148,7 @@ File
 
 
   <div class="container text-center">
-    <button *ngIf="rol=='3'" class="btn btn-info mt-2 shadow-none text-light" (click)="open1(ww, 'www', 'www')">
+    <button *ngIf="user && rol=='3'" class="btn btn-info mt-2 shadow-none text-light" (click)="open1(ww, 'www', 'www')">
       <!--<mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
       Integrarse a un curso
     </button>
@@ -157,8 +157,8 @@ File
     loading=='false' ? 'Cargando': 'Cargar cursos y relativos'}}</button>
 
 
-  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)"
-    class="row py-1bg-light border border-dark rounded" style="margin: .2cm;">
+  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)" class="row py-1bg-light border border-dark rounded"
+    style="margin: .2cm;">
     <div class="col-md-6 form-group mb-1 py-0 px-1">
       <!-- <label class="form-label">Inicio notas</label> -->
       <input type="datetime-local" class="form-control" placeholder="1" #iniciar [value]=ussser.dateb>
@@ -196,8 +196,11 @@ File
       </select>
 
     </form>
-    <button [ngClass]="[loading?'btn btn-warning text-uppercase w-100 mt-1':'btn btn-info text-uppercase w-100 mt-1']" (click)="getFirstAverages()" [disabled]="loading">
-      {{ loading=='false' ? 'Cargando Notas ('+this.form.value.mencion!.name+'-'+this.form.value.ciclo!.abbrev+'-'+this.form.value.yearr!.name+')':'Cargar notas'}}
+    <button [ngClass]="[loading?'btn btn-warning text-uppercase w-100 mt-1':'btn btn-info text-uppercase w-100 mt-1']"
+      (click)="getFirstAverages()" [disabled]="loading">
+      {{ loading=='false' ? 'Cargando Notas
+      ('+this.form.value.mencion!.name+'-'+this.form.value.ciclo!.abbrev+'-'+this.form.value.yearr!.name+')':'Cargar
+      notas'}}
     </button>
   </div>
 
@@ -206,10 +209,14 @@ File
 
   <div *ngIf="califications.length!==0 && rol=='3'" class="container text-center text-uppercase"
     style='font-weight: bold'>
-    <div *ngIf="user" class="container justify-content-center">
-      <button
-        [ngClass]="[shownotes?'btn btn-secondary mt-1 w-100 text-uppercase':'btn btn-warning mt-1 w-100 text-uppercase']"
-        (click)="showcalifications()">{{ shownotes ? 'Esconder
+    <div *ngIf="user" class="text-center">
+<!--    <button *ngIf="califications.length!=0 && rol=='3'" [disabled]="loading"
+      (click)="recibo(califications[califications.length-1]._id, califications[califications.length-1].mencion)"
+      class="btn btn-info mt-1 text-light">Matricularse</button>-->
+  </div>
+    <div *ngIf="user" class="justify-content-center">
+      <button [ngClass]="[shownotes?'btn btn-secondary mt-1':'btn btn-warning mt-1']" (click)="showcalifications()">{{
+        shownotes ? 'Esconder
         calificaciones': 'Calificaciones'}}</button>
     </div>
   </div>
@@ -224,46 +231,48 @@ File
       ussser.mencion=='G' ? "ARTES PLÁSTICAS (Grabado)" :"ARTES PLÁSTICAS Y VISUALES (Educación artística)"}}
       [{{ussser.ciclo}}]
     </span>
-<!-- nathalyflores@esfapa.edu.pe 71902611 -->
+    <!-- nathalyflores@esfapa.edu.pe 71902611 -->
     <!--<button (click)="wwwww('II')" class="btn btn-info"> Imprimir notas </button>-->
-    <select class="form-select bg-info my-3" aria-label="Default select example" [disabled]="loading" (change)="onChange2($event)"
-      name="deviceText">
-      <option selected>Imprimir calificaciones. Seleccione ciclo</option>
-      <option value="I">I</option>
-      <option value="II">II</option>
-      <option value="III">III</option>
-      <option value="IV">IV</option>
-      <option value="V">V</option>
-      <option value="VI">VI</option>
-      <option value="VII">VII</option>
-      <option value="VIII">VIII</option>
-      <option value="IX">IX</option>
-      <option value="X">X</option>
-      <option value="N">N</option>
-    </select>
-    <table *ngIf="califications.length!==0 && rol=='3'">
-      <tr>
-        <th>N</th>
-        <th>Asignatura</th>
-        <th>Ciclo</th>
-        <th>Crédito</th>
-        <th>Nota</th>
-        <th>Puntaje</th>
-      </tr>
-      <ng-container *ngFor="let calification of califications index as i">
-        <tr
-          [ngClass]="[calification.ciclo=='II'||calification.ciclo=='IV'||calification.ciclo=='VI'||calification.ciclo=='VIII'||calification.ciclo=='X'?'text-dark':'text-primary']">
-          <td>{{i+1}}</td>
-          <td>{{calification.title}}</td>
-          <td>{{calification.ciclo}}</td>
-          <td>{{calification.credito}}</td>
-          <td>{{calification.nota}}</td>
-          <td>{{calification.nota*calification.credito}}</td>
-        </tr>
-      </ng-container>
-    </table>
+    <div *ngIf="califications.length!==0 && rol=='3'">
+      <div class="border border-info my-5" *ngFor="let calificationwww of califications index as i">
+        Ciclo {{calificationwww._id}}
+        <table>
+          <tr>
+            <th>N</th>
+            <th>Asignatura</th>
+            <th>Crédito</th>
+            <th>Nota</th>
+            <th>Puntaje</th>
+          </tr>
+          <ng-container *ngFor="let calification of calificationwww['records'] index as i">
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{calification.title}}</td>
+              <td>{{calification.credito}}</td>
+              <td>{{calification.nota}}</td>
+              <td>{{calification.nota*calification.credito}}</td>
+            </tr>
+          </ng-container>
+          <tr>
+            <td>TOTAL</td>
+            <td></td>
+            <td>{{calificationwww.sumacreditos}}</td>
+            <td>{{calificationwww.sumanotas}}</td>
+            <td>{{calificationwww.total/calificationwww.sumacreditos|number:'1.2-2'}}</td>
+          </tr>
+        </table>
+        <div>
+          Promedio semestral {{calificationwww.total/calificationwww.sumacreditos|number:'1.2-2'}}
+        </div>
+        <img [src]="'../../../assets/firma.png'" style="width: 9cm" (error)="onImgError($event)">
+        <img [src]="'../../../assets/bitmap.png'" style="width: 9cm" (error)="onImgError($event)">
+        <hr />
+        <button (click)="onChange2(calificationwww._id)" class="btn btn-info mb-1" [disabled]="loading"> Imprimir notas (Ciclo {{calificationwww._id}}) </button>
+      </div>
+    </div>
   </div>
 
+  
 
 
 
@@ -285,6 +294,7 @@ File
                 <th>N</th>
                 <th>DNI</th>
                 <th>NOMBRE</th>
+                <th>TIPO</th>
                 <th>MENCIÓN</th>
                 <th>CICLO</th>
                 <th></th>
@@ -299,8 +309,19 @@ File
                       #ciclo [value]=stdwww.name>
                   </td>
                   <td>
+                    <select class="form-select" [ngClass]="[stdwww.tipostd=='R'?'':'bg-warning text-white border-0']"
+                      aria-label="Default select example" [disabled]="loading" (change)="onChange2w($event, stdwww._id)"
+                      name="deviceText">
+                      <option selected>{{stdwww.tipostd=='R'?'Regular':stdwww.tipostd=='P'?'Licencia':'N'}}</option>
+                      <option value="P">Licencia</option>
+                      <option value="R">Regular</option>
+                      <option value="N">N</option>
+
+                    </select>
+                  </td>
+                  <td>
                     <select class="form-select" aria-label="Default select example" [disabled]="loading"
-                      (change)="onChange($event, stdwww._id, stdwww.ciclo,  stdwww.name)" name="deviceText">
+                      (change)="onChange($event, stdwww._id)" name="deviceText">
                       <option selected>{{stdwww.mencion}}</option>
                       <option value="E">E</option>
                       <option value="G">G</option>
@@ -311,7 +332,7 @@ File
                   </td>
                   <td>
                     <select class="form-select" aria-label="Default select example" [disabled]="loading"
-                      (change)="onChange1($event, stdwww._id, stdwww.mencion,  stdwww.name)" name="deviceText">
+                      (change)="onChange1($event, stdwww._id)" name="deviceText">
                       <option selected>{{stdwww.ciclo}}</option>
                       <option value="I">I</option>
                       <option value="II">II</option>
@@ -397,11 +418,10 @@ File
     </tr>
     <tr *ngFor="let orrder of order.order index as i">
       <td>{{i+1}}</td>
-      <td>{{orrder.uSSer[0].name}}</td>
+      <td>{{orrder.uSSer.length>0?orrder.uSSer[0].name:'nname'}}</td>
       <td>{{orrder.Puntaje}}</td>
     </tr>
   </table>
-
   <!--ACTA-->
 
   <table *ngIf="order.length!=0 && rol=='1'">
@@ -439,8 +459,8 @@ File
     </tr>
     <tr *ngFor="let orrder of order.orderw index as i">
       <td style="text-align: center">{{i+1}}</td>
-      <td style="text-align: center">{{orrder.uSSer[0].dni}}</td>
-      <td>{{orrder.uSSer[0].name}}</td>
+      <td style="text-align: center">{{orrder.uSSer.length>0?orrder.uSSer[0].dni:'ndni'}}</td>
+      <td>{{orrder.uSSer.length>0?orrder.uSSer[0].name:'nname'}}</td>
       <ng-container *ngFor="let w_w of orrder['cursse'] index as i">
         <ng-container *ngIf="w_w.averagges.length==0">
           <td class="text-warning" style="text-align: center">
@@ -462,8 +482,9 @@ File
                   [ngClass]="[www.nota=='0'?'bg-info border-0':www.nota=='-0'?'bg-primary border-0':'bg-success text-white border-0']"
                   [value]="www.nota=='0'?'R':www.nota=='-0'?'L':www.nota" (blur)="onBlurMeanUpdate($event, www._id )">
               </div>
-              <div class="p-0" style="font-size: 8pt; padding: 0%;">{{www.teacher[0].email.substring(0,
-                www.teacher[0].email.lastIndexOf("@"))}}</div>
+              <div class="p-0" style="font-size: 8pt; padding: 0%;">
+                {{www.teacher.length>0?www.teacher[0].email.substring(0,
+                www.teacher[0].email.lastIndexOf("@")):'nname'}}</div>
               <div class="p-0" style="font-size: 8pt; padding: 0%;">{{w_w.codigo}}</div>
             </td>
             <td class="text-primary d-flex justify-content-center align-items-center" style="text-align: center">
@@ -502,7 +523,7 @@ File
           (error)="onImgError($event)">
         <div class="w-100 text-center"
           style='position: absolute;  top: 20%; left: 50%; transform: translate(-50%, -50%);'>
-         
+
 
           <button class="btn btn-warning shadow-none card-photo" (click)="goCurse( $any(photo).cursse[0]._id)">
             <!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
@@ -521,8 +542,8 @@ File
     </div>
   </div>
 
-  <div *ngIf="user && newws.length!==0 && rol=='2'" class="container justify-content-center text-center">
-    <button [ngClass]="[showphilosophy?'btn btn-info ':'btn btn-light']" (click)="showphilosophyteacher()">{{
+  <div *ngIf="user && rol=='2' && show!='ok'" class="container justify-content-center text-center my-3">
+    <button [ngClass]="[showphilosophy?'btn btn-info':'btn btn-light border']" (click)="showphilosophyteacher()">{{
       showphilosophy
       ? 'ESCONDER
       FILOSOFÍA DEL DOCENTE': 'FILOSOFÍA DEL DOCENTE'}}</button>
@@ -541,15 +562,15 @@ File
       “Felipe Guamán Poma de Ayala”
     </div>
     <div class="container col-md-3 p-1 justify-content-center align-items-center text-center">
-      <img src="./assets/esfap.png" class="img-fluid" alt="Responsive image">
+      <img src="./assets/logo.png" class="img-fluid" alt="Responsive image">
     </div>
 
+    <input type="text" class="form-control text-center" [value]=ussser.mencion [(ngModel)]="mencion">
     <div class="container h6 text-center">
       {{mencion}}
     </div>
-    <input type="text" class="form-control" [value]=ussser.mencion [(ngModel)]="mencion">
 
-    <div class="container h5 mt-3 text-center">
+    <div class="container h5 my-3 text-center">
       FILOSOFÍA DEL DOCENTE
     </div>
 
@@ -566,31 +587,33 @@ File
   <div *ngIf="rol=='2'" class="container text-center h5 mt-3">
     CURSOS DOCENTE {{ussser.name}}
   </div>
-  <div *ngIf="user && CurseTeacher.length!=0 ||  rol=='2'" class="row d-flex justify-content-center rounded my-2"
-    style="margin:0; background-color: rgb(243, 233, 204);">
+  <div *ngIf="user && CurseTeacher.length!=0 ||  rol=='2'"
+    class="row d-flex justify-content-center rounded my-2 border">
     <div class="col-md-6 col-lg-4 p-2" *ngFor="let photo of CurseTeacher index as i">
       <div
-        [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX'?'card border border-info p-1':'card border border-warning']">
+        [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX'?'card border border-info p-1':'card border p-1']">
         <div class="text-center text-uppercase my-0">
           {{photo.title}}
         </div>
-        <span style="font-size: 8pt" class="text-center">{{photo.codigo}}</span> 
+        <span style="font-size: 8pt" class="text-center">{{photo.codigo}}</span>
         <div class="text-center text-uppercase my-0">
           [<span class="text-secondary">{{photo.mencion=='P'?'AP
-            PINTURA':photo.mencion=='E'?'ESCULTURA':photo.mencion=='ED'?'EDUCACIÓN ARTÍSTICA':'GRABADO'}} - {{photo.ciclo}}</span>
-            <!-- (<span class="text-info">{{photo.integers.length}}</span>) --> 
-            ]
+            PINTURA':photo.mencion=='E'?'ESCULTURA':photo.mencion=='ED'?'EDUCACIÓN ARTÍSTICA':'GRABADO'}} -
+            {{photo.ciclo}}</span>
+          <!-- (<span class="text-info">{{photo.integers.length}}</span>) -->
+          ]
         </div>
         <!-- <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" style="height: 70px;" (error)="onImgError($event)"> -->
         <!-- <div class="mytesttop w-100 text-center"> -->
         <div class="w-100 text-center">
           <div class="btn-group">
-            <button *ngIf="show!='ok'" class="w-100 btn btn-info" (click)="updatecurseHide( $any(photo)._id)">
+            <button *ngIf="show!='ok'" class="w-100 btn btn-outline-primary"
+              (click)="updatecurseHide( $any(photo)._id)">
               Archivar
             </button>
-            <button *ngIf="show!='ok'" class="btn btn-warning  shadow-none"
+            <button *ngIf="show!='ok'" class="btn btn-outline-warning  shadow-none"
               (click)="deleteCurse(photo._id)">Borrar</button>
-            <button class="btn btn-outline-info shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
+            <button class="btn btn-outline-info shadow-none" (click)="goCurse( $any(photo)._id)">
               <!--<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
               Ingresar
             </button>
@@ -621,8 +644,7 @@ File
         <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
         <div class="mytesttop w-100 text-center">
           <div class="btn-group">
-            <button class="btn btn-danger shadow-none card-photo"
-              (click)="updatecurseShow( $any(photo)._id)">
+            <button class="btn btn-danger shadow-none card-photo" (click)="updatecurseShow( $any(photo)._id)">
               Show
             </button>
             <button class="btn btn-info shadow-none card-photo" (click)="goCurse( $any(photo)._id)">

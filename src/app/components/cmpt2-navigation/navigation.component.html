@@ -1,7 +1,7 @@
 <nav class="nav navbar smart-scroll navbar-expand-lg">
     <div class="container-fluid">
         <ng-container *ngIf="!authService.loggedIn(); else loggedInw">
-            <a class="navbar-brand text-light" routerLink="/">
+            <a class="navbar-brand" routerLink="/">
                 <div class="d-flex">
                     <div class="">
                         <img class="wrapperest12" [src]="src" alt="image">
@@ -22,12 +22,12 @@
             </a>
         </ng-container>
         <!-- <ng-container>
-            <a *ngIf="!isCollapsed" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-brand p-0" routerLink="/">
+            <a *ngIf="!isCollapsed" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-brand p-0" href="/">
                 ESFAP "FGPA"
             </a>
         </ng-container> -->
         <ng-template #loggedInw>
-            <a *ngIf="photo" class="navbar-brand p-0" routerLink="/user/{{photo._id}}">
+            <a *ngIf="photo" class="navbar-brand p-0" href="/user/{{photo._id}}">
                 <img *ngIf="isCollapsed" [src]="apiUrl+'/'+ photo.foto" (error)="onImgError($event)"
                     class="wrapperest10">
             </a>
@@ -36,9 +36,9 @@
             data-target="#navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"
             (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
             aria-controls="navbarTogglerDemo02">
-            {{isCollapsed?"DESPLEGAR MENÚ":"ESCONDER MENÚ"}}
+            {{isCollapsed?"&#x21e9;":"&#x21e7;"}}
         </button>
-
+ 
 
         <div class="collapse navbar-collapse  justify-content-end" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
 
@@ -54,8 +54,7 @@
                             <ul class="dropdown-menuww">
                                 <a class="dropdown-item" href="/Cmpt16AUTORIDADESComponent">AUTORIDADES</a>
                                 <a class="dropdown-item" href="/CmptDocentesComponent">DOCENTES</a>
-                                <a class="dropdown-item" href="/Cmpt18CONSEJOESTUDIANTILComponent">CONSEJO
-                                    ESTUDIANTIL</a>
+                                <a class="dropdown-item" href="/Cmpt18CONSEJOESTUDIANTILComponent">CONSEJO ESTUDIANTIL</a>
                                 <a class="dropdown-item" href="/Cmpt17ADMINISTRATIVOSComponent">ADMINISTRATIVOS</a>
                                 <li class="dropdown-submenu  d-none"><a class="dropdown-item dropdown-toggle"
                                         href="#">Submenu 1</a>
@@ -96,11 +95,11 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/Cmpt23TESISComponent">TESIS</a></li>
                         <li><a class="dropdown-item" href="/Cmpt24BIBLIOTECAComponent">BIBLIOTECA</a></li>
-                        <li><a class="dropdown-item" href="/PinacotecaComponent">PINACOTECA</a></li>
+                        <li><a class="dropdown-item" href="/Cmpt29EVENTOSComponent">LIBROS</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Cmpt30DOCUMENTOSComponent">DOCUMENTOS</a>
+                    <a class="nav-link" routerLink="/Cmpt30DOCUMENTOSComponent">DOCUMENTOS</a>
                 </li>
                 <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-bs-toggle="dropdown"
@@ -124,7 +123,7 @@
                     <span *ngIf="photo" class="d-none">
 
                         <li *ngIf='photo.rol==1 || photo.rol==2' class="nav-item">
-                            <a class="nav-link" routerLink="/user">DOCENTE</a>
+                            <a class="nav-link" href="/user">DOCENTE</a>
                         </li>
                     </span>
                     <li class="nav-item">
