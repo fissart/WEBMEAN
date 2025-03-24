@@ -1,8 +1,0 @@
-{
-    "watch": ["new"],
-    "ext": "js",
-    "ignore": [
-        "new/src/**/*.spec.js"
-    ],
-    "exec": "node"
-}
