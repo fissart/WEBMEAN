@@ -1,11 +1,12 @@
 export const environment = {
   production: false,
   title: 'Local Environment Heading',
-  // apiURL: 'http://localhost:9797'
-  apiURL: 'https://www.esfapa.edu.pe:9797'
+  apiURL: 'http://localhost:9797'
+  // apiURL: 'https://www.esfapa.edu.pe:9797'
 }
 
 /*
+15.197.172.60
 <p class="small text-info"> {{file.createdAt | date:'yyyy-MM-dd HH:mm:ss'}} {{file.usser[0].email}}</p>
 
 db.averages.updateMany({title:"Comunicación I",ciclo:"1",year:"2022",mencion:{$in:["E","P","G"]}},{$set:{codigo:"FGCOM101"}})

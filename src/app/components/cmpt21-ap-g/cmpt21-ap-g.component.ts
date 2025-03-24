@@ -4,6 +4,7 @@
     import { environment } from '../../../environments/environment';
     import { ActivatedRoute } from '@angular/router';
     import { Router } from '@angular/router';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     @Component({
       selector: 'app-cmpt21-ap-g',
@@ -11,7 +12,10 @@
       styleUrls: ['./cmpt21-ap-g.component.css']
     })
     export class Cmpt21APGComponent implements OnInit {
-
+      public Editor = ClassicEditor
+      public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "|", "undo", "redo"], placeholder: 'Descripción' }
+      //  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "math", "mediaEmbed", "|", "undo", "redo"] }
+    
     public title!: string;
     public description!: string;
     public img!: string;

@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({
@@ -13,6 +14,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./cmpt29-eventos.component.css']
 })
 export class Cmpt29EVENTOSComponent implements OnInit {
+  public Editor = ClassicEditor
+  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "|", "undo", "redo"], placeholder: 'Descripción' }
+  //  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "math", "mediaEmbed", "|", "undo", "redo"] }
+
   public title!: string;
   public description!: string;
   public img!: string;

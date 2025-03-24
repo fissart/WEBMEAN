@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { UsersService } from "../../services/users.service"
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({
@@ -13,6 +14,10 @@ import { UsersService } from "../../services/users.service"
   styleUrls: ['./cmpt-docentes.component.css']
 })
 export class CmptDocentesComponent implements OnInit {
+  public Editor = ClassicEditor
+  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "|", "undo", "redo"], placeholder: 'Descripción' }
+  //  public configg = { language: 'es', toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "math", "mediaEmbed", "|", "undo", "redo"] }
+
   public text!: string;
   public title!: string;
   public description!: string;

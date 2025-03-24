@@ -157,7 +157,7 @@ File
     loading=='false' ? 'Cargando': 'Cargar cursos y relativos'}}</button>
 
 
-  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)" class="row py-1bg-light border border-dark rounded"
+  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)" class="row py-1 bg-light border border-dark rounded"
     style="margin: .2cm;">
     <div class="col-md-6 form-group mb-1 py-0 px-1">
       <!-- <label class="form-label">Inicio notas</label> -->
@@ -210,10 +210,10 @@ File
   <div *ngIf="califications.length!==0 && rol=='3'" class="container text-center text-uppercase"
     style='font-weight: bold'>
     <div *ngIf="user" class="text-center">
-<!--    <button *ngIf="califications.length!=0 && rol=='3'" [disabled]="loading"
+      <!--    <button *ngIf="califications.length!=0 && rol=='3'" [disabled]="loading"
       (click)="recibo(califications[califications.length-1]._id, califications[califications.length-1].mencion)"
       class="btn btn-info mt-1 text-light">Matricularse</button>-->
-  </div>
+    </div>
     <div *ngIf="user" class="justify-content-center">
       <button [ngClass]="[shownotes?'btn btn-secondary mt-1':'btn btn-warning mt-1']" (click)="showcalifications()">{{
         shownotes ? 'Esconder
@@ -222,19 +222,16 @@ File
   </div>
 
   <div *ngIf="shownotes" class="container text-center">
-    <span class="">
+    <div class="text-success mt-3">
       ESTUDIANTE: {{ussser.name}}
-    </span>
-
-    <span class="text-success">
       {{ussser.mencion=='P' ? "ARTES PLÁSTICAS (Pintura)": ussser.mencion=='E' ? "ARTES PLÁSTICAS (Escultura)":
       ussser.mencion=='G' ? "ARTES PLÁSTICAS (Grabado)" :"ARTES PLÁSTICAS Y VISUALES (Educación artística)"}}
       [{{ussser.ciclo}}]
-    </span>
+    </div>
     <!-- nathalyflores@esfapa.edu.pe 71902611 -->
     <!--<button (click)="wwwww('II')" class="btn btn-info"> Imprimir notas </button>-->
     <div *ngIf="califications.length!==0 && rol=='3'">
-      <div class="border border-info my-5" *ngFor="let calificationwww of califications index as i">
+      <div class="border border-info my-3 p-2" *ngFor="let calificationwww of califications index as i">
         Ciclo {{calificationwww._id}}
         <table>
           <tr>
@@ -267,12 +264,13 @@ File
         <img [src]="'../../../assets/firma.png'" style="width: 9cm" (error)="onImgError($event)">
         <img [src]="'../../../assets/bitmap.png'" style="width: 9cm" (error)="onImgError($event)">
         <hr />
-        <button (click)="onChange2(calificationwww._id)" class="btn btn-info mb-1" [disabled]="loading"> Imprimir notas (Ciclo {{calificationwww._id}}) </button>
+        <button (click)="onChange2(calificationwww._id)" class="btn btn-info mb-1" [disabled]="loading"> Imprimir notas
+          (Ciclo {{calificationwww._id}}) </button>
       </div>
     </div>
   </div>
 
-  
+
 
 
 
