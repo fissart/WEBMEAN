@@ -4,5 +4,5 @@
     "ignore": [
         "new/src/**/*.spec.js"
     ],
-    "exec": "ts-node"
+    "exec": "node"
 }

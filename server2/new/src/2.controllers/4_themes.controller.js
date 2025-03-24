@@ -23,6 +23,8 @@ async function getupdateController(req, res) {
     const { ObjectId } = require("mongodb");
     const idtheme = ObjectId(req.params.id);
     const curssse = ObjectId(req.params.curssse);
+
+
     const Curses = await _4_Theme_1.default.aggregate([
         {
             $match: {
