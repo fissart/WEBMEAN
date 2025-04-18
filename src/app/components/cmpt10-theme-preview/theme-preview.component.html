@@ -9,7 +9,7 @@
 
 <div class="container d-flex">
   <button class="btn btn-info w-100" printSectionId="contentall" [useExistingCss]="true"
-    [printStyle]="{h1 : {'color': 'red'}, h2 : {'border': 'solid 1px'}}" printTitle="Hello World" ngxPrint> Imprimir
+    [printStyle]="{h1 : {'color': 'red'}, h2 : {'border': 'solid 1px'}}" printTitle="{{photo?photo.title:''}}" ngxPrint> Imprimir
   </button>
 </div>
 
@@ -49,29 +49,30 @@
 </div>
 
 
-<div *ngIf="photo" class="container p-1" id="contentall" style="font-family: 'Times New Roman', Times, serif f !important">
 
-  <div class="text-align-center text-center mt-3">
-    <!-- <h5 class="">{{photo.task}}</h5> -->
-    {{photo?photo.curso[0].title:''}}--
-    {{photo?photo.curso[0].ciclo:''}}--
-    {{photo?photo.curso[0].credito:''}}--
-    {{photo?photo.curso[0].codigo:''}} ({{photo.task}})
+<div class="text-align-center text-center mt-3">
+  <!-- <h5 class="">{{photo.task}}</h5> -->
+  {{photo?photo.curso[0].title:''}}--
+  {{photo?photo.curso[0].ciclo:''}}--
+  {{photo?photo.curso[0].credito:''}}--
+  {{photo?photo.curso[0].codigo:''}} ({{photo.task}})
+</div>
+
+
+<form *ngIf="photo" (submit)="fechanotastasks(iniciar, culminar); fechanotastheme(iniciar, culminar)"
+  class="row border border-dark rounded" style="margin-left: 1cap;margin-right: 1cap; padding: .1cm;">
+  <div class="input-group p-1">
+    <input type="datetime-local" class="form-control" placeholder="1" #iniciar [value]="photo.dateb">
+    <input type="datetime-local" class="form-control" placeholder="2" #culminar [value]="photo.datee">
   </div>
+  <button
+    [ngClass]="[photo.dateb < DateNow && DateNow < photo.datee?'btn btn-warning w-100 text-uppercase':'btn btn-secondary w-100 text-uppercase']"
+    [disabled]="loading">Guardar intervalo</button>
+</form>
 
 
-  <form *ngIf="photo" (submit)="fechanotastasks(iniciar, culminar); fechanotastheme(iniciar, culminar)"
-    class="row border border-dark rounded" style="margin-left: 1cap;margin-right: 1cap; padding: .1cm;">
-    <div class="input-group p-1">
-      <input type="datetime-local" class="form-control" placeholder="1" #iniciar [value]="photo.dateb">
-      <input type="datetime-local" class="form-control" placeholder="2" #culminar [value]="photo.datee">
-    </div>
-    <button
-      [ngClass]="[photo.dateb < DateNow && DateNow < photo.datee?'btn btn-warning w-100 text-uppercase':'btn btn-secondary w-100 text-uppercase']"
-      [disabled]="loading">Guardar intervalo</button>
-  </form>
-
-
+<div *ngIf="photo" class="container p-1" id="contentall"
+  style="font-family: 'Times New Roman', Times, serif f !important">
 
 
   <!-- {{photo.unity[0].title}} 

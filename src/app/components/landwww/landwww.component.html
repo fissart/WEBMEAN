@@ -328,7 +328,7 @@
 		<div *ngIf="foro.length!=0" class="row d-flex justify-content-center p-0" style="margin: 0cm">
 			<div *ngFor="let file of foro index as i" class="border rounded border-primary"
 				style="margin: .2cm; padding: .2cm;">
-				<p class="small text-info"> {{file.createdAt | date:'yyyy-MM-dd HH:mm:ss'}} {{file.usser[0].email}}</p>
+				<p class="small text-info"> {{file.createdAt | date:'yyyy-MM-dd HH:mm:ss'}} [{{file.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}] {{file.usser[0].email}}</p>
 				<h5 class="">{{file.title}}</h5>
 				<div><ng-katex-html *ngIf="file.descriptionnew!=undefined" [html]="file.descriptionnew"></ng-katex-html>
 				</div>
@@ -350,7 +350,7 @@
 					style="margin-left: .5cm; width: -webkit-fill-available;">
 
 					<div *ngFor="let file2 of file['comenta'] index as i">
-						<p class="small text-info"> {{file2.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}
+						<p class="small text-info"> {{file2.createdAt | date:'yyyy-MM-dd HH:mm:ss'}} [{{file2.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}] 
 							{{file2.usser[0].email}}</p>
 						<div> <ng-katex-html *ngIf="file2.descriptionnew!=undefined"
 								[html]="file2.descriptionnew"></ng-katex-html></div>
@@ -371,7 +371,7 @@
 							style="margin-left: .5cm; width: -webkit-fill-available;">
 
 							<div *ngFor="let file3 of file2['comentas'] index as i">
-								<p class="small text-info"> {{file3.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}
+								<p class="small text-info"> {{file3.createdAt | date:'yyyy-MM-dd HH:mm:ss'}} [{{file3.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}] 
 									{{file3.usser[0].email}}</p>
 								<div> <ng-katex-html *ngIf="file3.descriptionnew!=undefined"
 										[html]="file3.descriptionnew"></ng-katex-html></div>
@@ -722,10 +722,10 @@
 								<p>https://www.esfapa.edu.pe</p>
 							</div>
 							<p>
-								Teléfono: 066-633542
+								Teléfono: 066-287499
 							</p>
 							<div>
-								<p class="text-info">©Copyright esfap-2023</p>
+								<p class="text-info">©Copyright ESFA Ayacucho 2025</p>
 							</div>
 							<div>
 								<i class="text-secondary fa fa-envelope fa-2x"></i>

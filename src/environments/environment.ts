@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   title: 'Local Environment Heading',
-  apiURL: 'http://localhost:9797'
-  // apiURL: 'https://www.esfapa.edu.pe:9797'
+  // apiURL: 'http://localhost:9797'
+  apiURL: 'https://www.esfapa.edu.pe:9797'
 }
 
 /*

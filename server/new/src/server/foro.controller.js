@@ -9,18 +9,18 @@ const path_1 = __importDefault(require("path"));
 const foro_1 = __importDefault(require("./foro"));
 //createController///////////////////////////////////////////////////////////////////////
 async function createController(req, res) {
-    const { title, type, user, foreign, description, descriptionnew } = req.body;
+        const { title, type, user, foreign, description, descriptionnew } = req.body;
     const newCurse = {
         title, type, user, foreign, description, descriptionnew
     };
     const userw = new foro_1.default(newCurse);
     await userw.save();
     return res.json({
-        message: 'Saved Successfully',
-    });
+        message: 'ok',
+    })
 }
-exports.createController = createController;
-;
+exports.createController = createController
+
 //getsController/////////////////////////////////////////////////////////////////////////
 async function getsController(req, res) {
     const data = await foro_1.default.aggregate([
@@ -126,8 +126,7 @@ async function deleteController(req, res) {
     await foro_1.default.deleteMany({ foreign: id });
     return res.json({ message: 'Ok remove' });
 }
-exports.deleteController = deleteController;
-;
+exports.deleteController = deleteController
 //updateController///////////////////////////////////////////////////////////////////////
 async function updateController(req, res) {
     const { id } = req.params;

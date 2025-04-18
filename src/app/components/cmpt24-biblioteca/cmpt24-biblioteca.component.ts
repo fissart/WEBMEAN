@@ -126,7 +126,7 @@ export class Cmpt24BIBLIOTECAComponent implements OnInit {
 
     this.img = file;
     this.author = author;
-    this.markdown = description;
+    this.markdown = description==''?'ww':description;
     this.modal.open(ww, { size: 'xl', scrollable: false })
   }
 

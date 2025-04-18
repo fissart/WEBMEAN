@@ -110,7 +110,7 @@ export class CmptDocentesComponent implements OnInit {
   this.router.params.subscribe(params => {
   console.log(localStorage.getItem('idcurso') || "" )
   this.gets()
-  this.getallTeacher()
+  // this.getallTeacher()
   });
   }
 

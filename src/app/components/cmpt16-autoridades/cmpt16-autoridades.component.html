@@ -89,8 +89,7 @@
     <div class="">
       <span class="h5">{{doc.title}}</span>
       <ng-katex-html *ngIf="doc.description" [html]="doc.description"></ng-katex-html>
-
-      <div *ngIf="doc.file" class="p-0 mt-1">
+      <!-- <div *ngIf="doc.file" class="p-0 mt-1">
         <img
           *ngIf="doc.file.split('.').pop()=='png'||doc.file.split('.').pop()=='jpg'||doc.file.split('.').pop()=='jpeg'||doc.file.split('.').pop()=='svg'||doc.file.split('.').pop()=='webp'"
           [src]="apiUrl+'/'+ doc.file" class="img-fluid w-100" (error)="onImgError($event)">
@@ -103,7 +102,7 @@
         <ngx-extended-pdf-viewer *ngIf="doc.file.split('.').pop()=='pdf'" [src]="apiUrl+'/'+ doc.file"
           [useBrowserLocale]="true"></ngx-extended-pdf-viewer>
 
-      </div>
+      </div> -->
       <div class="p-0">
 
         <button *ngIf="rol=='5' || rol=='1'" class="btn btn-danger shadow-none rounded-0"
