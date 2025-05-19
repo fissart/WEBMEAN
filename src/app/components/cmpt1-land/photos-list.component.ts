@@ -1707,7 +1707,7 @@ export class PhotosListComponent implements OnInit, AfterViewInit {
   }
 
 
-  getsCurseTeacher() {
+  getsCurseTeacher() { 
     this.CurseService.getsCurseTeacher(localStorage.getItem('id') || "", "true").subscribe(
       (res: any) => {
         this.CurseTeacher = res[0].curses;

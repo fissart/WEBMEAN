@@ -12,7 +12,7 @@ export class CurseService {
   URIw = environment.apiURL + '/api/curses/Controller';
   URIFile = environment.apiURL + '/api/curses/Controller';
   URI2 = environment.apiURL + '/api/users/Controller';
-  URI3 = environment.apiURL + '/api/curses/ControllerAll';
+    URI3 = environment.apiURL + '/api/curses/ControllerAll';
 
   constructor(private http: HttpClient) { }
 

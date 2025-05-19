@@ -738,6 +738,10 @@ export class ThemePreviewComponent implements OnInit {
     }
   }
 
+  markdownchange = () => {
+    this.markdown = this.photo.description
+    // console.log(event.html)
+  }
   onContentChangedw = (event: any) => {
     this.markdown = event.html
     console.log(event.html)
