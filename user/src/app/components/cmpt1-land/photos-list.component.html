@@ -1,0 +1,1344 @@
+<div Ngxheadroom [options]="options" class="fixed-navbar">
+<app-navigation></app-navigation>
+</div>
+<div class="height"></div>
+
+<!--
+File
+-->
+
+<ng-template #encuesta let-modal>
+  <div class="modal-header">
+    <div class="text-primary w-100" style="text-align: right">
+      {{titlecurse}} [{{mencion}} {{ciclo}}] ({{teachername}})
+      <!-- {{idcurso}} www 
+      {{idteacher}} www
+    -->
+    </div>
+  </div>
+  <div class="modal-body">
+    <form ngNativeValidate
+      (submit)="saveencuesta(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16,w17,w18,w19,w20)">
+      <div class="modal-body bg-succes">
+        <ol>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[0].prg}}</label>
+              <select class="form-select" aria-label="Default select example" name="select" #w1 required>
+                <option value="1">Muy clara</option>
+                <option value="2">Clara</option>
+                <option value="3">Regular</option>
+                <option value="4">Confusa</option>
+                <option value="5">Muy confusa</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[1].prg}}</label>
+              <select class="form-select" name="select" #w2 required>
+                <option value="1">Totalmente de acuerdo</option>
+                <option value="2">De acuerdo</option>
+                <option value="3">Neutral</option>
+                <option value="4">En desacuerdo</option>
+                <option value="5">Totalmente en desacuerdo</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[2].prg}}</label>
+              <select class="form-select" name="select" #w3 required>
+                <option value="1">Totalmente de acuerdo</option>
+                <option value="2">De acuerdo</option>
+                <option value="3">Neutral</option>
+                <option value="4">En desacuerdo</option>
+                <option value="5">Totalmente en desacuerdo</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[3].prg}}</label>
+              <select class="form-select" name="select" #w4 required>
+                <option value="1">Muy accesible</option>
+                <option value="2">Accesible</option>
+                <option value="3">Regular</option>
+                <option value="4">Poco accesible</option>
+                <option value="5">Nada accesible</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[4].prg}}</label>
+              <select class="form-select" name="select" #w5 required>
+                <option value="1">Muy clara</option>
+                <option value="2">Clara</option>
+                <option value="3">Regular</option>
+                <option value="4">Confusa</option>
+                <option value="5">Muy confusa</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[5].prg}}</label>
+              <select class="form-select" name="select" #w6 required>
+                <option value="1">Totalmente de acuerdo</option>
+                <option value="2">De acuerdo</option>
+                <option value="3">Neutral</option>
+                <option value="4">En desacuerdo</option>
+                <option value="5">Totalmente en desacuerdo</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[6].prg}}</label>
+              <select class="form-select" name="select" #w7 required>
+                <option value="1">Siempre</option>
+                <option value="2">A menudo</option>
+                <option value="3">Algunas veces</option>
+                <option value="4">Rara vez</option>
+                <option value="5">Nunca</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[7].prg}}</label>
+              <select class="form-select" name="select" #w8 required>
+                <option value="1">Totalmente de acuerdo</option>
+                <option value="2">De acuerdo</option>
+                <option value="3">Neutral</option>
+                <option value="4">En desacuerdo</option>
+                <option value="5">Totalmente en desacuerdo</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[8].prg}}</label>
+              <select class="form-select" name="select" #w9 required>
+                <option value="1">Muy accesible</option>
+                <option value="2">Accesible</option>
+                <option value="3">Regular</option>
+                <option value="4">Poco accesible</option>
+                <option value="5">Nada accesible</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[9].prg}}</label>
+              <select class="form-select" name="select" #w10 required>
+                <option value="1">Muy adecuados</option>
+                <option value="2">Adecuados</option>
+                <option value="3">Neutral</option>
+                <option value="4">Poco adecuados</option>
+                <option value="5">Nada adecuados</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[10].prg}}</label>
+              <select class="form-select" name="select" #w11 required>
+                <option value="1">Muy justos</option>
+                <option value="2">Justos</option>
+                <option value="3">Neutral</option>
+                <option value="4">Injustos</option>
+                <option value="5">Muy injustos</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[11].prg}}</label>
+              <select class="form-select" name="select" #w12 required>
+                <option value="1">Muy clara</option>
+                <option value="2">Clara</option>
+                <option value="3">Regular</option>
+                <option value="4">Confusa</option>
+                <option value="5">Muy confusa</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[12].prg}}</label>
+              <select class="form-select" name="select" #w13 required>
+                <option value="1">Totalmente de acuerdo</option>
+                <option value="2">De acuerdo</option>
+                <option value="3">Neutral</option>
+                <option value="4">En desacuerdo</option>
+                <option value="5">Totalmente en desacuerdo</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[13].prg}}</label>
+              <select class="form-select" name="select" #w14 required>
+                <option value="1">Totalmente de acuerdo</option>
+                <option value="2">De acuerdo</option>
+                <option value="3">Neutral</option>
+                <option value="4">En desacuerdo</option>
+                <option value="5">Totalmente en desacuerdo</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[14].prg}}</label>
+              <select class="form-select" name="select" #w15 required>
+                <option value="1">Muy adecuados</option>
+                <option value="2">Adecuados</option>
+                <option value="3">Neutral</option>
+                <option value="4">Poco adecuados</option>
+                <option value="5">Nada adecuados</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[15].prg}}</label>
+              <select class="form-select" name="select" #w16 required>
+                <option value="1">Excelente</option>
+                <option value="2">Buena</option>
+                <option value="3">Regular</option>
+                <option value="4">Mala</option>
+                <option value="5">Muy mala</option>
+                <option value="N" selected></option>
+              </select>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[16].prg}}</label>
+              <textarea type="text" class="form-control shadow-none" placeholder="Descripción" #w17 required></textarea>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[17].prg}}</label>
+              <textarea type="text" class="form-control shadow-none" placeholder="Descripción" #w18 required></textarea>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[18].prg}}</label>
+              <textarea type="text" class="form-control shadow-none" placeholder="Descripción" #w19 required></textarea>
+            </div>
+          </li>
+          <li>
+            <div class="form-group mb-3">
+              <label>{{items[19].prg}}</label>
+              <textarea type="text" class="form-control shadow-none" placeholder="Descripción" #w20 required></textarea>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <button class="btn d-none" [disabled]="loading" #www></button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+      'Enviar encuesta'}}</button>
+    <button class="btn btn-primary text-light shadow-none" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #ww let-modal>
+  <form (submit)="integer(code)">
+    <div class="modal-body bg-succes">
+      <div class="form-group mb-3">
+        <label class="form-label">Código</label>
+        <input type="text" class="form-control shadow-none" placeholder="Código del curso" #code>
+      </div>
+      <!--{{idcurso}}{{idcurso}}--{{iduserteach}}-->
+    </div>
+    <button class="btn d-none" [disabled]="loading" #www></button>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+      'Integrarse al curso'}}</button>
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+
+<ng-template #std let-modal>
+  <form (submit)="reset(code)">
+    <div class="modal-body bg-succes">
+      <div class="form-group mb-3">
+        <label class="form-label">Escriba "esfapa.edu.pe"</label>
+        <input type="text" class="form-control shadow-none" placeholder="Texto" #code>
+      </div>
+    </div>
+    <button class="btn d-none" [disabled]="loading" #www></button>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+      'Resetear mención y ciclo de estudiantes'}}</button>
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+
+<ng-template #filew let-modal>
+  <div class="modal-header bg-succes text-center">
+    {{text.substr(14,50)}} {{apiURL+'/collection/'+ text}}
+  </div>
+  <div class="modal-body bg-warning">
+    <img
+      *ngIf="text && text.split('.').pop()=='png'||text.split('.').pop()=='jpg'||text.split('.').pop()=='jpeg'||text.split('.').pop()=='svg'"
+      [src]="apiURL+'/collection/'+ text" class="img-fluid w-100" (error)="onImgError($event)">
+
+    <ngx-doc-viewer *ngIf="text && text.split('.').pop()=='doc'" [url]="apiURL+'/collection/'+ text" viewer="google"
+      style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+    <ngx-doc-viewer
+      *ngIf="text && text.split('.').pop()=='docx' || text.split('.').pop()=='pptx'|| text.split('.').pop()=='ptx' || text.split('.').pop()=='xlsx'|| text.split('.').pop()=='xls'"
+      [url]="apiURL+'/collection/'+ text" viewer="google" style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+    <ngx-extended-pdf-viewer *ngIf="text && text.split('.').pop()=='pdf'" [src]="apiURL+'/collection/'+ text"
+      [height]="'500px'"></ngx-extended-pdf-viewer>
+  </div>
+  <div class="modal-footer bg-succes">
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #www let-modal>
+  <form class="container p-3" (submit)="updatenews(title, description, show)">
+    <div class="row p-0">
+
+      <div class="form-group mb-3">
+        <label class="form-label">Titulo</label>
+        <input type="text" class="form-control" placeholder="Photo's Title" #title [value]="titlewww">
+      </div>
+      <div class="form-group mb-3 d-none">
+        <label class="form-label">Show</label>
+        <input type="text" class="form-control" placeholder="Photo's Title" #show [value]="showww">
+      </div>
+
+      <div class="form-group mb-3 ">
+        <label class="form-label">Descripción</label>
+        <div class="row mx-1">
+          <div class="col-md-5 p-0">
+            <textarea rows="5" cols="0" class="variable-textarea form-control" [(ngModel)]="markdown"
+              [ngModelOptions]="{standalone:true}" [value]="description" #description></textarea>
+          </div>
+          <div class="form-group mb-3 col-md-7">
+            <ng-katex-html [html]="markdown"></ng-katex-html>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="file" class="d-none" (change)="capturandoFile($event)" #photoInput>
+    <div class="text-center">
+      <img [src]="photoSelected || apiURL+'/'+ imgwww" class="m-auto w-25 cursorpoint img-fluid"
+        (error)="onImgError($event)" alt="No image" (click)="photoInput.click()">
+    </div>
+    <div *ngIf="!photoSelected" class=" text-center border rounded">
+      {{imgwww}}
+    </div>
+    <div *ngIf="photoSelected" class=" text-center border rounded">
+      {{name}}
+    </div>
+    <span>{{imgwww}}</span>
+    <ngx-extended-pdf-viewer *ngIf="photoSelected && type=='application/pdf'" [src]="photoSelected" [height]="'1000px'"
+      [useBrowserLocale]="false" [textLayer]="true" [showHandToolButton]="true">
+    </ngx-extended-pdf-viewer>
+
+    <ngx-extended-pdf-viewer *ngIf="!photoSelected && imgwww && imgwww.split('.').pop()=='pdf'"
+      [src]="apiURL+'/'+ imgwww" [height]="'800px'" [useBrowserLocale]="false" [textLayer]="true"
+      [showHandToolButton]="false">
+    </ngx-extended-pdf-viewer>
+    <mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
+    {{ loading=='false' ? 'Cargando '+value+'%': null}}
+    <button class="btn d-none" [disabled]="loading" #www></button>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+      'Actualizar'}}</button>
+    <button class="btn btn-info shadow-none" (click)="modal.close()">Cerra</button>
+  </div>
+</ng-template>
+
+
+<div class="container" id="print-section2">
+
+
+
+
+
+  <div *ngIf="user && rol=='1'" class="border border-1 border-info p-2">
+    <!-- <input [value]="fow" (change)="changeFn($event)">
+    <p>{{ fow }}</p> -->
+    <div class="input-group">
+      <input [ngModel]="bar" class="form-control col-md-6" (ngModelChange)="modelChangeFn($event)"
+        placeholder="Iniciales del nombre o apellido">
+      <select *ngIf="showwwww=='true'" class="form-select bg-info" aria-label="Default select example"
+        [disabled]="loading" (change)="onChangeCovalidation($event)">
+        <option selected>Seleccione mencion</option>
+        <option value="E">E</option>
+        <option value="G">G</option>
+        <option value="P">P</option>
+        <option value="ED">ED</option>
+      </select>
+      <select *ngIf="mmencion!='' && showwwww=='true'" class="form-select bg-warning"
+        aria-label="Default select example" [disabled]="loading" (change)="onChangeCovalidation($event)">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      <input *ngIf="usersConvalidation.length==1 && cursesConvalidation.length==1" [disabled]="loading" type="text"
+        placeholder="Nota" class="form-control p-1 bg-light"
+        (blur)="onBlurMeanConvalidation($event, cursesConvalidation[0].codigo, usersConvalidation[0]._id, cursesConvalidation[0]._id, cursesConvalidation[0].title, cursesConvalidation[0].ciclo, cursesConvalidation[0].credito, cursesConvalidation[0].mencion )">
+    </div>
+    <!-- <p *ngIf="bar!=''">{{ bar }}... {{ usersConvalidation.length!=0?usersConvalidation.length:'' }}</p> -->
+    <div class="flex row text-center justify-content-center align-items-center">
+      <div *ngFor="let www of usersConvalidation  index as i" class="p-1 col-md-4">
+        <button class="btn btn-info mt-2 shadow-none text-light w-100" (click)="setConvalidationuser(www.name)">
+          {{ www.name }}
+        </button>
+      </div>
+    </div>
+    <div class="flex row text-center justify-content-center align-items-center">
+      <div *ngFor="let www of cursesConvalidation  index as i" class="p-1 col-md-4">
+        <button class="btn btn-warning mt-2 shadow-none text-light w-100" (click)="setConvalidationcurse(i)">
+          {{ www.title }} [{{ www.ciclo }} {{ www.mencion }} {{ www.codigo }}]
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-primary mt-2 shadow-none text-light w-100" (click)="getFirstAveragesonlyoneteacher()">
+      Convalidados {{year}}
+    </button>
+    <div *ngIf="firstAveragesonlyoneteacher.length!=0" class="row">
+      <div *ngFor="let www of firstAveragesonlyoneteacher  index as i" class="p-1 col-md-4">
+        <div class="bg-light border mt-2 w-100" style="font-size: 9pt; padding: 0%;">
+          <button class="btn btn-danger shadow-none text-light" style="padding: 0%"
+            (click)="delete_averageConvalidation(www._id)"> - </button>
+          {{ www.title }} (<span style="color: rgb(16, 119, 216);">{{ www.nota }}</span>) [{{ www.ciclo }} {{
+          www.mencion }} {{ www.year }}] <br><span style="color: blue;">{{ www.usser[0].name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- <select *ngIf="usersConvalidation.length!=0" formControlName="usersConvalidation" class="form-select col-md-4">
+      <option *ngFor="let www of usersConvalidation" [ngValue]="">
+        {{ www.name }}
+      </option>
+    </select> -->
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <button class="btn btn-info" printSectionId="print-section2" [useExistingCss]="true" ngxPrint>  Imprimir  </button> -->
+
+  <div *ngIf="rol=='1'" class="flex row text-center align-items-center" style="margin: .2cm;">
+    <!-- <div class="p-1 col-md-4">
+      <button class="btn btn-warning w-100" routerLink="/registro">
+        REGISTRAR
+      </button>
+    </div> -->
+    <div class="p-1 col-md-6">
+      <button class="btn btn-warning w-100" routerLink="/user">
+        DOCENTES-TODOS
+      </button>
+    </div>
+    <div class="p-1 col-md-6">
+      <button class="btn btn-warning w-100" (click)="GetAllstd()">
+        STD
+      </button>
+    </div>
+  </div>
+
+
+  <div class="container text-center d-none">
+    <button *ngIf="user && rol=='3'" class="btn btn-info mt-2 shadow-none text-light" (click)="open1(ww, 'www', 'www')">
+      <!--<mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
+      Integrarse a un curso
+    </button>
+  </div>
+  <button *ngIf="rol=='1'" class="btn btn-warning mt-2 d-none" [disabled]="loading" (click)="getcursesteacher()">{{
+    loading=='false' ? 'Cargando': 'Cargar cursos y relativos'}}</button>
+
+
+  <form *ngIf="rol=='1'" (submit)="fechanotas(iniciar, culminar)" class="row py-1 bg-light border border-dark rounded"
+    style="margin: .2cm;">
+    <div class="col-md-6 form-group mb-1 py-0 px-1">
+      <!-- <label class="form-label">Inicio notas</label> -->
+      <input type="datetime-local" class="form-control" placeholder="1" #iniciar [value]=ussser.dateb>
+    </div>
+    <div class="col-md-6 form-group mb-1 py-0 px-1">
+      <!-- <label class="form-label">Cierre notas</label> -->
+      <input type="datetime-local" class="form-control" placeholder="2" #culminar [value]=ussser.datee>
+    </div>
+    <div class="col-md-12 form-group py-0 px-1 align-self-end ml-auto">
+      <button
+        [ngClass]="[show=='ok'?'btn btn-outline-warning w-100 text-uppercase':'btn btn-outline-secondary w-100 text-uppercase']"
+        [disabled]="loading">Guardar intervalo</button>
+    </div>
+  </form>
+
+
+  <div *ngIf="rol=='1'" class="border border-primary p-1 my-1 rounded" style="margin: .2cm;">
+    <form [formGroup]="form" class="row p-0 mx-0 w-100 input-group">
+      <select formControlName="mencion" class="form-select col-md-4">
+        <option *ngFor="let state of menciones" [ngValue]="state">
+          {{ state.name }}
+        </option>
+      </select>
+
+      <select formControlName="ciclo" class="form-select col-md-4">
+        <option *ngFor="let state of ciclos" [ngValue]="state">
+          {{ state.name }}
+        </option>
+      </select>
+
+      <select formControlName="yearr" class="form-select col-md-4">
+        <option *ngFor="let state of yearrs" [ngValue]="state">
+          {{ state.name }}
+        </option>
+      </select>
+
+    </form>
+    <button [ngClass]="[loading?'btn btn-warning text-uppercase w-100 mt-1':'btn btn-info text-uppercase w-100 mt-1']"
+      (click)="getFirstAverages()" [disabled]="loading">
+      {{ loading=='false' ? 'Cargando Notas
+      ('+this.form.value.mencion!.name+'-'+this.form.value.ciclo!.abbrev+'-'+this.form.value.yearr!.name+')':'Cargar
+      notas'}}
+    </button>
+  </div>
+
+  <button *ngIf="order.length!=0 && rol=='1'" (click)="generateExcel()"
+    class="btn btn-warning rounded-0 w-100 text-uppercase text-light">Acta en Excel</button>
+
+  <div *ngIf="califications.length!==0 && rol=='3'" class="container text-center text-uppercase"
+    style='font-weight: bold'>
+    <div *ngIf="user" class="text-center">
+      <!--    <button *ngIf="califications.length!=0 && rol=='3'" [disabled]="loading"
+      (click)="recibo(califications[califications.length-1]._id, califications[califications.length-1].mencion)"
+      class="btn btn-info mt-1 text-light">Matricularse</button>-->
+    </div>
+    <div *ngIf="user && photointeger" class="justify-content-center">
+      <button [ngClass]="[shownotes?'btn btn-secondary mt-1':'btn btn-warning mt-1']" (click)="showcalifications()">{{
+        shownotes ? 'Esconder
+        calificaciones': 'Calificaciones'}}</button>
+    </div>
+    <!--Encuesta: {{numberencuestas=='0'?'*':numberencuestas}} Cursos del sementre
+    {{numbercurses.length==0?'':numbercurses.length}}-->
+  </div>
+
+  <div *ngIf="shownotes" class="container text-center">
+    <div class="text-info mt-3">
+      ESTUDIANTE: {{ussser.name}}
+      {{ussser.mencion=='P' ? "ARTES PLÁSTICAS (Pintura)": ussser.mencion=='E' ? "ARTES PLÁSTICAS (Escultura)":
+      ussser.mencion=='G' ? "ARTES PLÁSTICAS (Grabado)" :"ARTES PLÁSTICAS Y VISUALES (Educación artística)"}}
+      [{{ussser.ciclo}}]
+    </div>
+
+    <!-- 
+
+nathalyflores@esfapa.edu.pe 71902611 
+
+victorbautista@esfapa.edu.pe 46211190
+leydiallcca@esfapa.edu.pe 71290362
+brechmanalarcon@esfapa.edu.pe 72578511
+-->
+    <!--<button (click)="wwwww('II')" class="btn btn-info"> Imprimir notas </button>-->
+    <div *ngIf="califications.length!==0 && rol=='3'">
+      <div class="border border-primary border-2 my-3 p-2 text-primary" *ngFor="let calificationwww of califications index as i">
+        <span class="text-primary" style='font-weight: bold'>CICLO {{calificationwww._id}}</span>
+        <table>
+          <tr>
+            <th>N</th>
+            <th>Asignatura</th>
+            <th>Año</th>
+            <th>Crédito</th>
+            <th>Nota</th>
+            <th>Puntaje</th>
+          </tr>
+          <ng-container *ngFor="let calification of calificationwww['records'] index as i">
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{calification.title}}</td>
+              <td>{{calification.year}}</td>
+              <td>{{calification.credito}}</td>
+              <td>{{calification.nota}}</td>
+              <td>{{calification.nota*calification.credito}}</td>
+            </tr>
+          </ng-container>
+          <tr>
+            <td>TOTAL</td>
+            <td></td>
+            <td></td>
+            <td>{{calificationwww.sumacreditos}}</td>
+            <td>{{calificationwww.sumanotas}}</td>
+            <td>{{calificationwww.total/calificationwww.sumacreditos|number:'1.2-2'}}</td>
+          </tr>
+        </table>
+        <div>
+          Promedio semestral {{calificationwww.total/calificationwww.sumacreditos|number:'1.2-2'}}
+        </div>
+        <img [src]="'../../../assets/firma.png'" style="width: 9cm" (error)="onImgError($event)">
+        <img [src]="'../../../assets/bitmap.png'" style="width: 9cm" (error)="onImgError($event)">
+        <hr />
+        <button (click)="onChange2(calificationwww._id)" class="btn btn-info mb-1" [disabled]="loading"> Imprimir notas
+          (Ciclo {{calificationwww._id}}) </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div *ngFor="let std of userstd index as i">
+    <!-- <div class="bg-warning rounded">Rol: {{std._id}} Cantidad con el rol {{std._id}}: {{std.total}}</div> -->
+    <div *ngFor="let stdw of std.mencions index as i">
+      Mencion: {{stdw._id}} Cantidad con la mención {{stdw._id}}: {{stdw.total}}
+      <div
+        [ngClass]="[stdw._id=='E'?'container border rounded bg-light p-0':stdw._id=='G'?'container border rounded bg-info p-0':stdw._id=='P'?'container border rounded bg-primary p-0':stdw._id=='ED'?'container border rounded bg-secondary p-0':'container border rounded bg-warning p-0']">
+        <div *ngFor="let stdww of stdw.cycles index as i" class="border m-1 p-1 rounded">
+          <div>
+            <div style="font-weight: 700" class="text-center bg-warning rounded">
+              {{stdw._id=='E'?'ESCULTURA':stdw._id=='P'?'PINTURA':stdw._id=='ED'?'EDUCACIÓN
+              ARTÍSTICA':stdw._id=='G'?'GRABADO':'NO MATRICULADOS'}} [{{stdww._id}}]
+            </div>
+            <table *ngIf="stdww.length!=0 && rol=='1'">
+              <tr>
+                <th>N</th>
+                <th>DNI</th>
+                <th>NOMBRE</th>
+                <th>TIPO</th>
+                <th>MENCIÓN</th>
+                <th>CICLO</th>
+                <th></th>
+              </tr>
+              <ng-container *ngFor="let stdwww of stdww.ussers index as i">
+                <tr>
+                  <td>{{i+1}}</td>
+                  <td>{{stdwww.dni}}</td>
+                  <td>
+                    <span style="font-size: 6pt; padding: 0%;">{{stdwww.email}}</span>
+                    <input type="text" class="form-control" style="font-size: 9pt; padding: 0%;" [disabled]=false
+                      (blur)="onBlurUser($event, stdwww._id,  stdwww.ciclo,  stdwww.mencion, '1')" placeholder="Name"
+                      #ciclo [value]=stdwww.name>
+                  </td>
+                  <td>
+                    <select class="form-select" [ngClass]="[stdwww.tipostd=='R'?'':'bg-warning text-white border-0']"
+                      aria-label="Default select example" [disabled]="loading" (change)="onChange2w($event, stdwww._id)"
+                      name="deviceText">
+                      <option selected>{{stdwww.tipostd=='R'?'Regular':stdwww.tipostd=='P'?'Licencia':'N'}}</option>
+                      <option value="P">Licencia</option>
+                      <option value="R">Regular</option>
+                      <option value="N">N</option>
+
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-select" aria-label="Default select example" [disabled]="loading"
+                      (change)="onChange($event, stdwww._id)" name="deviceText">
+                      <option selected>{{stdwww.mencion}}</option>
+                      <option value="E">E</option>
+                      <option value="G">G</option>
+                      <option value="P">P</option>
+                      <option value="ED">ED</option>
+                      <option value="N">N</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-select" aria-label="Default select example" [disabled]="loading"
+                      (change)="onChange1($event, stdwww._id)" name="deviceText">
+                      <option selected>{{stdwww.ciclo}}</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="N">N</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button *ngIf="rol=='1'" class="btn btn-info w-100" (click)="GetAllstd()">
+                      Actualizar
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="userstd.length!=0" class="mb-2 text-center">
+    <button class="btn btn-info mt-2 shadow-none text-light" (click)="openreset(std, 'www', 'www')">
+      <mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+      Resetear mención y ciclo de estudiantes
+    </button>
+  </div>
+
+  <div *ngIf="order.length!==0 && order.order.length!==0 && rol=='1'" class="container">
+    <button *ngIf="order.length!==0" class="btn btn-info w-100" printSectionId="contentall" [useExistingCss]="true"
+      [printStyle]="{h1 : {'color': 'red'}, h2 : {'border': 'solid 1px'}}"
+      printTitle="{{order.order[0].uSSer[0].mencion == 'ED' ? 'EDUCACIÓN ARTÍSTICA ARTES PLÁSTICAS' :
+        order.order[0].uSSer[0].mencion == 'P' ? 'ARTISTA PROFESIONAL ARTES PLÁSTICAS Y VISUALES (PINTURA)' :
+        order.order[0].uSSer[0].mencion == 'E' ? 'ARTISTA PROFESIONAL ARTES PLÁSTICAS Y VISUALES (ESCULTURA)' : 'ARTISTA
+        PROFESIONAL ARTES PLÁSTICAS Y VISUALES (GRABADO)'}} Ciclo: {{order.order[0].uSSer[0].ciclo}} {{order.orderw[0].year}}" ngxPrint> IMPRIMIR PDF
+    </button>
+  </div>
+  <div id="contentall" *ngIf="order.length!==0">
+    <table *ngIf="order.length!==0 && order.order.length!==0 && order.notastotal != 0">
+      <tr>
+        <td>Mención</td>
+        <td colspan="1"> {{order.order[0].uSSer[0].mencion == "ED" ? "EDUCACIÓN ARTÍSTICA ARTES PLÁSTICAS" :
+          order.order[0].uSSer[0].mencion == "P" ? "ARTISTA PROFESIONAL ARTES PLÁSTICAS Y VISUALES (PINTURA)" :
+          order.order[0].uSSer[0].mencion == "E" ? "ARTISTA PROFESIONAL ARTES PLÁSTICAS Y VISUALES (ESCULTURA)" :
+          "ARTISTA
+          PROFESIONAL ARTES PLÁSTICAS Y VISUALES (GRABADO)"}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Ciclo</td>
+        <td colspan="1">Ciclo: {{order.order[0].uSSer[0].ciclo}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Periodo Académico</td>
+        <td colspan="1">{{order.orderw[0].year}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>N</th>
+        <th>Estudiante</th>
+        <th>Puntaje</th>
+      </tr>
+      <tr *ngFor="let orrder of order.order index as i">
+        <td>{{i+1}}</td>
+        <td>{{orrder.uSSer.length>0?orrder.uSSer[0].name:'nname'}}</td>
+        <td>{{orrder.Puntaje}}</td>
+      </tr>
+    </table>
+
+    <hr *ngIf="order.length!=0 && rol=='1'">
+
+    <table *ngIf="order.length!=0 && rol=='1'">
+      <tr>
+        <td rowspan="3">
+          <div class="vertical text-center">N Orden</div>
+        </td>
+        <td rowspan="3" style="text-align: center">
+          <div style="width: 100px">DNI</div>
+        </td>
+        <td rowspan="3" style="text-align: center">
+          <div style="width: 280px">
+            <div>
+              APELLIDOS Y NOMBRES
+            </div>
+            <div>
+              (Por orden alfabético)
+            </div>
+          </div>
+        </td>
+        <td colspan="2" class="vertical" style="text-align: center" *ngFor="let www of order.ordercurses index as i">
+          <div style="height: 150px">{{www.title}} [{{www.codigo}}]</div>
+        </td>
+        <td rowspan="3">
+          <div class="vertical justify-content-center align-items-center">Puntaje</div>
+        </td>
+        <td rowspan="3">
+          <div class="vertical justify-content-center align-items-center">Total créditos</div>
+        </td>
+        <td rowspan="3">
+          <div class="vertical justify-content-center align-items-center">Promedio</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center" *ngFor="let wwwww of order.ordercurses index as i">
+          {{wwwww.credito}}</td>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let w8 of order.ordercurses index as i">
+          <td style="text-align: center">CLF</td>
+          <td style="text-align: center">PTJ</td>
+        </ng-container>
+      </tr>
+      <tr *ngFor="let orrder of order.orderw index as i">
+        <td style="text-align: center">{{i+1}}</td>
+        <td style="text-align: center">{{orrder.uSSer.length>0?orrder.uSSer[0].dni:'ndni'}}</td>
+        <td>{{orrder.uSSer.length>0?orrder.uSSer[0].name:'nname'}}</td>
+        <ng-container *ngFor="let w_w of orrder['cursse'] index as i">
+          <ng-container *ngIf="w_w.averagges.length==0">
+            <td class="text-warning" style="text-align: center">
+              <input [disabled]="loading" type="text" class="form-control p-1 bg-warning border-0" [value]="''"
+                style="width: 1cm;"
+                (blur)="onBlurMean($event, w_w.codigo, orrder.uSSer[0]._id, w_w._id, w_w.title, w_w.ciclo, w_w.credito, orrder.mencion )">
+            </td>
+            <td class="text-warning" style="text-align: center">
+              SN
+            </td>
+          </ng-container>
+          <ng-container *ngIf="w_w.averagges.length!=0">
+            <ng-container *ngFor="let www of w_w['averagges'] index as i">
+              <td class="justify-content-center align-items-center p-0 pt-1">
+                <div class="input-group">
+                  <button type="button" [disabled]="loading"
+                    [ngClass]="[www.year && i>=1 ? 'btn btn-danger shadow-none px-0': 'btn btn-outline-warning shadow-none px-0']"
+                    (click)="delete_average(www._id)">-</button>
+                  <input [disabled]="loading" type="text" class="form-control p-1 border-0" style="width: .03cm;"
+                    [ngClass]="[www.nota=='0'?'bg-info':www.nota=='-0'?'bg-primary':'bg-success text-white']"
+                    [value]="www.nota=='0'?'R':www.nota=='-0'?'L':www.nota" (blur)="onBlurMeanUpdate($event, www._id )">
+                </div>
+                <div class="p-0" style="font-size: 5pt; padding: 0%;">
+                  {{www.teacher.length>0?www.teacher[0].email.substring(0,
+                  www.teacher[0].email.lastIndexOf("@")):'nname'}}</div>
+                <div class="p-0" style="font-size: 3pt; padding: 0%;">{{w_w.codigo}}</div>
+              </td>
+              <td>
+                <div class="text-primary d-flex justify-content-center align-items-center">
+                  {{www.nota*www.credito}}
+                </div>
+              </td>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <td style="text-align: center">
+          {{orrder.averaggges.length!=0?orrder.averaggges[0].Puntaje:"0"}}
+        </td>
+        <td style="text-align: center">
+          {{order.ordercursescredito[0].Puntaje}}
+        </td>
+        <td *ngIf="orrder.averaggges.length!=0" style="text-align: center; font-weight: bold"
+          [ngClass]="[(orrder.averaggges[0].Puntaje/order.ordercursescredito[0].Puntaje)>10 ? 'text-success':'text-danger']">
+          {{(orrder.averaggges[0].Puntaje/order.ordercursescredito[0].Puntaje).toFixed(2)}}
+        </td>
+        <td *ngIf="orrder.averaggges.length==0" style="text-align: center; font-weight: bold">"0" </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <ng-container *ngFor="let www of histograma index as i">
+          <td colspan="2" valign='bottom'>
+            <table *ngIf='histograma.length!=0'>
+              <tr>
+                <th class="nborder" valign='bottom' style="text-align: center">
+                  <div [ngStyle]="{'height': www[0]==0 ? 0.1:.5*www[0]/order.orderw.length*100+'mm'}" class="bg-danger"
+                    style="width: 100%">
+                  </div>
+                </th>
+                <th class="nborder" valign='bottom' style="text-align: center">
+                  <div [ngStyle]="{'height': www[1]==0 ? 0.1:.5*www[1]/order.orderw.length*100+'mm'}" class="bg-warning"
+                    style="width: 100%"></div>
+                </th>
+                <th class="nborder" valign='bottom' style="text-align: center">
+                  <div [ngStyle]="{'height': www[2]==0 ? 0.1:.5*www[2]/order.orderw.length*100+'mm'}" class="bg-info"
+                    style="width: 100%">
+                  </div>
+                </th>
+                <th class="nborder" valign='bottom' style="text-align: center">
+                  <div [ngStyle]="{'height': www[3]==0 ? 0.1:.5*www[3]/order.orderw.length*100+'mm'}" class="bg-primary"
+                    style="width: 100%"></div>
+                </th>
+              </tr>
+            </table>
+          </td>
+        </ng-container>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <ng-container *ngFor="let www of histograma index as i">
+          <td colspan="2" valign='bottom'>
+            <table *ngIf='histograma.length!=0'>
+              <tr>
+                <td class="vertical nborder" style="text-align: left"><span class="text-info">: {{www[0]}}</span>
+                  <span class="text-warning"> [{{((www[0]/order.orderw.length)*100|number:'1.2-2') +'%'}}]</span>
+                </td>
+                <td class="vertical nborder" style="text-align: left"><span class="text-info">: {{www[1]}}</span>
+                  <span class="text-warning"> [{{((www[1]/order.orderw.length)*100|number:'1.2-2') +'%'}}]</span>
+                </td>
+                <td class="vertical nborder" style="text-align: left"><span class="text-info">: {{www[2]}}</span>
+                  <span class="text-warning"> [{{((www[2]/order.orderw.length)*100|number:'1.2-2') +'%'}}]</span>
+                </td>
+                <td class="vertical nborder" style="text-align: left"><span class="text-info">: {{www[3]}}</span>
+                  <span class="text-warning"> [{{((www[3]/order.orderw.length)*100|number:'1.2-2') +'%'}}]</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="vertical nborder" style="text-align: right">Licencia</td>
+                <td class="vertical nborder" style="text-align: right">Retirados</td>
+                <td class="vertical nborder" style="text-align: right">Desaprobados</td>
+                <td class="vertical nborder" style="text-align: right">Aprobados</td>
+              </tr>
+            </table>
+
+          </td>
+        </ng-container>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <ng-container *ngFor="let www of histogramareal index as i">
+          <td colspan="2" valign='bottom'>
+            <table *ngIf='histogramareal.length!=0'>
+              <tr>
+                <th class="nborder" valign='bottom' style="text-align: center" *ngFor="let wwwww of www index as j"
+                  [ngStyle]="{'width': 10+'%'}">
+                  <div style="text-align: center; font-size: 5pt; padding: 0pt">
+                    {{wwwww}}
+                  </div>
+                  <div [ngStyle]="{'height': .35*(wwwww/order.orderw.length*100)+'mm', 'width': 100+'%'}"
+                    [ngClass]="[j==0 ? 'bg-danger' : 'bg-primary']">
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <td class="vertical nborder" valign='top' style="text-align: right; font-size: 5pt; padding: 0pt"
+                  *ngFor="let wwwww of inttervalos index as j" [ngStyle]="{'width': 10+'%'}">
+                  {{wwwww}}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+
+  <!--
+  <div *ngIf="rol=='3' && numbercurses.length!==0" class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-4 p-2" *ngFor="let photo of numbercurses index as i">
+      <div class='card border-1 p-1 text-center' style="font-size: 8pt">
+        {{photo.title}} [{{photo.ciclo}} {{photo.mencion}} {{photo.year}}]
+        </div>
+        </div>
+        </div>
+        -->
+
+
+  <div *ngIf="photointeger.length!==0 && rol=='1' || rol=='3'" class="container text-center mt-3 ">
+    TUS CURSOS {{ussser.name}} [{{ussser.ciclo}} {{ussser.mencion}}]
+  </div>
+  <div *ngIf="rol=='3' && photointeger.length!==0" class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-4 p-2" *ngFor="let photo of photointeger index as i">
+      <div class='card border-1 p-1 text-align-right '>
+        <div [ngClass]="[photo.encuestas.length && photo._id==photo.encuestas[0].idcurso?'bg-light':'bg-light']"
+          class="text-center text-uppercase" style="font-size: 8pt">
+          Docente: {{photo.userw[0].name}}
+        </div>
+        <div class="text-center text-uppercase text-dark">
+          {{photo.title}} [{{photo.ciclo}} {{photo.mencion}} {{photo.year}}]
+        </div>
+        <!--
+        <button class="btn btn-info shadow-none card-photo" [disabled]="photo.encuestas.length!==0"
+          (click)="openencuesta(encuesta, photo.userw[0].name, photo.title, photo.userw[0]._id, photo._id, photo.codigo, photo.ciclo, photo.mencion)">
+          Encuesta
+        </button>
+        <button *ngIf="photo.encuestas.length!==0 && photo._id==photo.encuestas[0].idcurso"
+        class="btn btn-dark shadow-none" (click)="deleteencuesta( photo.encuestas[0]._id)">
+        Eliminar encuesta
+        </button>
+        -->
+
+        <!--
+            <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> 
+        <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
+          <img [src]="apiURL+'/'+photo.userw[0].foto" class="wrapperest5"
+          style='position: absolute;  bottom: 8px; right: 8px; border: 1px solid rgb(250, 250, 250)'
+          (error)="onImgError($event)">
+        <div class="w-100 text-center"
+          style='position: absolute;  top: 20%; left: 50%; transform: translate(-50%, -50%);'>
+          <button class="btn btn-warning shadow-none card-photo" (click)="goCurse( $any(photo).cursse[0]._id)">
+            <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> 
+        Ir al curso
+        </button>
+
+      </div>
+      <button class="btn btn-dark shadow-none" style='position: absolute;  bottom: 49px; left: 8px'
+        (click)="deleteinteger( $any(photo)._id)">
+        Eliminar de tus cursos
+      </button>
+      <button class="btn btn-dark shadow-none" style='position: absolute;  bottom: 8px; left: 8px'
+        (click)="hidecursestd( $any(photo).cursse[0]._id)">
+        Archivar curso
+      </button>
+      -->
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="user && rol=='2' && show!='ok'" class="container justify-content-center text-center my-3">
+    <button [ngClass]="[showphilosophy?'btn btn-info':'btn btn-light border']" (click)="showphilosophyteacher()">{{
+      showphilosophy
+      ? 'ESCONDER
+      FILOSOFÍA DEL DOCENTE': 'FILOSOFÍA DEL DOCENTE'}}</button>
+  </div>
+  <div *ngIf="ussser.length!==0 && rol=='2' && show!='ok' && showphilosophy">
+    <div class="container h3 text-center">
+      CARPETA DOCENTE {{ussser.name}}
+    </div>
+    <div class="container h3 text-center">
+      {{ussser.dni}}
+    </div>
+    <div class="container h5 text-center">
+      Escuela Superior de Formación Artística Pública
+    </div>
+    <div class="container h6 text-center">
+      “Felipe Guamán Poma de Ayala”
+    </div>
+    <div class="container col-md-3 p-1 justify-content-center align-items-center text-center">
+      <img src="./assets/logo.png" class="img-fluid" alt="Responsive image">
+    </div>
+
+    <input type="text" class="form-control text-center" [value]=ussser.mencion [(ngModel)]="mencion">
+    <div class="container h6 text-center">
+      {{mencion}}
+    </div>
+
+    <div class="container h5 my-3 text-center">
+      FILOSOFÍA DEL DOCENTE
+    </div>
+
+    <ckeditor [editor]="Editor" data="froala" [disabled]="isDisabled" [config]="configg" [(ngModel)]="froala">
+    </ckeditor>
+    <button class="btn btn-info w-100"
+      (click)="onSelectionChanged(ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)">
+      Guardar </button>
+    <!--<div [innerHTML]="froala" contenteditable="true"
+      (blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)">
+    </div>-->
+  </div>
+
+  <div *ngIf="rol=='2'" class="container text-center h5 mt-3">
+    CURSOS DOCENTE {{ussser.name}}
+  </div>
+  <div *ngIf="user && CurseTeacher.length!=0 ||  rol=='2'"
+    class="row d-flex justify-content-center rounded my-2 border">
+    <div class="col-md-6 col-lg-4 p-2" *ngFor="let photo of CurseTeacher index as i">
+      <div
+        [ngClass]="[photo.ciclo=='I' || photo.ciclo=='III' || photo.ciclo=='V' || photo.ciclo=='VII' || photo.ciclo=='IX'?'card border border-info p-1':'card border p-1']">
+        <div class="text-center text-uppercase my-0">
+          {{photo.title}}
+        </div>
+        <span style="font-size: 8pt" class="text-center">{{photo.codigo}}</span>
+        <div class="text-center text-uppercase my-0">
+          [<span class="text-secondary">{{photo.mencion=='P'?'AP
+            PINTURA':photo.mencion=='E'?'ESCULTURA':photo.mencion=='ED'?'EDUCACIÓN ARTÍSTICA':'GRABADO'}} -
+            {{photo.ciclo}}-{{photo.year}}</span>
+          <!-- (<span class="text-info">{{photo.integers.length}}</span>) -->
+          ]
+        </div>
+        <!-- <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" style="height: 70px;" (error)="onImgError($event)"> -->
+        <!-- <div class="mytesttop w-100 text-center"> -->
+        <div class="w-100 text-center">
+          <div class="btn-group">
+            <button *ngIf="show!='ok'" class="w-100 btn btn-outline-primary"
+              (click)="updatecurseHide( $any(photo)._id)">
+              Archivar
+            </button>
+            <button *ngIf="show!='ok'" class="btn btn-outline-warning  shadow-none"
+              (click)="deleteCurse(photo._id)">Borrar</button>
+            <button class="btn btn-outline-info shadow-none" (click)="goCurse( $any(photo)._id)">
+              <!--<mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
+              Ingresar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="rol=='2'" class="container text-center my-1">
+      <a class="btn btn-info" href="/user" style='text-decoration:none'>GENERAR CURSOS</a>
+    </div>
+  </div>
+
+  <button *ngIf="rol=='2' && CurseTeacher.length!==0" class="btn btn-light border border-info text-uppercase w-100 mb-2"
+    (click)="getsCurseTeacherHiden()">
+    Mostrar cursos archivados
+  </button>
+
+  <div *ngIf="user && CurseTeacherHiden.length!=0 &&  rol=='2'" class="container text-center h5 mt-3">
+    CURSOS ARCHIVADOS DOCENTE {{ussser.dni}}
+  </div>
+  <div *ngIf="user && CurseTeacherHiden.length!=0 &&  rol=='2'" class="row d-flex justify-content-center rounded my-3"
+    style="margin:0; background-color: rgb(41, 172, 182);">
+    <div class="col-md-4 p-2" *ngFor="let photo of CurseTeacherHiden index as i">
+      <div class='card bg-info'>
+        <div class="text-center text-uppercase">
+          {{photo.title}} [{{photo.mencion}}-{{photo.ciclo}}] ({{photo.integers.length}})
+        </div>
+        <img [src]="apiURL+'/'+photo.img" class="img-card-top imgcurse" (error)="onImgError($event)">
+        <div class="mytesttop w-100 text-center">
+          <div class="btn-group">
+            <button class="btn btn-danger shadow-none card-photo" (click)="updatecurseShow( $any(photo)._id)">
+              Show
+            </button>
+            <button class="btn btn-info shadow-none card-photo" (click)="goCurse( $any(photo)._id)">
+              <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+              Ir al curso
+            </button>
+            <button *ngIf="show!='ok'" class="btn btn-secondary  shadow-none"
+              (click)="deleteCurse(photo._id)">Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="ussser.length!==0 && rol=='2' && show!='ok'" class="container rounded">
+
+
+
+    <input type="file" class="d-none" (change)="FileCursse($event)" #Filecurse>
+
+    <div *ngIf="value > 0" class="fixed-bottom text-warning">
+      {{ loading=='false' ? 'Cargando '+value+'%': ''}}
+      <mat-progress-bar class="fixed-bottom" color="accent" mode="determinate" [value]="value">
+      </mat-progress-bar>
+    </div>
+
+
+
+    <div class="row text-center border border-info rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        SÍLABOS DEL DOCENTE
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='silabo'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>{{apiURL+'/collection/'+ file.img}}
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('silabo',ussser._id)"
+          class="btn btn-primary">Cargar sílabo</button>
+      </div>
+    </div>
+
+    <div class="row text-center border rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        RESUMEN CIENTÍFICO
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='resumen'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('resumen',ussser._id)"
+          class="btn btn-primary">Cargar resumen</button>
+      </div>
+    </div>
+
+
+    <div class="row text-center border rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        MATERIALES EDUCATIVOS
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='material'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('material',ussser._id)"
+          class="btn btn-primary">Cargar material</button>
+      </div>
+    </div>
+
+    <div class="row text-center border rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        REGISTROS DE EVALUACIÓN
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='registro'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('registro',ussser._id)"
+          class="btn btn-primary">Cargar registro</button>
+      </div>
+    </div>
+
+    <div class="row text-center border rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        HORARIO
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='horario'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('horario',ussser._id)"
+          class="btn btn-primary">Cargar horario</button>
+      </div>
+    </div>
+
+    <div class="row text-center border rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        OCURRENCIAS
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='ocurrencia'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('ocurrencia',ussser._id)"
+          class="btn btn-primary">Cargar ocurrencia</button>
+      </div>
+    </div>
+
+    <div class="row text-center border rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        PLAN DE TRABAJO ANUAL
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='plan'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('plan',ussser._id)"
+          class="btn btn-primary">Cargar plan</button>
+      </div>
+    </div>
+
+    <div class="row text-center border rounded justify-content-center my-3">
+      <div class="container text-center h5 mt-3">
+        PROYECTO DE INNOVACIÓN
+      </div>
+      <ng-container *ngFor="let file of ussser.archivos index as i">
+        <div *ngIf="file.type=='proyecto'" class="col-lg-4" style='padding:.15em'>
+          <div class="bg-light rounded" style='padding:.15em'>
+            <input type="text" class="form-control" placeholder="" [value]="file.title"
+              (blur)="onBlurFilosophyUpdate($event, file._id )">
+            <div class='text-center btn-group justify-content-center d-flex'>
+              <button class="btn btn-outline-info" (click)="openfile(filew, file.img)">Ver</button>
+              <button class="btn btn-outline-warning" (click)="FileCursedelete( file._id)">Eliminar</button>
+              <a [href]="apiURL+'/collection/'+ file.img" class="btn btn-outline-info">Download</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class='rounded text-center pb-1'>
+        <button type="button" name="button" (click)="Filecurse.click(); Type('proyecto',ussser._id)"
+          class="btn btn-primary">Cargar proyecto</button>
+      </div>
+    </div>
+
+  </div>
+</div>

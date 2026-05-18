@@ -1,0 +1,661 @@
+<div Ngxheadroom [options]="options" class="fixed-navbar">
+	<app-navigation></app-navigation>
+</div>
+<!--
+	File
+-->
+
+<div class="height"></div>
+<ng-template #filew let-modal>
+	<div class="modal-body p-0">
+		<!-- <a [href]="apiURL + '/' + text" class="btn btn-info" target="_blank"> &#x2913; </a> -->
+
+		<img *ngIf="text && text.split('.').pop()=='png'||text.split('.').pop()=='jpg'||text.split('.').pop()=='jpeg'||text.split('.').pop()=='svg'"
+			[src]="apiURL+'/'+ text" class="img-fluid w-100" (error)="onImgError($event)">
+
+		<ngx-doc-viewer *ngIf="text && text.split('.').pop()=='doc'" [url]="apiURL+'/'+ text" viewer="google"
+			style="width:100%;height:100vh;"></ngx-doc-viewer>
+		*ngIf="text && text.split('.').pop()=='docx' || text.split('.').pop()=='pptx'|| text.split('.').pop()=='ptx' ||
+		text.split('.').pop()=='xlsx'|| text.split('.').pop()=='xls'"
+
+		<ngx-doc-viewer [url]="apiURL+'/'+ text" viewer="google" style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+		<ngx-extended-pdf-viewer *ngIf="text && text.split('.').pop()=='pdf'" [src]="apiURL+'/'+ text"
+			[height]="'500px'"></ngx-extended-pdf-viewer>
+	</div>
+	<div class="modal-footer bg-succes p-0">
+		<button class="btn btn-warning w-100" (click)="modal.close()">Cerrar</button>
+	</div>
+</ng-template>
+<!--
+	New
+-->
+
+
+<ng-template #new let-modal>
+	<div class="modal-header py-2 px-1 text-center d-flex  justify-content-center align-items-center"
+		[ngStyle]="{background:'rgb(250,250,250)'}">
+		<div class="h2 my-0 text-center text-uppercase text-info">
+			{{text}}
+		</div>
+	</div>
+
+
+	<div class="modal-body p-1" [ngStyle]="{background:'white'}">
+		<ng-katex-html *ngIf="texto" [html]="texto"></ng-katex-html>
+		<div style="margin-bottom: 0.5cm"
+			*ngIf="textoimg.split('.').pop()=='png'||textoimg.split('.').pop()=='jpg'||textoimg.split('.').pop()=='jpeg'||textoimg.split('.').pop()=='svg'">
+			<a *ngIf="textoimg!='imagen'" [href]="apiURL + '/' + textoimg.substring(7)" target="_blank" class="border-0 p-0">
+				<img [src]="apiURL+'/'+ textoimg" class="m-auto w-100 img-fluid" (error)="onImgError($event)">
+			</a>
+		</div>
+
+
+		<ngx-doc-viewer
+			*ngIf="textoimg && textoimg.split('.').pop()=='docx' || textoimg.split('.').pop()=='pptx'|| textoimg.split('.').pop()=='ptx' || textoimg.split('.').pop()=='xlsx'|| textoimg.split('.').pop()=='xls'"
+			[url]="apiURL+'/'+ textoimg" viewer="google" style="width:100%;height:100vh;"></ngx-doc-viewer>
+
+		<ngx-extended-pdf-viewer *ngIf="textoimg && textoimg.split('.').pop()=='pdf'" [src]="apiURL+'/'+ textoimg.substring(7)"
+			[height]="'800px'" [useBrowserLocale]="false" [textLayer]="true" [showHandToolButton]="false">
+		</ngx-extended-pdf-viewer>
+	</div>
+
+	<div class="modal-footer p-0" [ngStyle]="{background:'rgb(250,250,250)'}">
+		<button type="button" class="btn btn-light shadow-none w-100"
+			(click)="modal.close('Save click')">Cerrar</button>
+	</div>
+</ng-template>
+<!--
+	New refresh
+-->
+<ng-template #ww let-modal>
+	<form (submit)="integer(code)">
+		<div class="modal-body bg-succes">
+			<div class="form-group mb-3">
+				<label for="exampleFormControlInput1" class="form-label">Código</label>
+				<input type="text" class="form-control shadow-none" placeholder="Código del curso" #code>
+			</div>
+			<!--{{idcurso}}{{idcurso}}--{{iduserteach}}-->
+		</div>
+		<button class="btn d-none" [disabled]="loading" #www></button>
+
+	</form>
+	<div class="modal-footer">
+		<button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+			'Integrarse al curso'}}</button>
+		<button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+	</div>
+</ng-template>
+<!--
+	Foro
+-->
+<ng-template #www let-modal>
+	<form class="container p-3" (submit)="updatenews(title, show)">
+		<div class="row p-0">
+			<div class="form-group mb-3">
+				<label for="exampleFormControlInput1" class="form-label">Titulo</label>
+				<input type="text" class="form-control" placeholder="Photo's Title" #title [value]="titlewww" required>
+			</div>
+			<div class="form-group mb-3 d-none">
+				<label for="exampleFormControlInput1" class="form-label">Show</label>
+				<input type="text" class="form-control" placeholder="Photo's Title" #show [value]="showww" required>
+			</div>
+			<div class="form-group mb-3 ">
+				<label for="exampleFormControlInput1" class="form-label">Descripción</label>
+				<div class="row mx-1">
+					<ckeditor [config]="configg" [editor]="Editor" [(ngModel)]="markdown"
+						[ngModelOptions]="{standalone:true}"></ckeditor>
+					<!-- 
+					<div class="form-group mb-3 col-md-7">
+						<ng-katex-html [html]="markdown"></ng-katex-html>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<input type="file" class="d-none" (change)="capturandoFile($event)" #photoInput>
+		<div class="text-center">
+			<img [src]="photoSelected || apiURL+'/'+ imgwww" class="m-auto w-25 cursorpoint img-fluid"
+				(error)="onImgError($event)" alt="No image" (click)="photoInput.click()">
+		</div>
+		<!-- <div *ngIf="!photoSelected" class=" text-center border rounded">
+			{{imgwww}}
+		</div>
+		<div *ngIf="photoSelected" class=" text-center border rounded">
+			{{name}}
+		</div> -->
+		<!-- <span>{{imgwww}}</span> -->
+		<ngx-extended-pdf-viewer *ngIf="photoSelected && type=='application/pdf'" [src]="photoSelected"
+			[height]="'1000px'" [useBrowserLocale]="false" [textLayer]="true" [showHandToolButton]="true">
+		</ngx-extended-pdf-viewer>
+		<ngx-extended-pdf-viewer *ngIf="!photoSelected && imgwww && imgwww.split('.').pop()=='pdf'"
+			[src]="apiURL+'/'+ imgwww" [height]="'800px'" [useBrowserLocale]="false" [textLayer]="true"
+			[showHandToolButton]="false">
+		</ngx-extended-pdf-viewer>
+		<mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
+		{{ loading=='false' ? 'Cargando '+value+'%': null}}
+		<button class="btn d-none" [disabled]="loading" #www></button>
+	</form>
+	<div class="modal-footer">
+		<button class="btn btn-info mt-1" [disabled]="loading" (click)="www.click()">{{ loading=='false' ? 'Cargando':
+			'Actualizar'}}</button>
+		<button class="btn btn-info shadow-none" (click)="modal.close()">Cerrar</button>
+	</div>
+</ng-template>
+
+<ng-template #forum let-modal>
+	<div class="modal-body">
+		<div *ngIf="type=='theme'" class="form-group mb-3">
+			<input type="text" class="form-control" placeholder="Título" [(ngModel)]="titlewww" required>
+		</div>
+		<div class="form-group mb-3">
+			<ckeditor [config]="configg" [editor]="Editor" [(ngModel)]="markdown" placeholder="Descripción" required>
+			</ckeditor>
+		</div>
+		<!-- <mat-progress-bar *ngIf="value > 0" color="accent" mode="determinate" [value]="value"></mat-progress-bar>
+		{{ loading=='false' ? 'Cargando '+value+'%': null}} -->
+		<div class="btn-group">
+			<button class="btn btn-info" [disabled]="loading"
+				(click)="proceso=='crear'||proceso=='comenta'?createThemeforo():updateThemeforo()">{{ loading=='false' ?
+				'Cargando': proceso=='crear'?'Crear': proceso=='comenta'?'Comentar':'Editar' }}</button>
+			<button class="btn btn-light shadow-none" (click)="modal.close()">Cerrar</button>
+		</div>
+	</div>
+</ng-template>
+
+
+<!-- <div class="container p-0 mb-5 d-flex  justify-content-center align-items-center"> -->
+<div class="container" style="padding: 0cm">
+	<div class="row justify-content-center align-items-center" style="margin: 0cm">
+		<div class="jumbotron p-1 col-md-5">
+			<h1 class="display-6 p-1 text-center" style="color: rgb(9, 24, 92)">Escuela Superior de Formación
+				Artística Felipe Guamán Poma de Ayala ESFAPA Ayacucho</h1>
+			<p class="lead text-center" style="color: rgb(5, 12, 43)">
+				Escuela Superior de Formación Artística pública de formación profesional en artes visuales
+				desarrollado
+				en un plan de estudios de 5 años ubicado en la ciudad de Ayacucho.
+			</p>
+			<!-- <hr class="my-1">
+			<p style="text-align: justify; text-justify: inter-word;color: rgb(0, 0, 0)">
+				La Escuela Superior de Formación Artística Pública “Felipe Guamán Poma de Ayala” de Ayacucho, fue creada
+				el 13 de septiembre de 1952, en mérito a la R.M. 8078 como Escuela Regional de Bellas Artes Pública
+				“Felipe Guamán Poma de Ayala” de acuerdo con la partida Nº. 28 del Pliego de Educación Pública del
+				Presupuesto General de la Republica vigente, promoviendo a don José Ricardo Respaldiza Martínez, del
+				cargo de jefe de la Sección de Museos y Monumentos Nacionales, al de director de la Escuela Regional de
+				Bellas Artes “Felipe Guamán Poma de Ayala” de Ayacucho.
+
+				La escuela se fundó con la finalidad de formar artistas profesionales en artes plástica es por eso que
+				al
+				inicio de sus labores académicas dio prioridad a los cursos prácticos como: Dibujo, Pintura y Escultura,
+				posteriormente se incrementó nuevos talleres como Platería. Filigrana, Joyería, Cerámica, y cursos
+				teóricos.
+			</p> -->
+			<div class="container text-center my-2">
+				<a class="text-dark" style="margin: .1cm;" target="_blank"
+					href="https://api.whatsapp.com/send?phone=+51 966999215&text=Hola%20bienvenido">
+					<mat-icon svgIcon="watsapp" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+				</a>
+				<a class="text-dark" style="margin: .1cm;" target="_blank" href="https://m.me/bellasartes.ayacucho">
+					<mat-icon svgIcon="messenger" aria-hidden="false"
+						aria-label="Example thumbs up SVG icon"></mat-icon>
+				</a>
+				<a class="text-dark" style="margin: .1cm;" target="_blank" href="https://bellasartes.blogspot.com">
+					<mat-icon svgIcon="blogspot" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+				</a>
+				<a class="text-dark" style="margin: .1cm;" target="_blank"
+					href="https://web.facebook.com/bellasartes.ayacucho">
+					<mat-icon svgIcon="facebook" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+				</a>
+				<a class="text-dark" style="margin: .1cm;" target="_blank"
+					href="https://instagram.com/bellasartes.ayacucho">
+					<mat-icon svgIcon="instagram" aria-hidden="false"
+						aria-label="Example thumbs up SVG icon"></mat-icon>
+				</a>
+				<a class="text-dark" style="margin: .1cm;" target="_blank"
+					href="https://www.tiktok.com/@bellasartes.ayacucho">
+					<mat-icon svgIcon="tiktok" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+				</a>
+				<a class="text-dark" style="margin: .1cm;" target="_blank"
+					href="https://www.youtube.com/channel/UCkYf1NyZ1kUl3965WgeL6rw">
+					<mat-icon svgIcon="youtube" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+				</a>
+			</div>
+			<a class="btn text-light" style="background-color: rgb(128, 21, 0)" routerLink="/Cmpt14MVComponent"
+				role="button">Saber más</a>
+		</div>
+
+		<!-- <button class="btn btn-warning w-100"
+			(click)="wwwww()">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</button> -->
+
+		<div class="justify-content-center align-items-center rounded col-md-6 text-light"
+			style="background-color:rgba(255, 255, 255, 0.85)">
+			<swiper class="p-0" *ngIf="newws.length!==0" [config]="config">
+				<ng-template class="pt-5" swiperSlide *ngFor="let photo of newws index as i">
+					<button class="btn w-100" style="width: 3cm; height: 3cm;"
+						(click)="openwww(new, photo.title, photo.description, photo.img)">
+						<img [src]="photo.img.split('.').pop()=='pdf'?'assets/pdfwww.svg':apiURL+'/'+photo.img"
+							(error)="onImgError($event)" style="z-index: 0">
+						<div class="w-75 text-center" *ngIf="rol!='1'"
+							style="position: absolute;	top: 50%; left: 50%; transform: translate(-50%, -50%);background-color:rgba(218, 163, 12, 0.85)">
+							<span class="text-center text-dark text-uppercase">
+								{{photo.title}}
+							</span>
+						</div>
+					</button>
+
+					<div class="w-75 rounded btn-group" *ngIf="rol=='1'"
+						style="position: absolute;	top: 50%; left: 50%; transform: translate(-50%, -50%);background-color:rgba(218, 163, 12, 0.5); padding: .5em;">
+						<button *ngIf="rol=='1' && photo.show=='false'" class="btn btn-success shadow-none"
+							(click)="newsemergent( $any(photo)._id, 'true')">
+							<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+							Mostrar
+						</button>
+						<button *ngIf="rol=='1'  && photo.show=='true'" class="btn btn-info shadow-none"
+							(click)="newsemergent( $any(photo)._id, 'false')">
+							<!-- <mat-icon svgIcon="getout" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+							Esconder
+						</button>
+						<button *ngIf="rol=='1'" class="btn btn-warning shadow-none"
+							(click)="deletenews( $any(photo)._id)">
+							<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+							Borrar
+						</button>
+						<button *ngIf="rol=='1'" class="btn btn-primary shadow-none"
+							(click)="open2(www, photo._id, photo.title, photo.description, photo.img, photo.show)">
+							<!-- <mat-icon svgIcon="go" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> -->
+							Editar
+						</button>
+					</div>
+
+				</ng-template>
+			</swiper>
+			<div class="container text-center" style="padding:1em">
+				<button *ngIf="rol=='1' " class="btn btn-info shadow-none" (click)="createnews()">
+					<!--<mat-icon svgIcon="integrate" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>-->
+					Nuevo comunicado {{ newws && newws.length>0 ? '('+newws.length+')' : null }}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="container" style="padding: 0cm">
+
+
+	<!--
+		<div  [innerHTML]="froala" contenteditable="true" (blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)"></div>
+
+		<quill-editor
+		[(ngModel)]="froala"
+		placeholder="Enter Text"
+		(onSelectionChanged)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)"
+		(onContentChanged)="onContentChanged($event)"
+		></quill-editor>
+		<ng-katex-html *ngIf="ussser.filosophy" [html]="ussser.filosophy"></ng-katex-html>
+		<textarea  rows="10" cols="0" class="variable-textarea form-control" [(ngModel)]="froala" [ngModelOptions]="{standalone:true}"></textarea>
+
+		<textarea *ngIf="froala && rol=='1' " rows="5" cols="0" class="variable-textarea form-control" [(ngModel)]="froala" [ngModelOptions]="{standalone:true}"
+		(blur)="onSelectionChanged($event, ussser._id, ussser.name, ussser.email, ussser.password, ussser.rol, ussser.celular, ussser.carrera, ussser.mension, ussser.ciclo, ussser.sexo, ussser.dni)"
+		></textarea>
+	-->
+	<!--<textarea *ngIf="froala!='www'"  [froalaEditor] [(froalaModel)]="froala"></textarea>-->
+	<input type="file" class="d-none" (change)="FileCursse($event)" #Filecurse>
+	<input type="file" class="d-none" (change)="FileCursseUpdate($event)" #FileCurseUpdate>
+
+	<div *ngIf="value > 0" class="fixed-bottom text-warning">
+		{{ loading=='false' ? 'Cargando '+value+'%': ''}}
+		<mat-progress-bar class="fixed-bottom" color="accent" mode="determinate" [value]="value">
+		</mat-progress-bar>
+	</div>
+
+	<div class="px-2 py-1 rounded my-5" style="background-color: rgb(214, 214, 241);">
+		<!--<ckeditor [config]="configg" [editor]="Editor" [data]="markdown" (change)="onChange($event)"></ckeditor>-->
+		<h5 *ngIf="foro.length==0" class='text-center rounded p-1'>
+			<button class="btn btn-primary w-100" (click)="getforo()">
+				Foro ESFAPA
+			</button>
+
+		</h5>
+		<button *ngIf="user && rol=='2' || rol=='1'" class="btn btn-info w-100"
+			(click)="open2forum(forum, 'www', '', '', 'theme', 'crear')">
+			Crear tema
+		</button>
+		<div *ngIf="foro.length>0">
+			<div class="row d-flex justify-content-center p-0" style="margin: 0cm">
+				<div *ngFor="let file of foro index as i" class="bg-light" style="margin: .11cm; padding: .2cm;">
+					<div class="btn-group">
+						<button type="button" name="button"
+							(click)="open2forum(forum,file._id, 'title', '', 'comenta', 'comenta')" class="btn 
+							btn-primary btn-sm">
+							<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<!-- Generator: sketchtool 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+								<title>comment-o</title>
+
+								<g id="web-app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="comment-o" fill="#000000" fill-rule="nonzero">
+										<path
+											d="M5,21 L5,16.843038 C3.74920013,15.3831855 3,13.5242246 3,11.5 C3,6.80557963 7.02943725,3 12,3 C16.9705627,3 21,6.80557963 21,11.5 C21,16.1944204 16.9705627,20 12,20 C10.2641033,20 8.64299134,19.535851 7.26820965,18.7317903 L5,21 Z M12,18 C15.8659932,18 19,15.0898509 19,11.5 C19,7.91014913 15.8659932,5 12,5 C8.13400675,5 5,7.91014913 5,11.5 C5,15.0898509 8.13400675,18 12,18 Z"
+											id="Shape"></path>
+									</g>
+								</g>
+							</svg>
+						</button>
+						<button class="btn btn-sm btn-info" *ngIf="user && (user==file.user || rol=='1')"
+							(click)="open2forum(forum, file._id, file.title, file.description, 'theme', 'editar')">
+							<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<title>edit</title>
+
+								<g id="text-edit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="edit" fill="#000000">
+										<path
+											d="M5,20 L19,20 C19.5522847,20 20,20.4477153 20,21 C20,21.5522847 19.5522847,22 19,22 L5,22 C4.44771525,22 4,21.5522847 4,21 C4,20.4477153 4.44771525,20 5,20 Z M4,15 C4,15 7.33323693,11.6666667 13.9997108,5 L17,8 C10.3333333,14.6666667 7,18 7,18 C6.34392558,18 5.34392558,18 4,18 C4,16.6105922 4,15.6105922 4,15 Z M15,4 L16.9997108,2 L20,5 L17.9989741,7.00102587 L15,4 Z"
+											id="Shape"></path>
+									</g>
+								</g>
+							</svg>
+						</button>
+						<button class="btn btn-sm btn-danger" *ngIf="user && (user==file.user || rol=='1')"
+							(click)="removeThemeforo( file._id)">-</button>
+					</div>
+					<p class="small text-secondary"> {{file.createdAt | timeago}} [{{file.updatedAt |
+						timeago}}] {{file.usser[0].email}}</p>
+					<h5 class="">{{file.title}}</h5>
+
+					<div> <ng-katex-html *ngIf="file.description!=undefined" [html]="file.description"></ng-katex-html>
+					</div>
+
+					<div *ngIf="file['comenta']!=0" class="p-1 border border-info rounded"
+						style="margin-left: .5cm; width: -webkit-fill-available;">
+						<div *ngFor="let file2 of file['comenta'] index as i">
+							<div class="btn-group">
+								<button type="button" name="button"
+									(click)="open2forum(forum,file2._id, 'title', '', 'comenta', 'comenta')" class="btn 
+									btn-primary btn-sm">
+									<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+										xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+										<!-- Generator: sketchtool 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+										<title>comment-o</title>
+
+										<g id="web-app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<g id="comment-o" fill="#000000" fill-rule="nonzero">
+												<path
+													d="M5,21 L5,16.843038 C3.74920013,15.3831855 3,13.5242246 3,11.5 C3,6.80557963 7.02943725,3 12,3 C16.9705627,3 21,6.80557963 21,11.5 C21,16.1944204 16.9705627,20 12,20 C10.2641033,20 8.64299134,19.535851 7.26820965,18.7317903 L5,21 Z M12,18 C15.8659932,18 19,15.0898509 19,11.5 C19,7.91014913 15.8659932,5 12,5 C8.13400675,5 5,7.91014913 5,11.5 C5,15.0898509 8.13400675,18 12,18 Z"
+													id="Shape"></path>
+											</g>
+										</g>
+									</svg>
+								</button>
+								<button class="btn btn-info btn-sm" *ngIf="user && (user==file2.user || rol=='1')"
+									(click)="open2forum(forum, file2._id, file2.title, file2.description, 'editar', 'editar')">
+									<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+										xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+										<!-- Generator: sketchtool 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+										<title>edit</title>
+
+										<g id="text-edit" stroke="none" stroke-width="1" fill="none"
+											fill-rule="evenodd">
+											<g id="edit" fill="#000000">
+												<path
+													d="M5,20 L19,20 C19.5522847,20 20,20.4477153 20,21 C20,21.5522847 19.5522847,22 19,22 L5,22 C4.44771525,22 4,21.5522847 4,21 C4,20.4477153 4.44771525,20 5,20 Z M4,15 C4,15 7.33323693,11.6666667 13.9997108,5 L17,8 C10.3333333,14.6666667 7,18 7,18 C6.34392558,18 5.34392558,18 4,18 C4,16.6105922 4,15.6105922 4,15 Z M15,4 L16.9997108,2 L20,5 L17.9989741,7.00102587 L15,4 Z"
+													id="Shape"></path>
+											</g>
+										</g>
+									</svg>
+								</button>
+								<button class="btn btn-sm btn-danger" *ngIf="user && (user==file2.user || rol=='1')"
+									(click)="removeThemeforo( file2._id)">-</button>
+							</div>
+							<p class="small text-secondary"> {{file2.createdAt | timeago}}
+								[{{file2.updatedAt
+								| timeago}}]
+								{{file2.usser[0].email}}</p>
+
+							<div> <ng-katex-html *ngIf="file.description!=undefined"
+									[html]="file2.description"></ng-katex-html></div>
+
+							<div *ngIf="file2['comentas']!=0" class="p-1 border border-info rounded my-1"
+								style="margin-left: .5cm; width: -webkit-fill-available;">
+								<div *ngFor="let file3 of file2['comentas'] index as i">
+									<div class="btn-group" *ngIf="user && (user==file3.user || rol=='1')">
+										<button class="btn btn-info btn-sm"
+											(click)="open2forum(forum, file3._id, file3.title, file3.description, 'editar', 'editar')">
+											<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+												xmlns="http://www.w3.org/2000/svg"
+												xmlns:xlink="http://www.w3.org/1999/xlink">
+												<title>edit</title>
+
+												<g id="text-edit" stroke="none" stroke-width="1" fill="none"
+													fill-rule="evenodd">
+													<g id="edit" fill="#000000">
+														<path
+															d="M5,20 L19,20 C19.5522847,20 20,20.4477153 20,21 C20,21.5522847 19.5522847,22 19,22 L5,22 C4.44771525,22 4,21.5522847 4,21 C4,20.4477153 4.44771525,20 5,20 Z M4,15 C4,15 7.33323693,11.6666667 13.9997108,5 L17,8 C10.3333333,14.6666667 7,18 7,18 C6.34392558,18 5.34392558,18 4,18 C4,16.6105922 4,15.6105922 4,15 Z M15,4 L16.9997108,2 L20,5 L17.9989741,7.00102587 L15,4 Z"
+															id="Shape"></path>
+													</g>
+												</g>
+											</svg>
+										</button>
+										<button class="btn btn-sm btn-danger"
+											*ngIf="user && (user==file3.user || rol=='1')"
+											(click)="removeThemeforo( file3._id)">-</button>
+									</div>
+									<p class="small text-secondary"> {{file3.createdAt | timeago}}
+										[{{file3.updatedAt | timeago}}]
+										{{file3.usser[0].email}}</p>
+
+									<div> <ng-katex-html *ngIf="file.description!=undefined"
+											[html]="file2.description"></ng-katex-html></div>
+
+									<!--
+									<button type="button" name="button"
+										(click)="open2forum(forum,file3._id, file3.title, file3.description, 'comenta', 'comenta')"
+										class="btn btn-primary btn-sm">Comentar
+									</button>
+								</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div *ngIf="ussser.length!=0" class="row d-flex justify-content-center" style="margin: 0cm">
+			<ng-container *ngFor="let file of ussser index as i">
+
+				<h4 class='text-center rounded p-1'>
+					<!--
+					<button type="button" name="button" (click)="Filecurse.click(); Type(file._id,file._id)"
+						class="btn btn-info">
+						{{file._id}}
+					</button>
+				-->
+					<h5 *ngIf="ussser.length!=0&&rol!='1'" class='text-center text-uppercase rounded mt-5'>
+						{{file._id=='invitados'?'Personajes ESFA':file._id}}
+					</h5>
+				</h4>
+
+				<ng-container *ngFor="let filee of file['records'] index as i">
+					<div class="p-1 col-md-6 col-lg-4 col-xl-4">
+						<div class="p-1">
+							<a *ngIf="file._id !='link'&&file._id !='videosyoutube'"
+								class="btn cardnew btn-light w-100 text-uppercase justify-content-center"
+								[href]="apiURL + '/' + filee.img.substring(7)" target="_blank">{{filee.title}}</a>
+
+							<a *ngIf="file._id=='link'"
+								class="btn cardnew btn-light w-100 text-uppercase justify-content-center"
+								[href]="filee.description" target="_blank">{{filee.title}}</a>
+
+							<div *ngIf="file._id=='videosyoutube'" class="text-center text-uppercase">{{filee.title}}
+							</div>
+							<div class="text-center">{{filee.createdAt?(filee.createdAt | timeago):''}}</div>
+
+
+							<a *ngIf="file._id=='image' || file._id=='invitados'"
+								class="btn cardnew btn-light w-100 text-uppercase justify-content-center"
+								[href]="apiURL + '/' + filee.img.substring(7)" target="_blank">
+								<img [src]="apiURL+'/'+filee.img.substring(7)" class="img-card-top imgland"
+									(error)="onImgError($event)">
+							</a>
+
+							<video *ngIf="file._id=='videosconfidencial'" id="my_video_1"
+								class="video-js vjs-default-skin" width="100%" controls preload="auto">
+								<source [src]="apiURL+'/'+ filee.img.substring(7)" type="video/mp4" width="100%" height="50px" />
+							</video>
+
+							<youtube-player *ngIf="file._id=='videosyoutube'"
+								[videoId]="filee.blogspot"></youtube-player>
+
+							<input *ngIf="rol=='1'" type="text" class="form-control" placeholder=""
+								[value]="filee.title"
+								(blur)="FriendUpdate1($event, filee._id, filee.description, filee.blogspot, filee.youtube, filee.instagram, filee.whatsapp, filee.facebook )">
+							<div *ngIf="rol=='1'" class="btn-group w-100">
+								<button type="button" name="button"
+									(click)="FileCurseUpdate.click(); Type('www', filee._id)" class="btn btn-info">
+									Cambiar
+								</button>
+								<button class="btn btn-danger" (click)="FileCursedelete( filee._id)">Eliminar</button>
+							</div>
+							<textarea *ngIf="rol=='1'" name="name" rows="8" cols="80" type="text" class="form-control"
+								placeholder="Codigo" [value]="filee.description"
+								(blur)="FriendUpdate2(filee.title, filee._id, $event, filee.blogspot, filee.youtube, filee.instagram, filee.whatsapp, filee.facebook )"></textarea>
+
+						</div>
+					</div>
+				</ng-container>
+			</ng-container>
+		</div>
+
+	</div>
+
+
+
+
+
+
+	<div class="this2 container-flex p-0 mt-0">
+		<div class="container">
+			<iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+				src="https://maps.google.com/maps?width=100%25&amp;height=500&amp;hl=es&amp;q=+(Escuela%20de%20Bellas%20Artes%20Felipe%20Guam%C3%A1n%20Poma%20de%20Ayala-Ayacucho)&amp;t=k&amp;z=18&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a
+					href="https://www.gps.ie/car-satnav-gps/">Car GPS</a></iframe>
+			<iframe
+				src="https://www.google.com/maps/embed?pb=!4v1750534065961!6m8!1m7!1syWFe4Rj4ga1j6fqlrkocMA!2m2!1d-13.15626194436401!2d-74.21787224051161!3f200.16657941141062!4f3.2355809602561294!5f0.7820865974627469"
+				width="100%" height="1000px" style="border:0;" allowfullscreen="" loading="lazy"
+				referrerpolicy="no-referrer-when-downgrade"></iframe>
+		</div>
+
+		<div class="text-center  p-0 border-0">
+			<div class="card-body my-2">
+				<div class="row d-flex justify-content-center align-items-center" style="margin:0em">
+					<div class="container text-center p-1  col-md-6 col-lg-4 col-xl-4">
+						<div class="container col-md-5 px-1">
+							<img class="img-fluid rounded w-50" [src]="src" (error)="onImgError($event)" alt="img" />
+						</div>
+						<p class="footer-links my-0">
+							ESCUELA SUPERIOR DE FORMACIÓN ARTÍSTICA
+						</p>
+						<p class="my-0">
+							"Felipe Guamán Poma de Ayala"
+						</p>
+
+						<div></div>
+					</div>
+
+					<div class="container text-center p-1 col-md-6 col-lg-4 col-xl-4">
+
+						<div>
+							<i class="text-secondary fa fa-map-marker fa-2x"></i>
+							<p>Ayacucho</p>
+						</div>
+						<div>
+							<i class="text-secondary fa fa-phone fa-2x"></i>
+							<p>https://www.esfapa.edu.pe</p>
+						</div>
+						<p>
+							Teléfono: 066-287499
+						</p>
+						<div>
+							<p class="text-primary">©Copyright ESFA Ayacucho 2025</p>
+						</div>
+						<div>
+							<i class="text-secondary fa fa-envelope fa-2x"></i>
+							<p>
+								<a class="text-secondary" href="wwwww"></a>
+							</p>
+						</div>
+					</div>
+
+					<div class="container text-center p-1 col-md-6 col-lg-4 col-xl-4">
+						<p class="text-center">
+							Jr. Mariano Melgar Nº 398, Distrito Jesús Nazareno Huamanga, Ayacucho
+						</p>
+
+						<a class="text-dark" style="margin: .1cm;" target="_blank"
+							href="https://api.whatsapp.com/send?phone=+51 966999215&text=Hola%20bienvenido">
+							<mat-icon svgIcon="watsapp" aria-hidden="false"
+								aria-label="Example thumbs up SVG icon"></mat-icon>
+						</a>
+						<a class="text-dark" style="margin: .1cm;" target="_blank"
+							href="https://m.me/bellasartes.ayacucho">
+							<mat-icon svgIcon="messenger" aria-hidden="false"
+								aria-label="Example thumbs up SVG icon"></mat-icon>
+						</a>
+						<a class="text-dark" style="margin: .1cm;" target="_blank"
+							href="https://bellasartes.blogspot.com">
+							<mat-icon svgIcon="blogspot" aria-hidden="false"
+								aria-label="Example thumbs up SVG icon"></mat-icon>
+						</a>
+						<a class="text-dark" style="margin: .1cm;" target="_blank"
+							href="https://web.facebook.com/bellasartes.ayacucho">
+							<mat-icon svgIcon="facebook" aria-hidden="false"
+								aria-label="Example thumbs up SVG icon"></mat-icon>
+						</a>
+						<a class="text-dark" style="margin: .1cm;" target="_blank"
+							href="https://instagram.com/bellasartes.ayacucho">
+							<mat-icon svgIcon="instagram" aria-hidden="false"
+								aria-label="Example thumbs up SVG icon"></mat-icon>
+						</a>
+						<a class="text-dark" style="margin: .1cm;" target="_blank"
+							href="https://www.tiktok.com/@bellasartes.ayacucho">
+							<mat-icon svgIcon="tiktok" aria-hidden="false"
+								aria-label="Example thumbs up SVG icon"></mat-icon>
+						</a>
+						<a class="text-dark" style="margin: .1cm;" target="_blank"
+							href="https://www.youtube.com/channel/UCkYf1NyZ1kUl3965WgeL6rw">
+							<mat-icon svgIcon="youtube" aria-hidden="false"
+								aria-label="Example thumbs up SVG icon"></mat-icon>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
